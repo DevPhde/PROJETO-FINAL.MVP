@@ -8,7 +8,7 @@ export const Expense = sequelize.define('Expense', {
     primaryKey: true,
     autoIncrement: true
   },
-  data: {
+  date: {
     type: DataTypes.DATE,
     allowNull: false
   },
