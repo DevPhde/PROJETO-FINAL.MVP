@@ -1,9 +1,9 @@
-import { UserDatabaseUseCase } from "../../../provider/dataBaseUseCases.js";
+import { UserDatabaseProvider } from "../../../provider/databaseProvider.js";
 import { Response } from "../../../models/response/Response.js"
 import { RegistrationUseCase } from "../useCase/registerUseCase.js";
-import { PasswordProtection } from "../../provider/PasswordProtection.js";
+import { PasswordProtection } from "../../userAuthenticationProvider/PasswordProtection.js";
 
-const userDbUseCase = new UserDatabaseUseCase();
+const userDbUseCase = new UserDatabaseProvider();
 
 export class RegisterController {
     static ValidateField = async (req, res) => {

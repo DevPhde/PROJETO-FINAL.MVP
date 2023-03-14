@@ -1,4 +1,4 @@
-import { UserDatabaseUseCase } from "../../../provider/dataBaseUseCases.js";
+import { UserDatabaseProvider } from "../../../provider/databaseProvider.js";
 
 
 export class RegistrationUseCase {
@@ -9,7 +9,7 @@ export class RegistrationUseCase {
     }
 
     static async ValidateUserColumns(data) {
-        const userDbUseCase = new UserDatabaseUseCase()
+        const userDbUseCase = new UserDatabaseProvider()
         const ValidEmail = await userDbUseCase.findOne({ email: data.email }) == null ? true : false;
         const ValidCpf = await userDbUseCase.findOne({ cpf: data.cpf }) == null ? true : false;
         return { email: ValidEmail, cpf: ValidCpf }
