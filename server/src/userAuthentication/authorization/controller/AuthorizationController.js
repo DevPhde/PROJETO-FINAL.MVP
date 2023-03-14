@@ -7,23 +7,24 @@ export class AuthorizationController extends AuthorizationUseCase {
         const data = req.body;
         const verifiedUser = await this.validUser(data);
         console.log(verifiedUser)
-
         if (verifiedUser.status) {
-            verifiedUser.message = await this.ReleaseUser(data.email)
-            console.log(verifiedUser)
+            try {
+                const jwt = await this.ReleaseUser(data.email)
+                jwt.status ? res.status(200).send(jwt) : res.status(500).send(jwt)
+            } catch {
+                res.status(500).send(new ResponseError('AC 15L'))
+            }
         } else {
-            res.status(500).send(new ResponseError('AC 13L'))
+            res.status(409).send(verifiedUser)
         }
     }
 
     static async ReleaseUser(email) {
         const user = await this.CatchUser(email);
         try {
-            JwtProvider.JwtAssign()
-
+           return await JwtProvider.JwtAssign(user.email)
         } catch {
-            console.error('error')
+            return new ResponseError('AC 27L | JWTP 20L')
         }
-        console.log(user)
     }
 }
