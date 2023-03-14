@@ -1,7 +1,9 @@
 import { User } from "../models/User.js";
 import { Expense } from "../models/Expense.js";
+import { TypeExpense } from "../models/TypeExpense.js";
+import { Revenue } from "../models/Revenue.js";
 
-class BaseModel {
+export class BaseModel {
   constructor(table) {
     this.table = table;
   }
@@ -23,14 +25,26 @@ class BaseModel {
   }
 }
 
-export class UserDatabaseUseCase extends BaseModel {
+export class UserDatabaseProvider extends BaseModel {
   constructor() {
     super(User);
   }
 }
 
-export class ExpenseDatabaseUseCase extends BaseModel {
+export class ExpenseDatabaseProvider extends BaseModel {
   constructor() {
     super(Expense);
+  }
+}
+
+export class TypeExpenseDatabaseProvider extends BaseModel {
+  constructor() {
+    super(TypeExpense)
+  }
+}
+
+export class RevenueDatabaseProvider extends BaseModel {
+  constructor() {
+    super(Revenue)
   }
 }
