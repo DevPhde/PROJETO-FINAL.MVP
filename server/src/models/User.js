@@ -25,8 +25,7 @@ export const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  spending_limit: {
-    type: DataTypes.DECIMAL(10, 2),
-    defaultValue: 0
+  hash: {
+    type: DataTypes.STRING
   }
 });
