@@ -4,3 +4,9 @@ export class Response {
         this.message = message;
     }
 }
+
+export class ResponseError extends Response {
+    constructor(line) {
+        super(false, `Erro interno, tente novamente mais tarde.(Error Code: ${line})`); 
+    }
+}
