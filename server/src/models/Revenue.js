@@ -2,7 +2,7 @@ import sequelize from "../db/dbConfig.js";
 import { DataTypes } from "sequelize";
 import { User } from "./User.js";
 
-export const Expense = sequelize.define('Expense', {
+export const Revenue = sequelize.define('Revenue', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -19,12 +19,8 @@ export const Expense = sequelize.define('Expense', {
   amount: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false
-  },
-  local: {
-    type: DataTypes.STRING,
-    allowNull: false
   }
 });
 
-User.hasMany(Expense,{foreignKey: 'UserId'});
-Expense.belongsTo(User,{foreignKey: 'UserId'});
+User.hasMany(Revenue);
+Revenue.belongsTo(User);
