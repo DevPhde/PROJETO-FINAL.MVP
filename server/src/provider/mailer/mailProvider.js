@@ -28,7 +28,8 @@ export class Mailer extends MailBuilder {
                 subject: mailInfos.status == "recoveryPassword" ? "Recuperação de senha" : "Validação de email",
                 text: `Olá! ${mailInfos.name},
     ${mailInfos.message}
-                \nAtenciosamente, Equipe Save My Money - SYM.`
+Atenciosamente,
+Equipe Save Your Money - SYM.`
             })
             return true
         }
