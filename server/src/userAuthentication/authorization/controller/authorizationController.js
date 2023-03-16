@@ -1,8 +1,8 @@
-import { AuthorizationUseCase } from "../useCase/authorizationUseCase.js";
+import { AuthorizationUseCases } from "../useCases/authorizationUseCases.js";
 import { ResponseError } from "../../../models/response/Response.js";
 import { JwtProvider } from "../../../provider/jwt/jsonWebTokenProvider.js";
 
-export class AuthorizationController extends AuthorizationUseCase {
+export class AuthorizationController extends AuthorizationUseCases {
     static VerifyUserAuthenticity = async (req, res) => {
         const data = req.body;
         const verifiedUser = await this.validUser(data);

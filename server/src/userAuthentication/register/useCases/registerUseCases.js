@@ -1,7 +1,7 @@
 import { UserDatabaseRepositories } from "../../../repositories/databaseRepositories.js";
 
 
-export class RegisterUseCase {
+export class RegisterUseCases {
     static userDbRepositories = new UserDatabaseRepositories();
 
     static async VerifyNewUser(data) {

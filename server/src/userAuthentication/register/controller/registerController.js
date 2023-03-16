@@ -1,10 +1,10 @@
 import { Response } from "../../../models/response/Response.js"
-import { RegisterUseCase } from "../useCase/registerUseCase.js";
+import { RegisterUseCases } from "../useCases/registerUseCases.js";
 import { PasswordProtection } from "../../../provider/bcrypt/bcryptProvider.js";
 import { ResponseError } from "../../../models/response/Response.js";
 
 
-export class RegisterController extends RegisterUseCase {
+export class RegisterController extends RegisterUseCases {
 
     static ValidateField = async (req, res) => {
         const data = await this.userDbRepositories.findOne(req.body);

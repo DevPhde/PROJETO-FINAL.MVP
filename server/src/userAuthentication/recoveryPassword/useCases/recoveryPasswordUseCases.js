@@ -5,7 +5,7 @@ import { Logger } from "../../../helper/logger/consoleLogger.js";
 import { PasswordProtection } from "../../../provider/bcrypt/bcryptProvider.js";
 
 
-export class RecoveryPasswordUseCase extends PasswordProtection {
+export class RecoveryPasswordUseCases extends PasswordProtection {
     static userDbRepositories = new UserDatabaseRepositories();
 
     static async CatchUserInformations(email) {
