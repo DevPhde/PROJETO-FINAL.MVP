@@ -1,5 +1,5 @@
 import express  from "express";
-import { syncTables } from "./helper/syncDatabase/syncTAbles.js";
+import { syncTables } from "./helper/syncDatabase/syncTables.js";
 import { router } from "./router/routes.js";
 import cors from "cors";
 

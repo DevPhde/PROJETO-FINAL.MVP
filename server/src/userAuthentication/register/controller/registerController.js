@@ -1,6 +1,6 @@
 import { Response } from "../../../models/response/Response.js"
 import { RegisterUseCase } from "../useCase/registerUseCase.js";
-import { PasswordProtection } from "../../../provider/bcrypt/BcryptProvider.js";
+import { PasswordProtection } from "../../../provider/bcrypt/bcryptProvider.js";
 import { ResponseError } from "../../../models/response/Response.js";
 
 

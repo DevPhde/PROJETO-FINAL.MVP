@@ -1,4 +1,4 @@
-import { AuthorizationUseCase } from "../useCase/AuthorizationUseCase.js";
+import { AuthorizationUseCase } from "../useCase/authorizationUseCase.js";
 import { ResponseError } from "../../../models/response/Response.js";
 import { JwtProvider } from "../../../provider/jwt/jsonWebTokenProvider.js";
 
@@ -27,3 +27,4 @@ export class AuthorizationController extends AuthorizationUseCase {
         }
     }
 }
+//
