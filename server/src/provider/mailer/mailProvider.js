@@ -25,9 +25,10 @@ export class Mailer extends MailBuilder {
             this.transport.sendMail({
                 from: `noreply <${process.env.EMAIL_AUTH_USER}>`,
                 to: `${mailInfos.email}`,
-                subject: mailInfos.status == "recoveryPassword" ? "Recuperação de senha" : "Validação de email",
-                text: `Olá! ${mailInfos.name},
+                subject:"Recuperação de senha",
+                text: `Olá, ${mailInfos.name}!
     ${mailInfos.message}
+
 Atenciosamente,
 Equipe Save Your Money - SYM.`
             })

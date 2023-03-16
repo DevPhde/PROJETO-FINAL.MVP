@@ -10,4 +10,3 @@ router
     .post('/new/user', RegisterController.UserRegistration)
     .post('/user/authorization', AuthorizationController.VerifyUserAuthenticity)
     .post('/user/recoverypassword', recoveryPasswordController.recoveryPassword)
-    // .post('/user/recoverypassword/resendmail', recoveryPasswordController.)
