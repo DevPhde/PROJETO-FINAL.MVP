@@ -1,12 +1,12 @@
 import { Response } from "../../../models/response/Response.js";
-import { UserDatabaseProvider } from "../../../provider/databaseProvider.js";
-import { PasswordProtection } from "../../userAuthenticationProvider/PasswordProtection.js";
+import { UserDatabaseRepositories } from "../../../repositories/databaseRepositories.js";
+import { PasswordProtection } from "../../../provider/bcrypt/bcryptProvider.js";
 
-export class AuthorizationUseCase {
-    static userDbUseCases = new UserDatabaseProvider();
+export class AuthorizationUseCase extends PasswordProtection {
+    static userDbRepositories = new UserDatabaseRepositories();
 
     static async CatchUser(email) {
-        return await this.userDbUseCases.findOne({ email: email });
+        return await this.userDbRepositories.findOne({ email: email });
     }
 
     static async validUser(data) {
@@ -19,7 +19,8 @@ export class AuthorizationUseCase {
     }
 
     static async verifyPasswordCompatibility(reqPassword, dbPassword) {
-        const truthPassword = await PasswordProtection.verifyPasswordAuthenticity(reqPassword, dbPassword)
+        const truthPassword = await this.verifyPasswordAuthenticity(reqPassword, dbPassword)
         return truthPassword ? new Response(true, "") : new Response(false, "Email ou senha incorreto.")
     }
 }
+//

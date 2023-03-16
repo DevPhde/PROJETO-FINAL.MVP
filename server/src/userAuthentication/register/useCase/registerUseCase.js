@@ -1,7 +1,9 @@
-import { UserDatabaseProvider } from "../../../provider/databaseProvider.js";
+import { UserDatabaseRepositories } from "../../../repositories/databaseRepositories.js";
 
 
-export class RegistrationUseCase {
+export class RegisterUseCase {
+    static userDbRepositories = new UserDatabaseRepositories();
+
     static async VerifyNewUser(data) {
         const validationFields = await this.ValidateUserColumns(data)
         const response = this.GenerateResponse(validationFields)
@@ -9,9 +11,8 @@ export class RegistrationUseCase {
     }
 
     static async ValidateUserColumns(data) {
-        const userDbUseCase = new UserDatabaseProvider()
-        const ValidEmail = await userDbUseCase.findOne({ email: data.email }) == null ? true : false;
-        const ValidCpf = await userDbUseCase.findOne({ cpf: data.cpf }) == null ? true : false;
+        const ValidEmail = await this.userDbRepositories.findOne({ email: data.email }) == null ? true : false;
+        const ValidCpf = await this.userDbRepositories.findOne({ cpf: data.cpf }) == null ? true : false;
         return { email: ValidEmail, cpf: ValidCpf }
     }
 

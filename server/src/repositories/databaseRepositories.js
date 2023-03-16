@@ -8,6 +8,9 @@ export class BaseModel {
     this.table = table;
   }
 
+  async findAll(param) {
+    return await this.table.findAll({ where: param });
+  }
   async findOne(param) {
     return await this.table.findOne({ where: param });
   }
@@ -25,25 +28,25 @@ export class BaseModel {
   }
 }
 
-export class UserDatabaseProvider extends BaseModel {
+export class UserDatabaseRepositories extends BaseModel {
   constructor() {
     super(User);
   }
 }
 
-export class ExpenseDatabaseProvider extends BaseModel {
+export class ExpenseDatabaseRepositories extends BaseModel {
   constructor() {
     super(Expense);
   }
 }
 
-export class TypeExpenseDatabaseProvider extends BaseModel {
+export class TypeExpenseDatabaseRepositories extends BaseModel {
   constructor() {
     super(TypeExpense)
   }
 }
 
-export class RevenueDatabaseProvider extends BaseModel {
+export class RevenueDatabaseRepositories extends BaseModel {
   constructor() {
     super(Revenue)
   }

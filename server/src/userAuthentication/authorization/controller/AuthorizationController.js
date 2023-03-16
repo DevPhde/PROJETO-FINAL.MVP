@@ -1,4 +1,4 @@
-import { AuthorizationUseCase } from "../useCase/AuthorizationUseCase.js";
+import { AuthorizationUseCase } from "../useCase/authorizationUseCase.js";
 import { ResponseError } from "../../../models/response/Response.js";
 import { JwtProvider } from "../../../provider/jwt/jsonWebTokenProvider.js";
 
@@ -6,7 +6,6 @@ export class AuthorizationController extends AuthorizationUseCase {
     static VerifyUserAuthenticity = async (req, res) => {
         const data = req.body;
         const verifiedUser = await this.validUser(data);
-        console.log(verifiedUser)
         if (verifiedUser.status) {
             try {
                 const jwt = await this.ReleaseUser(data.email)
@@ -28,3 +27,4 @@ export class AuthorizationController extends AuthorizationUseCase {
         }
     }
 }
+//
