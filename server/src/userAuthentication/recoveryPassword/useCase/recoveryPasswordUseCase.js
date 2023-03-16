@@ -2,10 +2,10 @@ import { UserDatabaseRepositories } from "../../../repositories/databaseReposito
 import { Response, ResponseError } from "../../../models/response/Response.js";
 import { passwordGeneratorProvider } from "../../../provider/passwordGenerrator/passwordGeneratorProvider.js";
 import { Logger } from "../../../helper/logger/consoleLogger.js";
-import { PasswordProtection } from "../../../provider/bcrypt/BcryptProvider.js";
+import { PasswordProtection } from "../../../provider/bcrypt/bcryptProvider.js";
 
 
-export class recoveryPasswordUseCase extends PasswordProtection {
+export class RecoveryPasswordUseCase extends PasswordProtection {
     static userDbRepositories = new UserDatabaseRepositories();
 
     static async CatchUserInformations(email) {
