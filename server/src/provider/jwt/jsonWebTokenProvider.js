@@ -1,11 +1,11 @@
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import { Response, ResponseError } from "../../models/response/Response.js";
-import { UserDatabaseProvider } from "../databaseProvider.js";
+import { UserDatabaseRepositories } from "../../repositories/databaseRepositories.js";
 dotenv.config();
 
 export class JwtProvider {
-    static userDbUseCases = new UserDatabaseProvider();
+    static userDbRepositories = new UserDatabaseRepositories();
 
     static async GenerateJwt(userEmail) {
         try {
@@ -17,7 +17,7 @@ export class JwtProvider {
 
     static async JwtAssign(userEmail) {
         const token = await this.GenerateJwt(userEmail)
-        const tokenAssign = token ? await this.userDbUseCases.update({hash: token}, {email: userEmail}) : false
+        const tokenAssign = token ? await this.userDbRepositories.update({hash: token}, {email: userEmail}) : false
         return tokenAssign == 1 ? new Response(true, token) : ResponseError('JWTP 21L')
     }
 }

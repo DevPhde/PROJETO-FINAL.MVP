@@ -6,7 +6,6 @@ export class AuthorizationController extends AuthorizationUseCase {
     static VerifyUserAuthenticity = async (req, res) => {
         const data = req.body;
         const verifiedUser = await this.validUser(data);
-        console.log(verifiedUser)
         if (verifiedUser.status) {
             try {
                 const jwt = await this.ReleaseUser(data.email)
