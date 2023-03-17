@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { AuthMiddleware } from "../Middleware/authMiddleware.js";
-import { RegisterController } from "../userAuthentication/register/controller/registerController.js";
-import { AuthorizationController } from "../userAuthentication/authorization/controller/authorizationController.js";
-import { RecoveryPasswordController } from "../userAuthentication/recoveryPassword/controller/recoveryPasswordController.js";
-import { EditProfileController } from "../userAuthentication/editProfile/controller/editProfileController.js";
-import { DeleteUserController } from "../userAuthentication/deleteAccount/controller/deleteUserAccountController.js";
+import { RegisterController } from "../modules/user/userRegister/controller/registerController.js";
+import { AuthorizationController } from "../modules/user/userAuthorization/controller/authorizationController.js";
+import { RecoveryPasswordController } from "../modules/user/recoveryPassword/controller/recoveryPasswordController.js";
+import { EditProfileController } from "../modules/user/editProfile/controller/editProfileController.js";
+import { DeleteUserController } from "../modules/user/deleteAccount/controller/deleteUserAccountController.js";
 export const router = Router();
 
 router

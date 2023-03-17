@@ -10,4 +10,3 @@ export class ResponseError extends Response {
         super(false, `Erro interno, tente novamente mais tarde.(Error Code: ${line})`); 
     }
 }
-

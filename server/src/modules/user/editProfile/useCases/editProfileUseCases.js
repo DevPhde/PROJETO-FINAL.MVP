@@ -1,6 +1,6 @@
-import { PasswordProtection } from "../../../provider/bcrypt/bcryptProvider.js";
-import { UserDatabaseRepositories } from "../../../repositories/databaseRepositories.js";
-import { Response, ResponseError } from "../../../models/response/Response.js";
+import { PasswordProtection } from "../../../../provider/bcrypt/bcryptProvider.js";
+import { UserDatabaseRepositories } from "../../../../repositories/databaseRepositories.js";
+import { Response, ResponseError } from "../../../../models/response/Response.js";
 
 
 export class EditProfileUseCases extends PasswordProtection  {

@@ -1,6 +1,6 @@
 import { RecoveryPasswordUseCases } from "../useCases/recoveryPasswordUseCases.js";
-import { Mailer } from "../../../provider/mailer/mailProvider.js";
-import { Response, ResponseError } from "../../../models/response/Response.js";
+import { Mailer } from "../../../../provider/mailer/mailProvider.js";
+import { Response, ResponseError } from "../../../../models/response/Response.js";
 
 export class RecoveryPasswordController extends RecoveryPasswordUseCases {
 

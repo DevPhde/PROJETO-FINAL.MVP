@@ -1,4 +1,4 @@
-import { UserDatabaseRepositories } from "../../../repositories/databaseRepositories.js";
+import { UserDatabaseRepositories } from "../../../../repositories/databaseRepositories.js";
 
 
 export class RegisterUseCases {
