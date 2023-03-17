@@ -4,6 +4,7 @@ import { RegisterController } from "../userAuthentication/register/controller/re
 import { AuthorizationController } from "../userAuthentication/authorization/controller/authorizationController.js";
 import { RecoveryPasswordController } from "../userAuthentication/recoveryPassword/controller/recoveryPasswordController.js";
 import { EditProfileController } from "../userAuthentication/editProfile/controller/editProfileController.js";
+import { DeleteUserController } from "../userAuthentication/deleteAccount/controller/deleteUserAccountController.js";
 export const router = Router();
 
 router
@@ -11,5 +12,6 @@ router
     .post('/validationfield', RegisterController.validateField)
     .post('/new/user', RegisterController.userRegistration)
     .post('/user/authorization', AuthorizationController.verifyUserAuthenticity)
-    .post('/user/recoveryPassword', RecoveryPasswordController.recoveryPassword)
+    .post('/user/recoverypassword', RecoveryPasswordController.recoveryPassword)
     .post('/user/editprofile', AuthMiddleware.authentication, EditProfileController.editProfile)
+    .delete('/user/deleteaccount', AuthMiddleware.authentication, DeleteUserController.deleteUser)

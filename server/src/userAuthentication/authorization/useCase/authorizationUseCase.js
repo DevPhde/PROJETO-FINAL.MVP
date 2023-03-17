@@ -20,6 +20,7 @@ export class AuthorizationUseCase extends PasswordProtection {
 
     static async verifyPasswordCompatibility(reqPassword, dbPassword) {
         const truthPassword = await this.verifyPasswordAuthenticity(reqPassword, dbPassword)
+        console.log(await this.userDbRepositories.findAll()) // tirar
         return truthPassword ? new Response(true, "") : new Response(false, "Email ou senha incorreto.")
     }
 }
