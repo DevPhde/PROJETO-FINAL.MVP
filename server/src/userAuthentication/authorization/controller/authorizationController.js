@@ -2,26 +2,26 @@ import { AuthorizationUseCases } from "../useCases/authorizationUseCases.js";
 import { ResponseError } from "../../../models/response/Response.js";
 import { JwtProvider } from "../../../provider/jwt/jsonWebTokenProvider.js";
 
-export class AuthorizationController extends AuthorizationUseCases {
-    static VerifyUserAuthenticity = async (req, res) => {
+export class AuthorizationController extends AuthorizationUseCase {
+    static verifyUserAuthenticity = async (req, res) => {
         const data = req.body;
         const verifiedUser = await this.validUser(data);
         if (verifiedUser.status) {
             try {
-                const jwt = await this.ReleaseUser(data.email)
+                const jwt = await this.releaseUser(data.email)
                 jwt.status ? res.status(200).send(jwt) : res.status(500).send(jwt)
             } catch {
                 res.status(500).send(new ResponseError('AC 15L'))
             }
         } else {
-            res.status(409).send(verifiedUser)
+            res.status(401).send(verifiedUser)
         }
     }
 
-    static async ReleaseUser(email) {
-        const user = await this.CatchUser(email);
+    static async releaseUser(email) {
+        const user = await this.getUser(email);
         try {
-           return await JwtProvider.JwtAssign(user.email)
+           return await JwtProvider.jwtAssign(user.email)
         } catch {
             return new ResponseError('AC 27L | JWTP 20L')
         }

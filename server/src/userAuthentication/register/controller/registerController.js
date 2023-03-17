@@ -6,20 +6,20 @@ import { ResponseError } from "../../../models/response/Response.js";
 
 export class RegisterController extends RegisterUseCases {
 
-    static ValidateField = async (req, res) => {
+    static validateField = async (req, res) => {
         const data = await this.userDbRepositories.findOne(req.body);
         data == null ? res.status(200).send(new Response(true)) : res.status(409).send(new Response(false, "Campo já existente."));
     }
-    static UserRegistration = async (req, res) => {
+    static userRegistration = async (req, res) => {
         const data = req.body;
-        const VerifyRegistration = await this.VerifyNewUser(data)
+        const VerifyRegistration = await this.verifyNewUser(data)
         if (VerifyRegistration != true) {
             res.status(409).send(new Response(false, VerifyRegistration))
         } else {
             const protectedPassword = await PasswordProtection.passwordCryptography(data.password);
             data.password = protectedPassword
             const register = await this.userDbRepositories.create(data)
-            register._options.isNewRecord ? res.status(200).send(new Response(true, "Usuário criado com sucesso!")) : res.status(500).send(new ResponseError('RC 24L'));
+            register._options.isNewRecord ? res.status(201).send(new Response(true, "Usuário criado com sucesso!")) : res.status(500).send(new ResponseError('RC 24L'));
         }
     }
 }
