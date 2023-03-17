@@ -5,12 +5,12 @@ import { PasswordProtection } from "../../../provider/bcrypt/bcryptProvider.js";
 export class AuthorizationUseCase extends PasswordProtection {
     static userDbRepositories = new UserDatabaseRepositories();
 
-    static async CatchUser(email) {
+    static async getUser(email) {
         return await this.userDbRepositories.findOne({ email: email });
     }
 
     static async validUser(data) {
-        const hasUser = await this.CatchUser(data.email)
+        const hasUser = await this.getUser(data.email)
         if (hasUser != null) {
             return this.verifyPasswordCompatibility(data.password, hasUser.password)
         } else {
