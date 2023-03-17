@@ -6,9 +6,9 @@ function Index() {
 
   return (
     <div>
-      <Header />
+
       <Outlet />
-      <Footer />
+
     </div>
   )
 }
