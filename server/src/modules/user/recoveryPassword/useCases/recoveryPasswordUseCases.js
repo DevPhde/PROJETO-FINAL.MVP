@@ -1,8 +1,8 @@
-import { UserDatabaseRepositories } from "../../../repositories/databaseRepositories.js";
-import { Response, ResponseError } from "../../../models/response/Response.js";
-import { passwordGeneratorProvider } from "../../../provider/passwordGenerator/passwordGeneratorProvider.js";
-import { Logger } from "../../../helper/logger/consoleLogger.js";
-import { PasswordProtection } from "../../../provider/bcrypt/bcryptProvider.js";
+import { UserDatabaseRepositories } from "../../../../repositories/databaseRepositories.js";
+import { Response, ResponseError } from "../../../../models/response/Response.js";
+import { passwordGeneratorProvider } from "../../../../provider/passwordGenerator/passwordGeneratorProvider.js";
+import { Logger } from "../../../../helper/logger/consoleLogger.js";
+import { PasswordProtection } from "../../../../provider/bcrypt/bcryptProvider.js";
 
 
 export class RecoveryPasswordUseCases extends PasswordProtection {

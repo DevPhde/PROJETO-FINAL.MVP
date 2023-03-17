@@ -7,7 +7,6 @@ export class MailBuilder {
 
     async ResponseMail(status, identifier, message) {
         const user = await this.userDbRepositories.findOne(identifier)
-        console.log(status)
         return new MailStructure(status, user.name, user.email, message);
     }
 }

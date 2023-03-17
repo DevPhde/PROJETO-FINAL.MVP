@@ -1,6 +1,6 @@
-import { Response } from "../../../models/response/Response.js";
-import { UserDatabaseRepositories } from "../../../repositories/databaseRepositories.js";
-import { PasswordProtection } from "../../../provider/bcrypt/bcryptProvider.js";
+import { Response } from "../../../../models/response/Response.js";
+import { UserDatabaseRepositories } from "../../../../repositories/databaseRepositories.js";
+import { PasswordProtection } from "../../../../provider/bcrypt/bcryptProvider.js";
 
 export class AuthorizationUseCases extends PasswordProtection {
     static userDbRepositories = new UserDatabaseRepositories();
@@ -23,4 +23,3 @@ export class AuthorizationUseCases extends PasswordProtection {
         return truthPassword ? new Response(true, "") : new Response(false, "Email ou senha incorreto.")
     }
 }
-//

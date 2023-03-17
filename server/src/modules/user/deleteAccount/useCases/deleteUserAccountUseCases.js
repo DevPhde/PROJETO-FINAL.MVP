@@ -1,5 +1,5 @@
-import { Response, ResponseError } from "../../../models/response/Response.js";
-import { UserDatabaseRepositories, ExpenseDatabaseRepositories, RevenueDatabaseRepositories } from "../../../repositories/databaseRepositories.js";
+import { Response, ResponseError } from "../../../../models/response/Response.js";
+import { UserDatabaseRepositories, ExpenseDatabaseRepositories, RevenueDatabaseRepositories } from "../../../../repositories/databaseRepositories.js";
 
 export class DeleteUserUseCases {
     static userDbRepositories = new UserDatabaseRepositories();

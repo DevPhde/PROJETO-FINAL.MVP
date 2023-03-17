@@ -1,7 +1,7 @@
-import { Response } from "../../../models/response/Response.js"
+import { Response } from "../../../../models/response/Response.js"
 import { RegisterUseCases } from "../useCases/registerUseCases.js";
-import { PasswordProtection } from "../../../provider/bcrypt/bcryptProvider.js";
-import { ResponseError } from "../../../models/response/Response.js";
+import { PasswordProtection } from "../../../../provider/bcrypt/bcryptProvider.js";
+import { ResponseError } from "../../../../models/response/Response.js";
 
 
 export class RegisterController extends RegisterUseCases {
