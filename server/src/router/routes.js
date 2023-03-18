@@ -8,6 +8,7 @@ import { DeleteUserController } from "../modules/user/deleteAccount/controller/d
 import { TypeExpensesController } from "../modules/expenses/typeExpense/controller/typeExpensesController.js";
 import { ListExpensesController } from "../modules/expenses/listExpenses/controller/listExpensesController.js";
 import { NewExpensesController } from "../modules/expenses/createExpense/controller/newExpensesController.js";
+import { EditExpensesController } from "../modules/expenses/editExpense/controller/editExpensesController.js";
 
 export const router = Router();
 
@@ -24,3 +25,4 @@ router
     .delete('/expenses/types/delete', TypeExpensesController.deleteTypeExpense)
     .get('/expenses', AuthMiddleware.authentication, ListExpensesController.listExpenses)
     .post('/new/expenses', AuthMiddleware.authentication, NewExpensesController.createExpense)
+    .put('/expenses/edit/:id', AuthMiddleware.authentication, EditExpensesController.editExpense)
