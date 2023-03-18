@@ -5,6 +5,7 @@ import { AuthorizationController } from "../modules/user/userAuthorization/contr
 import { RecoveryPasswordController } from "../modules/user/recoveryPassword/controller/recoveryPasswordController.js";
 import { EditProfileController } from "../modules/user/editProfile/controller/editProfileController.js";
 import { DeleteUserController } from "../modules/user/deleteAccount/controller/deleteUserAccountController.js";
+import { TypeExpensesController } from "../modules/expenses/typeExpense/controller/typeExpensesController.js";
 export const router = Router();
 
 router
@@ -13,5 +14,9 @@ router
     .post('/new/user', RegisterController.userRegistration)
     .post('/user/authorization', AuthorizationController.verifyUserAuthenticity)
     .post('/user/recoverypassword', RecoveryPasswordController.recoveryPassword)
-    .post('/user/editprofile', AuthMiddleware.authentication, EditProfileController.editProfile)
+    .put('/user/editprofile', AuthMiddleware.authentication, EditProfileController.editProfile)
     .delete('/user/deleteaccount', AuthMiddleware.authentication, DeleteUserController.deleteUser)
+    .get('/expenses/types',  TypeExpensesController.listTypeExpenses)
+    .post('/expenses/types/new', TypeExpensesController.createNewTypeExpense)
+    .delete('/expenses/types/delete', TypeExpensesController.deleteTypeExpense)
+    // .post('/new/expenses', )
