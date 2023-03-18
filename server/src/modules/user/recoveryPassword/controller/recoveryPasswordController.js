@@ -8,7 +8,7 @@ export class RecoveryPasswordController extends RecoveryPasswordUseCases {
 
     static recoveryPassword = async (req, res) => {
         const data = req.body;
-        const newPassword = await this.verifyrecoveryPassword(data);
+        const newPassword = await this.verifyRecoveryPassword(data);
         const sendnewPassword =  newPassword.status ? await this.mailer.sendMail("recoveryPassword", data, `
 Foi solicitada uma recuperação de senha. Segue abaixo sua nova senha:
 

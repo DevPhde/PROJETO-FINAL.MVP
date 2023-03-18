@@ -12,7 +12,7 @@ export class RecoveryPasswordUseCases extends PasswordProtection {
         return await this.userDbRepositories.findOne(email)
     }
 
-    static async verifyrecoveryPassword(email) {
+    static async verifyRecoveryPassword(email) {
         const user = await this.getUserInformations(email)
         return user != null ? await this.newPassword(user) : new Response(false, "Email inválido.")
     }
@@ -21,7 +21,6 @@ export class RecoveryPasswordUseCases extends PasswordProtection {
         const password = passwordGeneratorProvider();
         const securePassword = await this.passwordCryptography(password)
         const updatedPassword = await this.userDbRepositories.update({ password: securePassword }, { id: user.id });
-        console.log(Logger.console(updatedPassword))
         return updatedPassword == 1 ? new Response(true, password) : new ResponseError('RPUC 21L');
     }
 }
