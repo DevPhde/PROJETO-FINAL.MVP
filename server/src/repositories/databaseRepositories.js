@@ -8,6 +8,11 @@ export class BaseModel {
     this.table = table;
   }
 
+  async findUserId(param) {
+    const user = await this.table.findOne({ where: param });
+    return user.id
+  }
+
   async findAll(param) {
     return await this.table.findAll({ where: param });
   }

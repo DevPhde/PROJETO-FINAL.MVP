@@ -6,6 +6,9 @@ import { RecoveryPasswordController } from "../modules/user/recoveryPassword/con
 import { EditProfileController } from "../modules/user/editProfile/controller/editProfileController.js";
 import { DeleteUserController } from "../modules/user/deleteAccount/controller/deleteUserAccountController.js";
 import { TypeExpensesController } from "../modules/expenses/typeExpense/controller/typeExpensesController.js";
+import { ListExpensesController } from "../modules/expenses/listExpenses/controller/listExpensesController.js";
+import { NewExpensesController } from "../modules/expenses/createExpense/controller/newExpensesController.js";
+
 export const router = Router();
 
 router
@@ -19,4 +22,5 @@ router
     .get('/expenses/types',  TypeExpensesController.listTypeExpenses)
     .post('/expenses/types/new', TypeExpensesController.createNewTypeExpense)
     .delete('/expenses/types/delete', TypeExpensesController.deleteTypeExpense)
-    // .post('/new/expenses', )
+    .get('/expenses', AuthMiddleware.authentication, ListExpensesController.listExpenses)
+    .post('/new/expenses', AuthMiddleware.authentication, NewExpensesController.createExpense)
