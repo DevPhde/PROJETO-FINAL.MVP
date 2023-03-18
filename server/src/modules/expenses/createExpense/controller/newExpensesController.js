@@ -7,6 +7,6 @@ export class NewExpensesController extends NewExpensesUseCases {
             info: req.body
         }
         const created = await this.createNewExpense(data);
-        created.status ? res.status(200).send(created) : res.status(500).send(created);
+        created.status ? res.status(201).send(created) : res.status(500).send(created);
     }
 }
