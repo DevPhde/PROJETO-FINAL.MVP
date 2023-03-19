@@ -8,6 +8,10 @@ export class BaseModel {
     this.table = table;
   }
 
+  async sum(param) {
+    return await this.table.sum('amount', {where: param});
+  }
+
   async findUserId(param) {
     const user = await this.table.findOne({ where: param });
     return user.id
