@@ -1,9 +1,9 @@
-import { EditRevenuesUseCases } from "../../listRevenues/editRevenuesUseCases.js"
+import { EditRevenuesUseCases } from "../useCases/editRevenuesUseCases.js"
 
 export class EditRevenuesController extends EditRevenuesUseCases {
     static editRevenue = async (req, res) => {
         const data = {
-            expenseId: req.params.id,
+            revenueId: req.params.id,
             info: req.body
         };
         const edited = await this.revenueEdit(data);
