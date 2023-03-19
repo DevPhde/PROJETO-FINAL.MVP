@@ -29,7 +29,7 @@ function RecoveryPasswordPage() {
         </div>
         <div className="d-grid gap-2  div-btn-recovery">
           <button className="btn btn-recovery fw-bold" type="button" onClick={recovery} >Enviar</button>
-          <button className="btn btn-recovery back fw-bold" type="button" onClick={recovery} >Voltar</button>
+          <button className="btn btn-recovery back fw-bold" type="button"  >Voltar</button>
         </div>
 
       </div>
