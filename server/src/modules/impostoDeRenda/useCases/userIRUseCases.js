@@ -6,12 +6,12 @@ export class UserIRUseCases {
     static revenueDbRepositories = new RevenueDatabaseRepositories();
 
     static async getUserIdByHash(hash) {
-        return await this.userDbRepositories.findUserId({hash: hash})
+        return await this.userDbRepositories.findUserId({ hash: hash })
     }
 
     static async sumRevenues(id) {
         try {
-            return await this.revenueDbRepositories.sum({UserId: id})
+            return await this.revenueDbRepositories.sum({ UserId: id })
         } catch {
             return 0
         }
@@ -21,14 +21,16 @@ export class UserIRUseCases {
         try {
             const userId = await this.getUserIdByHash(data)
             const sumRevenues = await this.sumRevenues(userId)
-            const defineAliquot = sumRevenues <= 22847.76 ? 'isento' : sumRevenues >= 22847.77 && sumRevenues <= 33919.80 ? '7.5%' : sumRevenues >= 33919.81 && sumRevenues <= 45012.60 ? '15%' : sumRevenues >= 45012.61 && sumRevenues <= 55976.16 ? '22.5%' : '27.5'
+            const aliquotAndDeduct = sumRevenues <= 22847.76 ? {aliquot: 'Isento', installmentToDeduct: 0} : sumRevenues >= 22847.77 && sumRevenues <= 33919.80 ? { aliquot: 7.5, installmentToDeduct: 1713.58 } : sumRevenues >= 33919.81 && sumRevenues <= 45012.60 ? { aliquot: 15, installmentToDeduct: 4257.57 } : sumRevenues >= 45012.61 && sumRevenues <= 55976.16 ? { aliquot: 22.5, installmentToDeduct: 7633.51 }  : { aliquot: 27.5, installmentToDeduct: 10432.32 }    
             data = {
-                value: sumRevenues,
-                aliquot: defineAliquot
-            }
+                    totalRevenues: sumRevenues,
+                    aliquot: aliquotAndDeduct.aliquot,
+                    deduct: aliquotAndDeduct.installmentToDeduct,
+                    dueTax: aliquotAndDeduct.installmentToDeduct != 0 ? (sumRevenues * aliquotAndDeduct.aliquot /  100) - aliquotAndDeduct.installmentToDeduct : 'Isento de imposto'
+                }
             return new Response(true, data)
         } catch {
-            return new ResponseError('IR 27L')
+            return new ResponseError('IR 34L')
         }
     }
 }
