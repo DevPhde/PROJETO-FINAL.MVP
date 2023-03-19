@@ -10,7 +10,8 @@ import { ListExpensesController } from "../modules/expenses/listExpenses/control
 import { NewExpensesController } from "../modules/expenses/createExpense/controller/newExpensesController.js";
 import { EditExpensesController } from "../modules/expenses/editExpense/controller/editExpensesController.js";
 import { DeleteExpensesController } from "../modules/expenses/deleteExpense/controller/deleteExpensesController.js";
-
+import { ListRevenuesController } from "../modules/revenues/listRevenues/controller/listRevenuesController.js";
+import { CreateRevenueController } from "../modules/revenues/createRevenue/controller/createRevenueController.js";
 
 export const router = Router();
 
@@ -30,4 +31,5 @@ router
     .post('/new/expenses', AuthMiddleware.authentication, NewExpensesController.createExpense)
     .put('/expenses/edit/:id', AuthMiddleware.authentication, EditExpensesController.editExpense)
     .delete('/expenses/delete/:id', AuthMiddleware.authentication, DeleteExpensesController.deleteExpense)
-    .get('/revenues', AuthMiddleware.authentication)
+    .get('/revenues', AuthMiddleware.authentication, ListRevenuesController.listRevenues)
+    .post('/new/revenue', AuthMiddleware.authentication, CreateRevenueController.createRevenue)
