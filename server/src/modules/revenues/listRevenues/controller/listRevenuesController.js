@@ -5,7 +5,6 @@ export class ListRevenuesController extends ListRevenuesUseCases {
         const {authorization} = req.headers;
 
         const list = await this.listFilteredExpenses(authorization)
-        console.log(list)
         list.status ? res.status(200).send(list) : res.status(500).send(list);
     }
 }

@@ -12,6 +12,7 @@ import { EditExpensesController } from "../modules/expenses/editExpense/controll
 import { DeleteExpensesController } from "../modules/expenses/deleteExpense/controller/deleteExpensesController.js";
 import { ListRevenuesController } from "../modules/revenues/listRevenues/controller/listRevenuesController.js";
 import { CreateRevenueController } from "../modules/revenues/createRevenue/controller/createRevenueController.js";
+import { EditRevenuesController } from "../modules/revenues/editRevenue/controller/editRevenuesController.js";
 
 export const router = Router();
 
@@ -33,3 +34,4 @@ router
     .delete('/expenses/delete/:id', AuthMiddleware.authentication, DeleteExpensesController.deleteExpense)
     .get('/revenues', AuthMiddleware.authentication, ListRevenuesController.listRevenues)
     .post('/new/revenue', AuthMiddleware.authentication, CreateRevenueController.createRevenue)
+    .put('/revenues/edit/:id', AuthMiddleware.authentication, EditRevenuesController.editRevenue)
