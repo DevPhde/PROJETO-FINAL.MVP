@@ -59,10 +59,8 @@ export class UserInformationsUseCases extends TypeExpensesUseCases {
                 expenses: expenses || 0,
                 revenues: revenues || 0
             }
-            console.log('a')
             return new Response(true, data)
         } catch {
-            console.log('first')
             return new ResponseError('UIUC 55L')
         }
     }
@@ -85,7 +83,5 @@ export class UserInformationsUseCases extends TypeExpensesUseCases {
         } catch {
             return new ResponseError('UIUC 85L')
         }
-
-
     }
 }
