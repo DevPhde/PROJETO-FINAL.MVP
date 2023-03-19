@@ -15,6 +15,7 @@ import { CreateRevenueController } from "../modules/revenues/createRevenue/contr
 import { EditRevenuesController } from "../modules/revenues/editRevenue/controller/editRevenuesController.js";
 import { DeleteRevenuesController } from "../modules/revenues/deleteRevenue/controller/deleteRevenuesController.js";
 import { UserInformationsController } from "../modules/user/dashboard/controller/userInformationsController.js";
+import { UserIRController } from "../modules/impostoDeRenda/controller/userIRController.js";
 
 export const router = Router();
 
@@ -22,6 +23,7 @@ router
     .get('/', (req,res) => { res.status(200).send('CONNECTION OK')})
     .get('/validate/user', AuthMiddleware.authentication, (req, res) => {res.status(200).send('TOKEN OK')})
     .get('/user/informations', AuthMiddleware.authentication, UserInformationsController.userInformations)
+    .get('/user/informations/values/revenues', AuthMiddleware.authentication, UserInformationsController)
     .post('/validatefield', RegisterController.validateField)
     .post('/new/user', RegisterController.userRegistration)
     .post('/user/authorization', AuthorizationController.verifyUserAuthenticity)
@@ -39,3 +41,4 @@ router
     .post('/new/revenue', AuthMiddleware.authentication, CreateRevenueController.createRevenue)
     .put('/revenues/edit/:id', AuthMiddleware.authentication, EditRevenuesController.editRevenue)
     .delete('/revenues/delete/:id', AuthMiddleware.authentication, DeleteRevenuesController.deleteRevenue)
+    .get('/user/IR', AuthMiddleware.authentication, UserIRController.calculateRevenue)
