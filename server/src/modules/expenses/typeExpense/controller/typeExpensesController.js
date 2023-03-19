@@ -14,9 +14,8 @@ export class TypeExpensesController extends TypeExpensesUseCases {
     }
 
     static deleteTypeExpense = async (req, res) => {
-        const requisition = req.body;
-        const deleted = await this.deleteType(requisition);
+        const id = req.params.id;
+        const deleted = await this.deleteType(id);
         deleted.status ? res.status(200).send(deleted) : res.status(500).send(deleted)
     }
-
 }

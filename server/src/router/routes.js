@@ -9,11 +9,14 @@ import { TypeExpensesController } from "../modules/expenses/typeExpense/controll
 import { ListExpensesController } from "../modules/expenses/listExpenses/controller/listExpensesController.js";
 import { NewExpensesController } from "../modules/expenses/createExpense/controller/newExpensesController.js";
 import { EditExpensesController } from "../modules/expenses/editExpense/controller/editExpensesController.js";
+import { DeleteExpensesController } from "../modules/expenses/deleteExpense/controller/deleteExpensesController.js";
+
 
 export const router = Router();
 
 router
     .get('/', (req,res) => { res.status(200).send('CONNECTION OK')})
+    .post('/validate/user', AuthMiddleware.authentication, (req, res) => {res.status(200).send('TOKEN OK')})
     .post('/validationfield', RegisterController.validateField)
     .post('/new/user', RegisterController.userRegistration)
     .post('/user/authorization', AuthorizationController.verifyUserAuthenticity)
@@ -22,7 +25,9 @@ router
     .delete('/user/deleteaccount', AuthMiddleware.authentication, DeleteUserController.deleteUser)
     .get('/expenses/types',  TypeExpensesController.listTypeExpenses)
     .post('/expenses/types/new', TypeExpensesController.createNewTypeExpense)
-    .delete('/expenses/types/delete', TypeExpensesController.deleteTypeExpense)
+    .delete('/expenses/types/delete/:id', TypeExpensesController.deleteTypeExpense)
     .get('/expenses', AuthMiddleware.authentication, ListExpensesController.listExpenses)
     .post('/new/expenses', AuthMiddleware.authentication, NewExpensesController.createExpense)
     .put('/expenses/edit/:id', AuthMiddleware.authentication, EditExpensesController.editExpense)
+    .delete('/expenses/delete/:id', AuthMiddleware.authentication, DeleteExpensesController.deleteExpense)
+    .get('/revenues', AuthMiddleware.authentication)

@@ -25,7 +25,7 @@ export class TypeExpensesUseCases {
     }
 
     static async deleteType(value) {
-        const deleted = await this.typeExpensesDbRepositories.destroy(value)
+        const deleted = await this.typeExpensesDbRepositories.destroy({id: value})
         return deleted >= 1 ? new Response(true, "Tipo de despesa deletado com sucesso!") : new ResponseError('TUC 29L')
     }   
 }
