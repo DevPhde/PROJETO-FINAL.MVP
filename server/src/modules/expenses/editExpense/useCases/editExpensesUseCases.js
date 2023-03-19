@@ -12,9 +12,13 @@ export class EditExpensesUseCases {
     }
 
     static async expenseEdit(data) {
-        const userId = await this.getUserIdByHash(data.hash)
-        data.info.UserId = userId
-        const edited = await this.expenseDbRepositories.update(data.info, {id: data.expenseId})
-        return edited == 1 ? new Response(true, "Despesa editada com sucesso!") : new ResponseError('EEUC  19L')
+        try {
+            const userId = await this.getUserIdByHash(data.hash)
+            data.info.UserId = userId
+            await this.expenseDbRepositories.update(data.info, { id: data.expenseId })
+            return new Response(true, "Despesa editada com sucesso!")
+        } catch {
+            return new ResponseError('EEUC  21L')
+        }
     }
 }

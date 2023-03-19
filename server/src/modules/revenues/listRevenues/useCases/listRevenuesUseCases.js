@@ -10,8 +10,12 @@ export class ListRevenuesUseCases {
     }
 
     static async listFilteredExpenses(param) {
-        const userId = await this.getUserIdByHash(param)
-        const data = await this.revenuesDbRepositories.findAll({UserId: userId})
-        return data ? new Response(true, data) : new ResponseError('LRUC 15L')
+        try {
+            const userId = await this.getUserIdByHash(param)
+            const data = await this.revenuesDbRepositories.findAll({UserId: userId})
+            return new Response(true, data)
+        } catch {
+            return new ResponseError('LRUC 18L')
+        }
     }
 }

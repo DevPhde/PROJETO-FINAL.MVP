@@ -9,25 +9,3 @@ app.use(cors());
 app.use(router);
 
 syncTables();
-
-
-
-// teste
-
-
-import { TypeExpenseDatabaseRepositories } from "./repositories/databaseRepositories.js";
-import { TypeExpense } from "./models/TypeExpense.js";
-
-
-
-class Testes {
-    static tipoDespesa = new TypeExpenseDatabaseRepositories()
-    static async testeTypeExpense() {
-        const tipo = tipoDespesa.describe()
-        console.log(tipo)
-    }
-}
-
-console.log(await TypeExpense.describe())
-// Testes.testeTypeExpense
-

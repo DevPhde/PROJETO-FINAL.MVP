@@ -7,13 +7,17 @@ export class NewExpensesUseCases {
 
 
     static async getUserIdByHash(hash) {
-        return await this.userDbRepositories.findUserId({hash: hash})
+        return await this.userDbRepositories.findUserId({ hash: hash })
     }
 
     static async createNewExpense(data) {
-        const userId = await this.getUserIdByHash(data.hash)
-        data.info.UserId = userId
-        const created = await this.expenseDbRepositories.create(data.info)
-        return created._options.isNewRecord ? new Response(true, "Despesa criada com sucesso!") : new ResponseError('NEUC 10L')
+        try {
+            const userId = await this.getUserIdByHash(data.hash)
+            data.info.UserId = userId
+            await this.expenseDbRepositories.create(data.info)
+            return new Response(true, "Despesa criada com sucesso!")
+        } catch {
+            return new ResponseError('NEUC 20L')
+        }
     }
 }

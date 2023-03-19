@@ -5,7 +5,11 @@ export class DeleteExpensesUseCases {
     static expenseDbRepositories = new ExpenseDatabaseRepositories();
 
     static async expenseDelete(id) {
-        return await this.expenseDbRepositories.destroy({id: id}) == 1 ? new Response(true, "Despesa deletada com sucesso!") : new  ResponseError('DUC 8L')
-       
+        try {
+            await this.expenseDbRepositories.destroy({id: id})
+            return new Response(true, "Despesa deletada com sucesso!")
+        } catch {
+            return new  ResponseError('DUC 12L')
+        }     
     }
 }

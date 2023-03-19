@@ -35,22 +35,15 @@ export class DeleteUserUseCases {
     }
 
     static async checkDelete(hash) {
-        const user = await this.findUserByHash(hash)
-        const deletedUser = await this.handleDeleteUser(user.id)
-        if (deletedUser) {
-            const deletedExpenses = await this.deleteExpenses(user.id)
-            if (deletedExpenses || deletedExpenses == 0) {
-                const deletedRevenues = await this.deleteRevenues(user.id);
-                if (deletedRevenues || deletedRevenues == 0) {
-                    return new Response(true, "Conta deletada com sucesso!")
-                } else {
-                    return new ResponseError('DUA 38L (ERRO CRÍTICO, CONTATE O SUPORTE.)')
-                }
-            } else {
-                return new ResponseError('DUA 38L (ERRO CRÍTICO, CONTATE O SUPORTE.)')
-            }
-        } else {
-            return new ResponseError('DUA 38L (ERRO CRÍTICO, CONTATE O SUPORTE.)')
+
+        try {
+            const user = await this.findUserByHash(hash)
+            await this.handleDeleteUser(user.id)
+            await this.deleteRevenues(user.id);
+            await this.deleteExpenses(user.id)
+            return new Response(true, "Conta deletada com sucesso!")
+        } catch {
+            return new ResponseError('DUA 46L (ERRO CRÍTICO, CONTATE O SUPORTE.)')
         }
     }
 }

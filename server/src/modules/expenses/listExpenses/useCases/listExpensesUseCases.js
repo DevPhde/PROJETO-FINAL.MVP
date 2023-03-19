@@ -15,8 +15,12 @@ export class ListExpensesUseCases {
     }
 
     static async listFilteredExpenses(param) {
-        const userId = await this.getUserIdByHash(param)
-        const data = await this.expenseDbRepositories.findAll({UserId: userId})
-        return data ? new Response(true, data) : new ResponseError('LEUC 13L')
+        try {
+            const userId = await this.getUserIdByHash(param)
+            const data = await this.expenseDbRepositories.findAll({ UserId: userId })
+            return new Response(true, data)
+        } catch {
+            return new ResponseError('LEUC 23L')
+        }
     }
 }

@@ -14,13 +14,15 @@ import { ListRevenuesController } from "../modules/revenues/listRevenues/control
 import { CreateRevenueController } from "../modules/revenues/createRevenue/controller/createRevenueController.js";
 import { EditRevenuesController } from "../modules/revenues/editRevenue/controller/editRevenuesController.js";
 import { DeleteRevenuesController } from "../modules/revenues/deleteRevenue/controller/deleteRevenuesController.js";
+import { UserInformationsController } from "../modules/user/dashboard/controller/userInformationsController.js";
 
 export const router = Router();
 
 router
     .get('/', (req,res) => { res.status(200).send('CONNECTION OK')})
-    .post('/validate/user', AuthMiddleware.authentication, (req, res) => {res.status(200).send('TOKEN OK')})
-    .post('/validationfield', RegisterController.validateField)
+    .get('/validate/user', AuthMiddleware.authentication, (req, res) => {res.status(200).send('TOKEN OK')})
+    .get('/user/informations', AuthMiddleware.authentication, UserInformationsController.userInformations)
+    .post('/validatefield', RegisterController.validateField)
     .post('/new/user', RegisterController.userRegistration)
     .post('/user/authorization', AuthorizationController.verifyUserAuthenticity)
     .post('/user/recoverypassword', RecoveryPasswordController.recoveryPassword)
