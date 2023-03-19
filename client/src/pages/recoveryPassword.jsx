@@ -5,7 +5,12 @@ import { UserUseCases } from "../useCases/UserUseCases";
 
 function RecoveryPasswordPage() {
 
+  const [email, setEmail] = useState ([]);
 
+  const recovery = () =>{
+    UserUseCases.recoveryUser(email)
+
+  }
 
   return (
     <main className="main-recovery">
@@ -17,13 +22,14 @@ function RecoveryPasswordPage() {
 
         <p className=" text-recovery mb-5">Não se preocupe! Digite o seu email no campo abaixo, que nós enviaremos uma nova senha para você!</p>
 
-        <div class="row mb-5 div-input-recovery">
+        <div className="row mb-5 div-input-recovery">
           <div >
-            <input type="email" class="form-control input-recovery" id="colFormLabel" placeholder="Digite aqui o seu email" />
+            <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control input-recovery" id="colFormLabel" placeholder="Digite aqui o seu email" />
           </div>
         </div>
-        <div class="d-grid gap-2  div-btn-recovery">
-          <button class="btn btn-recovery fw-bold" type="button" onClick={UserUseCases.recoveryUser()}>Enviar</button>
+        <div className="d-grid gap-2  div-btn-recovery">
+          <button className="btn btn-recovery fw-bold" type="button" onClick={recovery} >Enviar</button>
+          <button className="btn btn-recovery back fw-bold" type="button" onClick={recovery} >Voltar</button>
         </div>
 
       </div>

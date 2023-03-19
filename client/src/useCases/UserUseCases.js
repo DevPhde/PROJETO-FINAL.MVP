@@ -4,7 +4,7 @@ export class UserUseCases {
 
     static async recoveryUser(email){
         const data = {
-            email: "dbsmendes@gmail.com"
+            email: email
         }
         const connection = await AxiosProvider.post(`user/recoverypassword`, data)
         console.log(connection)
