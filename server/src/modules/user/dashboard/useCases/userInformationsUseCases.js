@@ -76,7 +76,6 @@ export class UserInformationsUseCases extends TypeExpensesUseCases {
             const total = await Promise.all(id.map(async (i) => {
                 const data = await this.sumExpensesByTypeExpenses(userId, i.id)
                 const result = { id: i.id, name: i.name, total: data || 0 }
-                console.log(result)
                 return result
             }))
             return new Response(true, total)

@@ -8,7 +8,7 @@ export class EditRevenuesUseCases {
 
     static async revenueEdit(data) {
         try {
-            console.log(await this.revenueDbRepositories.update(data.info, {id: data.revenueId})) 
+            await this.revenueDbRepositories.update(data.info, {id: data.revenueId})
             return new Response(true, "Receita editada com sucesso!")
         } catch {
             return new ResponseError('ERUC 14L')

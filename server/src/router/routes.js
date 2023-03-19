@@ -42,4 +42,4 @@ router
     .post('/new/revenue', AuthMiddleware.authentication, CreateRevenueController.createRevenue)
     .put('/revenues/edit/:id', AuthMiddleware.authentication, EditRevenuesController.editRevenue)
     .delete('/revenues/delete/:id', AuthMiddleware.authentication, DeleteRevenuesController.deleteRevenue)
-    .get('/user/IR', AuthMiddleware.authentication, UserIRController.calculateRevenue)
+    .post('/user/IR', AuthMiddleware.authentication, UserIRController.calculateRevenue)
