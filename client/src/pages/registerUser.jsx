@@ -56,6 +56,10 @@ function registerUser() {
                if(resp.status == 401){
                 let err = document.getElementById("errInput2")
                 err.style.display = "block";
+                let errName = document.getElementById("errName")
+                errName.style.display = "none";
+                let errCpf = document.getElementById("errCpf")
+                errCpf.style.display = "none";
                 let errEmail = document.getElementById("errEmail")
                 errEmail.style.display = "none";
                 let errPassword = document.getElementById("errPassword")
