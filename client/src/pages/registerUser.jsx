@@ -19,7 +19,7 @@ function registerUser() {
         cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
            setCpf(cpf)
            
-      }F
+      }
       async function validForm  (){
         let re = /\S+@\S+\.\S+/;
         if(name.length < 3 ){
