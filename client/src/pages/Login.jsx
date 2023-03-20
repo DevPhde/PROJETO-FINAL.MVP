@@ -15,24 +15,15 @@ function Login() {
             let err = document.getElementById("errEmail")
             err.style.display = "block";
 
-        }else if(password == null){
+        }
+        if(password == null){
             let err = document.getElementById("errPassword")
             err.style.display = "block";
-        }else{
-            const data =
-            {
-                email: email,
-                password: password
-            }
-            const resp = await fetch(`https://mvp-backend-k5vq.onrender.com/user/authorization`, {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
-           console.log(resp)
+        }
+        if(re.test(email) == true || email !== "" && password !== null){
+            const resp = await UserUseCases.Login(email, password);
+            console.log('rest funcionou',resp.status);
+            
            if(resp.status == 200 ){
             console.log("direcionando..")
             navigate("/home");

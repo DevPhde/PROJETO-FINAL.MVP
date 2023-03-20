@@ -10,6 +10,18 @@ export class UserUseCases {
         console.log(connection)
     }
 
+    static async Login(email,password){
+        const data = {
+            email:email,
+            password:password
+        }
+        return await AxiosProvider.post(`user/authorization`, data);
+       
+        
+
+     
+    }
+
     // static async CreateUser(){
 
     // }
