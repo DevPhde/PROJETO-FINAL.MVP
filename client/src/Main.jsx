@@ -5,6 +5,7 @@ import Index from './Index';
 import Home from './pages/Home';
 import ErrorPage from './pages/ErrorPage';
 import RecoveryPasswordPage from './pages/recoveryPassword';
+import RegisterUser from './pages/registerUser'
 
 const router = createBrowserRouter([
   {
@@ -13,8 +14,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/',
+        path: '/home',
         element: <Home />
+      },
+      {
+        path: '/registerUser',
+        element: <RegisterUser />
       },
       {
         path: '/recovery',

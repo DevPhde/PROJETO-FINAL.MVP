@@ -1,0 +1,126 @@
+.main-recovery{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .div-img-recovery{
+    width: 60%;
+    min-width: 300px;
+  }
+  
+  .img-recovery{
+    width: 97.6%;
+  }
+  
+  .div-info-recovery{
+    width: 40%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10% 5%;
+  
+  }
+  
+  .text-recovery, .title-recovery{
+    color: #29056B;
+    align-self: center;
+    font-weight: bolder;
+  }
+  
+  /* .title-recovery{
+    font-size: clamp(10px, 5vw, 45px);
+  } */
+  
+  .text-recovery{
+    padding: 0 8%;
+  }
+  
+  .div-input-recovery{
+    width: 85%;
+  }
+  
+  .input-recovery:focus{
+    box-shadow: none;
+    border: 2px solid #048A78;
+    background-color: #048a7814;
+    color: black;
+  
+  }
+  
+  .div-btn-recovery{
+    width: 81%;
+  }
+  
+  .btn-recovery{
+    background-color: #29056B;
+    color: white;
+    font-size: clamp(10px, 5vw, 25px);
+  }
+  
+  .btn-recovery:hover{
+    background-color: #048A78;
+    color: black;
+  }
+  .errInput{
+    color:red;
+    display: none;
+ }
+ .errEmail{
+    color:red;
+    display: none;
+ }
+ .errPassword{
+    color:red;
+    display: none;
+ }
+ .errName{
+  color:red;
+  display: none;
+ }
+ .errCpf{
+  color:red;
+  display: none;
+ }
+  
+  
+  @media (max-width: 1170px){
+  
+    .div-info-recovery{
+      padding-top: 5%;
+      padding-bottom: 5%;
+    
+    }
+  
+  }
+  
+  
+  @media (max-width: 890px)
+  {
+    .div-info-recovery{
+      padding: 0 10%;
+    
+    }
+  
+    .div-img-recovery{
+      width: 100%;
+      margin-bottom: 10%;
+  
+    }
+  
+    .img-recovery{
+      width: 100%;
+    }
+    .div-info-recovery{
+      width: 100%;
+    
+    }
+  
+    .title-recovery{
+      font-size: 25px;
+    }
+  
+    .div-btn-recovery{
+      margin-bottom: 10%;
+    }
+  }
