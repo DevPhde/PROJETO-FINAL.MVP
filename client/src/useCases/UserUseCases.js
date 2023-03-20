@@ -2,12 +2,13 @@ import { AxiosProvider } from "../services/axiosProvider";
 
 export class UserUseCases {
 
-    static async recoveryUser(email){
-        const data = {
-            email: "dbsmendes@gmail.com"
+    static async recoveryUser(email) {
+        try {
+           const data = await AxiosProvider.post(`user/recoverypassword`, { email: email })
+           return data.data
+        } catch(err) {
+            return err.response.data
         }
-        const connection = await AxiosProvider.post(`user/recoverypassword`, data)
-        console.log(connection)
     }
 
     // static async CreateUser(){
@@ -15,11 +16,11 @@ export class UserUseCases {
     // }
 
     // static async DeleteUser(){
-        
+
     // }
 
     // static async UpdateUser(){
-        
+
     // }
 
 }

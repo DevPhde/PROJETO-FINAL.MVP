@@ -5,6 +5,7 @@ import Footer from "./components/Footer"
 function Index() {
 
   return (
+    
     <div>
 
       <Outlet />
