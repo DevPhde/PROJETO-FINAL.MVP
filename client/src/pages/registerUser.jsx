@@ -12,9 +12,6 @@ function registerUser() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    
-
-
     function formataCPF(cpf){
         //retira os caracteres indesejados...
         cpf = cpf.replace(/[^\d]/g, "");
@@ -22,11 +19,7 @@ function registerUser() {
         cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
            setCpf(cpf)
            
-      }
-
-
-
-    
+      }F
       async function validForm  (){
         let re = /\S+@\S+\.\S+/;
         if(name.length < 3 ){
@@ -65,15 +58,8 @@ function registerUser() {
                 let errPassword = document.getElementById("errPassword")
                 errPassword.style.display = "none";
                }
-
         }
-        
-        
-
-
     }
-
-    
     return (
         <main className="main-recovery">
             <div className="div-img-recovery">
