@@ -16,7 +16,7 @@ export class NewExpensesUseCases {
             data.info.UserId = userId
             await this.expenseDbRepositories.create(data.info)
             return new Response(true, "Despesa criada com sucesso!")
-        } catch {
+        } catch(err) {
             return new ResponseError('NEUC 20L')
         }
     }

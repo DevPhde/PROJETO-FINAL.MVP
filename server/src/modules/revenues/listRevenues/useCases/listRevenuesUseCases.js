@@ -9,7 +9,7 @@ export class ListRevenuesUseCases {
         return await this.userDbRepositories.findUserId({hash: hash})
     }
 
-    static async listFilteredExpenses(param) {
+    static async listFilteredRevenues(param) {
         try {
             const userId = await this.getUserIdByHash(param)
             const data = await this.revenuesDbRepositories.findAll({UserId: userId})

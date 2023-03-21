@@ -20,6 +20,10 @@ export class BaseModel {
   async findAll(param) {
     return await this.table.findAll({ where: param });
   }
+  async joinFindAll(param) {
+    return await this.table.findAll(param)
+  }
+
   async findOne(param) {
     return await this.table.findOne({ where: param });
   }
