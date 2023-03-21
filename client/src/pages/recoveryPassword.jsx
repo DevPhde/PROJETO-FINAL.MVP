@@ -29,7 +29,7 @@ function RecoveryPasswordPage() {
         title={'Recuperação de senha'}
       to={'/'}
         buttonName={'Fechar e ir para o Login'}
-        message={message.message}
+        message={<p>{message.message}</p>}
       />
       <div className="div-img-recovery">
         <img className="img-recovery" src={ImgRecovery} />

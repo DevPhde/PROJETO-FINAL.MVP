@@ -16,9 +16,9 @@ export function VerticalModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>
+       
           {props.message}
-        </p>
+        
       </Modal.Body>
       <Modal.Footer>
         <button className='btn btn-recovery--modal text-white' onClick={props.onHide}><Link className='text-decoration-none text-white' to={props.to}>{props.buttonName}</Link></button>
