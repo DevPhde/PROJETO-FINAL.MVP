@@ -1,7 +1,7 @@
 import { useState } from "react";
 import '../style/recoveryPassword.css'
 import ImgRecovery from '../images/img2.png'
-import { UserUseCases } from "../useCases/UserUseCases";
+import { UserUseCases } from "../useCases/userUseCases";
 import { Link } from "react-router-dom";
 import { VerticalModal } from "../components/Modal";
 

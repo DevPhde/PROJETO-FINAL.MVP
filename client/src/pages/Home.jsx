@@ -1,8 +1,10 @@
 import React from 'react'
-
+import { Tables } from '../components/Tables'
 function Home() {
   return (
-    <div>Home</div>
+    <div>
+      <Tables param={'expenses'}/>
+    </div>
   )
 }
 

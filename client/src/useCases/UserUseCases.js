@@ -1,4 +1,4 @@
-import { AxiosProvider } from "../services/axiosProvider";
+import { AxiosProvider } from "../providers/axiosProvider";
 
 export class UserUseCases {
 
