@@ -13,7 +13,8 @@ export function Tables(props) {
         name: '',
         amount: 0,
         local: '',
-        TypeExpenseId: 0
+        TypeExpenseId: 0,
+        TypeExpense: null
     })
 
     const [editing, setEditing] = useState({
@@ -46,8 +47,12 @@ export function Tables(props) {
             name: i.name,
             amount: i.amount,
             local: (i.local ? i.local : null),
-            TypeExpenseId: (i.TypeExpenseId ? i.TypeExpenseId : null)
+            TypeExpenseId: (i.TypeExpenseId ? i.TypeExpenseId : null),
+            TypeExpense: (i.TypeExpense.name ? i.TypeExpense.name : null)
         }))
+        if(i.TypeExpense) {
+            setSelectedTypeExpense(i.TypeExpense.name)
+        }
         console.log(i)
         setEditing(prevState => ({ ...prevState, edit: true, key: i.id }))
 
@@ -82,11 +87,7 @@ export function Tables(props) {
             const hash = sessionStorage.getItem('authorization')
             const response = await AxiosProvider.get(param, hash)
             setData(response.data)
-            if(data.message.length == 0) {
-                console.log('first')
-            }
             setLoadingScreen(false)
-            console.log(data.message.length)
         }
 
         getInfos(props.param)
@@ -97,25 +98,13 @@ export function Tables(props) {
                 const response = await AxiosProvider.get('expenses/types')
                 setTypeExpenses(response.data.message)
                 console.log(response)
-                const newData = data.message.map((item) => {
-                    const typeExpense = typeExpenses.find((type) => type.id === item.TypeExpenseId);
-                    return {
-                      ...item,
-                      typeExpense: typeExpense,
-                    };
-                  });
-                  console.log(newData)
+
             }
             getTypeExpenses()
         }, [update])
 
     }
-
-    // if(data.message.length == 0) {
-    //     return (
-    //         <div>Nada encontrado</div>
-    //     )
-    // }
+console.log(values)
     return (
         <div>
             <VerticalModal
@@ -133,7 +122,7 @@ export function Tables(props) {
                             <Form.Label className="text-white">Tipo de Despesa</Form.Label>
                             <Form.Control
                                 as="select"
-                                value={selectedTypeExpense.name}
+                                value={selectedTypeExpense}
                                 onChange={handleChangeTypeExpense}
                             >
                                 <option value="" disabled>
@@ -202,7 +191,7 @@ export function Tables(props) {
                                         <td>{info.name}</td>
                                         <td>{info.amount}</td>
                                         {props.param == 'expenses' && <td>{info.local}</td>}
-                                        {props.param == 'expenses' && <td>{info.TypeExpenseId}</td>}
+                                        {props.param == 'expenses' && <td>{info.TypeExpense.name}</td>}
                                         <td className="text-center"><button onClick={() => handleEdit(info)} type="button" className="btn ms-1 p-1 px-2 btn-success">Editar</button>
                                             <button onClick={() => handleDelete(info)} type="button" className="btn ms-1 p-1 btn-danger">Deletar</button></td>
                                     </tr>
