@@ -50,6 +50,7 @@
   
   .div-btn-recovery{
     width: 81%;
+    margin-top: 25px;
   }
   
   .btn-recovery{
@@ -114,6 +115,20 @@
   
     .div-btn-recovery{
       margin-bottom: 10%;
+    }
+    #pass {
+      width: 150px;
+      padding-right: 20px;
+    }
+    
+    .olho {
+      cursor: pointer;
+      left: 160px;
+      position: absolute;
+      width: 20px;
+    }
+    .checkbox{
+      margin-bottom: 40px;
     }
   }
 
