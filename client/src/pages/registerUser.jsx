@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import '../style/registerUser.css';
-import ImgRecovery from '../images/create.png';
+import ImgRecovery from '../images/img2.png';
 import { UserUseCases } from "../useCases/UserUseCases";
 import { useNavigate } from "react-router-dom";
 
@@ -35,11 +35,11 @@ function registerUser() {
             let errEmail = document.getElementById("errEmail")
             errEmail.style.display = "block";
         }
-        if(password == ""){
+        if(password == "" || password == undefined){
             let errPassword = document.getElementById("errPassword")
             errPassword.style.display = "block";
             
-        }else if(password != ""){
+        }else if(password != "" || password != undefined){
             const resp = await UserUseCases.CreateUser(name, cpf, email, password);
             console.log('rest funcionou',resp.status);
             if(resp.status == 201 ){
