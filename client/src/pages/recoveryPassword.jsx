@@ -1,9 +1,9 @@
 import { useState } from "react";
 import '../style/recoveryPassword.css'
 import ImgRecovery from '../images/img2.png'
-import { UserUseCases } from "../useCases/UserUseCases";
 import { Link } from "react-router-dom";
-import { VerticalModal } from "../components/Modal";
+import { VerticalModal } from "../components/modals/VerticalModal";
+import { AxiosProvider } from "../providers/axiosProvider";
 
 function RecoveryPasswordPage() {
 
@@ -12,24 +12,36 @@ function RecoveryPasswordPage() {
     status: null,
     message: ''
   })
+  console.log(email)
 
   const handleSubmit = async () => {
-    const data = await UserUseCases.recoveryUser(email)
-    setMessage(prevState => ({ ...prevState, status: data.status, message: data.message }))
-    if(data.status) {
-      setModalShow(true)
+    if (email.length >= 1) {
+      try {
+        const response = await AxiosProvider.communication("POST", `user/recoverypassword`, null, { email: email })
+        setMessage(prevState => ({ ...prevState, status: response.data.status, message: response.data.message }))
+        if (response.data.status) {
+          setModalShow(true)
+        }
+      } catch(err) {
+        setMessage(prevState => ({ ...prevState, status: err.response.data.status, message: err.response.data.message }))
+      }
+      
+    } else {
+      setMessage(prevState => ({ ...prevState, status: false, message: "Preencha com um email válido." }))
     }
+
   }
   const [modalShow, setModalShow] = useState(false);
   return (
     <main className="main-recovery">
       <VerticalModal
         show={modalShow}
+        anotherbutton={false}
         onHide={() => setModalShow(false)}
         title={'Recuperação de senha'}
-      to={'/'}
-        buttonName={'Fechar e ir para o Login'}
-        message={message.message}
+        to={'/'}
+        namebutton={'Fechar e ir para o Login'}
+        message={<p>{message.message}</p>}
       />
       <div className="div-img-recovery">
         <img className="img-recovery" src={ImgRecovery} />
