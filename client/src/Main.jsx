@@ -7,6 +7,7 @@ import ErrorPage from './pages/ErrorPage';
 import RecoveryPasswordPage from './pages/recoveryPassword';
 import Login from "./pages/Login"
 
+
 const router = createBrowserRouter([
   {
     path: '/',
