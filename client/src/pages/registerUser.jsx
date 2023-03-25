@@ -10,6 +10,7 @@ function registerUser() {
     const [cpf, setCpf] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    
     const [user,setUser] = useState({
         name:false,
         cpf:false,
@@ -53,17 +54,8 @@ function registerUser() {
                 console.log("direcionando..")
                 navigate("/home");
                }
-               if(resp.status == 401){
-                let err = document.getElementById("errInput2")
-                err.style.display = "block";
-                let errName = document.getElementById("errName")
-                errName.style.display = "none";
-                let errCpf = document.getElementById("errCpf")
-                errCpf.style.display = "none";
-                let errEmail = document.getElementById("errEmail")
-                errEmail.style.display = "none";
-                let errPassword = document.getElementById("errPassword")
-                errPassword.style.display = "none";
+               if(resp.status == 409){
+                alert("Email ou CPF já cadastrados")
                }
         }
     }
