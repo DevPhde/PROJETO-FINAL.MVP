@@ -5,6 +5,7 @@ import Index from './Index';
 import Home from './pages/Home';
 import ErrorPage from './pages/ErrorPage';
 import RecoveryPasswordPage from './pages/recoveryPassword';
+import Login from "./pages/Login"
 
 
 const router = createBrowserRouter([
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
+        element: <Login />
+      },
+      {
+        path: '/home',
         element: <Home />
       },
       {
@@ -24,6 +29,7 @@ const router = createBrowserRouter([
     ]
   }
 ])
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
