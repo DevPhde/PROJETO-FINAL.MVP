@@ -17,16 +17,16 @@ export function BackdropModal(props) {
         backdrop="static"
         keyboard={false}
       >
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>{props.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {props.message}
         </Modal.Body>
         <Modal.Footer>
-          <button className='btn-recovery--modal' onClick={handleClose}>
-          <Link className='text-decoration-none text-white' to={props.to}>{props.namebutton}</Link>
-          </button>
+        <Link className='btn btn-recovery--modal text-decoration-none text-white' onClick={handleClose} to={props.to}>
+          {props.namebutton}
+          </Link>
         </Modal.Footer>
       </Modal>
     </>

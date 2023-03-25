@@ -1,10 +1,39 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import '../style/registerUser.css';
 import ImgRecovery from '../images/img2.png';
-import { UserUseCases } from "../useCases/UserUseCases";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { AxiosProvider } from "../providers/axiosProvider";
+import { BackdropModal } from "../components/modals/BackdropModal";
+import { Loading } from "../components/Loading"
+export function RegisterUser() {
 
-function registerUser() {
+    //CPF
+    const handleChange = (event) => {
+        let inputValue = event.target.value;
+        inputValue = inputValue.replace(/\D/g, "");
+
+        if (inputValue.length <= 11) {
+            let formattedValue = "";
+
+            for (let i = 0; i < inputValue.length; i++) {
+                if (i === 3 || i === 6) {
+                    formattedValue += ".";
+                }
+                if (i === 9) {
+                    formattedValue += "-";
+                }
+                formattedValue += inputValue[i];
+            }
+
+            setCpf(formattedValue)
+        }
+    };
+    const [feedbackUser, setFeedbackUser] = useState({
+        error: false,
+        message: ""
+    })
+    const [loading, setLoading] = useState(false)
+    const [modal, setModal] = useState(false)
     const [name, setName] = useState('');
     const [cpf, setCpf] = useState('');
     const [email, setEmail] = useState('');
@@ -16,99 +45,112 @@ function registerUser() {
         password: false,
         email: false
     });
-    useEffect(() => {
-        console.log(user)
-    }, [user])
-    const navigate = useNavigate();
 
-    function formataCPF(cpf) {
-        //retira os caracteres indesejados...
-        cpf = cpf.replace(/[^\d]/g, "");
-        //realizar a formatação...
-        cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-        setCpf(cpf);
-    }
     async function validForm() {
         let re = /\S+@\S+\.\S+/;
         if (name.length < 3 || name == null) {
             setUser(prevState => ({ ...prevState, name: true }));
-            console.log('name', user.name);
         }
-        if (cpf.length < 11 || cpf == null) {
+        if (cpf.length != 14 || cpf == null) {
             setUser(prevState => ({ ...prevState, cpf: true }));
         }
         if (re.test(email) == false || email == undefined) {
             setUser(prevState => ({ ...prevState, email: true }));
         }
-        if (password == "" || password == undefined) {
+        if (password.length < 5) {
             setUser(prevState => ({ ...prevState, password: true }));
 
-        } else if (password != "" || password != undefined) {
+        }
+        const result = Object.values(user).every(value => value === false)
+        if (result) {
             try {
-                const resp = await UserUseCases.CreateUser(name, cpf, email, password);
-                if (resp.status === 201) {
-                    navigate("/login");
+                const data = {
+                    name: name,
+                    cpf: cpf,
+                    email: email,
+                    password: password
+                }
+                setLoading(true)
+                const response = await AxiosProvider.communication("POST", 'new/user', null, data)
+                if (response.status == 201) {
+                    setModal(true)
+                    setFeedbackUser(prevState => ({ ...prevState, message: response.data.message }))
+
+
                 }
             } catch (e) {
-                if (e.status === 409) {
-                    alert("Email ou CPF já cadastrados")
+                setLoading(false)
+                if (e.response.status == 409) {
+                    if (email.length || cpf.length > 0) {
+                        setFeedbackUser(prevState => ({ ...prevState, error: false, message: e.response.data.message }))
+                    }
+                }
+                if (e.response.status == 500) {
+                    setModal(true)
+                    setFeedbackUser(prevState => ({ ...prevState, error: true, message: e.response.data.message }))
                 }
             }
         }
+
+
     }
     return (
         <main className="main-recovery">
             <div className="div-img-recovery">
                 <img className="img-recovery" src={ImgRecovery} />
             </div>
+            <div>
+                {modal && <BackdropModal title={feedbackUser.error ? "Erro Interno" : "Conta criada!"} message={feedbackUser.message} to={feedbackUser.error ? null : "/"} namebutton={feedbackUser.error ? "Fechar" : "Ir para login"} />}
+            </div>
             <div className="div-info-recovery container text-center  align-items-center">
                 <h1 className="fw-bold title-recovery mb-5">Cadastre-se</h1>
                 <div className="row mb-5 div-input-recovery">
-                    <div>
-                        <label>Nome</label>
-                        <input type="text" className="form-control input-recovery" placeholder="Digite aqui o seu Nome" onChange={e => {
+                    <div className="form-floating mb-3">
+                        <input type="text" className="form-control input-recovery" value={name} onChange={e => {
                             setName(e.target.value);
                         }} onFocus={() => setUser(prevState => ({ ...prevState, name: false }))} />
-                        {user.name && <p className="errName" id="errName">nome inválido</p>}
+                        <label htmlFor="floatingInput">Nome Completo</label>
                     </div>
+                    {user.name && <p className="text-danger">Preencha com seu nome completo</p>}
+                </div>
+
+                <div className="row mb-5 div-input-recovery">
+                    <div className="form-floating mb-3">
+                        <input type="text" className="form-control input-recovery" value={cpf} onChange={handleChange} onFocus={() => setUser(prevState => ({ ...prevState, cpf: false }))} />
+                        <label htmlFor="floatingInput">CPF</label>
+                    </div>
+                    {user.cpf && <p className="text-danger">CPF inválido</p>}
                 </div>
                 <div className="row mb-5 div-input-recovery">
-                    <label>CPF</label>
-                    <div >
-                        <input type="text" className="form-control input-recovery" placeholder="Digite aqui o seu CPF" onChange={e =>
-                            formataCPF(e.target.value)
-                        } value={cpf} onFocus={() => setUser(prevState => ({ ...prevState, cpf: false }))} />
-                        {user.cpf && <p className="errCpf" id="errCpf">CPF inválido</p>}
-                    </div>
-                </div>
-                <div className="row mb-5 div-input-recovery">
-                    <label>Email</label>
-                    <div >
-                        <input type="email" className="form-control input-recovery" placeholder="Digite aqui o seu E-mail" onChange={e => {
+                    <div className="form-floating mb-3">
+                        <input type="text" className="form-control input-recovery" value={email} onChange={e => {
                             setEmail(e.target.value);
-                        }} value={email} onFocus={() => setUser(prevState => ({ ...prevState, email: false }))} />
-                        {user.email && <p className="errEmail" id="errEmail">E-mail inválido</p>}
+                        }} onFocus={() => setUser(prevState => ({ ...prevState, email: false }))} />
+                        <label htmlFor="floatingInput">E-mail</label>
                     </div>
+                    {user.email && <p className="text-danger">E-mail inválido</p>}
                 </div>
+
                 <div className="row mb-5 div-input-recovery">
-                    <label>Senha</label>
-                    <div >
-                        <input type="password" className="form-control input-recovery" placeholder="Digite aqui a sua Senha" onChange={e => {
+                    <div className="form-floating mb-3">
+                        <input type="text" className="form-control input-recovery" value={password} onChange={e => {
                             setPassword(e.target.value);
-                        }} value={password} onFocus={() => setUser(prevState => ({ ...prevState, password: false }))} />
-                        {user.password && <p className="errPassword" id="errPassword">Senha inválida</p>}
+                        }} onFocus={() => setUser(prevState => ({ ...prevState, password: false }))} />
+                        <label htmlFor="floatingInput">Senha</label>
                     </div>
+                    {user.password && <p className="text-danger">Senha Inválida, a senha deve conter pelo menos 5 caracteres. </p>}
                 </div>
+
                 <div className="d-grid gap-2  div-btn-recovery">
-                    <button className="btn btn-recovery fw-bold" type="button" onClick={validForm}>Entrar</button>
+                    {!loading ? <button className="btn btn-recovery fw-bold" type="button" onClick={validForm}>Entrar</button> : <Loading className="text-center" />}
+                    {feedbackUser.message && <p className="text-danger">{feedbackUser.message}</p>}
+
                 </div>
                 <Link
-                    className='text-decoration-none text-blue'
-                    to='https://mvp-backend-k5vq.onrender.com/login'>Já possui Cadastro? Entre
+                    className='text-decoration-none text-blue mb-5'
+                    to='/'>Já possui Cadastro? Entre
                 </Link>
             </div>
-
-        </main>
+        </main >
     )
 }
-export default registerUser
