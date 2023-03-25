@@ -10,6 +10,12 @@ function registerUser() {
     const [cpf, setCpf] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [user,setUser] = useState({
+        name:false,
+        cpf:false,
+        password:false,
+        email:false
+    })
     const navigate = useNavigate();
 
     function formataCPF(cpf){
@@ -23,21 +29,22 @@ function registerUser() {
       async function validForm  (){
         let re = /\S+@\S+\.\S+/;
         if(name.length < 3 ){
-            let errName = document.getElementById("errName")
-            errName.style.display = "block";
+            setUser({name:true})
+            console.log('name',user.name);
         }
         if(cpf.length < 11 || cpf == null){
-            let errCpf = document.getElementById("errCpf")
-            errCpf.style.display = "block";
+            setUser({cpf:true})
+            console.log('cpf',user.cpf);
 
         }
          if(re.test(email) == false || email == ""){
-            let errEmail = document.getElementById("errEmail")
-            errEmail.style.display = "block";
+            setUser({email:true})
+            console.log('email',user.email);
         }
         if(password == "" || password == undefined){
-            let errPassword = document.getElementById("errPassword")
-            errPassword.style.display = "block";
+            setUser({password:true})
+            console.log(password);
+            console.log('password',user.password);
             
         }else if(password != "" || password != undefined){
             const resp = await UserUseCases.CreateUser(name, cpf, email, password);
@@ -73,7 +80,7 @@ function registerUser() {
                         <input type="text" className="form-control input-recovery"  placeholder="Digite aqui o seu Nome" onChange={e => {
                             setName(e.target.value);
                         }} />
-                       <p className="errName" id="errName">nome inválido</p>
+                       {user.name && <p className="errName" id="errName">nome inválido</p>}
                     </div>
                 </div>
                 <div className="row mb-5 div-input-recovery">
@@ -82,7 +89,7 @@ function registerUser() {
                         <input type="text" className="form-control input-recovery"  placeholder="Digite aqui o seu CPF" onChange={e => {
                             formataCPF(e.target.value);
                         }}  value={cpf}/>
-                       <p className="errCpf" id="errCpf">CPF inválido</p>
+                      {user.cpf &&  <p className="errCpf" id="errCpf">CPF inválido</p>}
                     </div>
                 </div>
                 <div className="row mb-5 div-input-recovery">
@@ -91,7 +98,7 @@ function registerUser() {
                         <input type="email" className="form-control input-recovery"  placeholder="Digite aqui o seu E-mail" onChange={e => {
                             setEmail(e.target.value);
                         }} />
-                       <p className="errEmail" id="errEmail">E-mail inválido</p>
+                       {user.email && <p className="errEmail" id="errEmail">E-mail inválido</p>}
                     </div>
                 </div>
                 
@@ -101,7 +108,7 @@ function registerUser() {
                         <input type="password" className="form-control input-recovery"  placeholder="Digite aqui a sua Senha" onChange={e => {
                             setPassword(e.target.value);
                         }} />
-                       <p className="errPassword" id="errPassword">Senha inválida</p>
+                       {user.password && <p className="errPassword" id="errPassword">Senha inválida</p>}
                     </div>
                 </div>
                 <div className="d-grid gap-2  div-btn-recovery">
