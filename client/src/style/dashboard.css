@@ -1,0 +1,18 @@
+.card-dashboard{
+    width: 300px;
+
+}
+
+
+.card-value{
+    font-size: clamp(10px, 5vw, 25px);
+}
+
+.card-img{
+    width: 30%;
+}
+
+.card-img-dashboard{
+    width: 80%;
+}
+

@@ -5,7 +5,7 @@ import Index from './Index';
 import Home from './pages/Home';
 import ErrorPage from './pages/ErrorPage';
 import RecoveryPasswordPage from './pages/recoveryPassword';
-
+import Dashboard from './pages/Dashboard'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +20,11 @@ const router = createBrowserRouter([
       {
         path: '/recovery',
         element: <RecoveryPasswordPage />
+      },
+      {
+        path:'/dashboard',
+        element: <Dashboard/>
+
       }
     ]
   }
