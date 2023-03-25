@@ -39,7 +39,7 @@ function Login() {
                 if (resp.status == 200) {
                     const hash = resp.data.message;
                     sessionStorage.setItem('authorization', hash)
-                    navigate("/home");
+                    navigate("/dashboard");
                 }
             } catch (e) {
                 if (e.response.status == 500) {
