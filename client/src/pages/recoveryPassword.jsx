@@ -6,6 +6,12 @@ import { VerticalModal } from "../components/modals/VerticalModal";
 import { AxiosProvider } from "../providers/axiosProvider";
 
 function RecoveryPasswordPage() {
+  useEffect(() => {
+    if (sessionStorage.getItem('authorization')) {
+      navigate("/dashboard");
+    }
+
+  }, []);
 
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState({
@@ -22,10 +28,10 @@ function RecoveryPasswordPage() {
         if (response.data.status) {
           setModalShow(true)
         }
-      } catch(err) {
+      } catch (err) {
         setMessage(prevState => ({ ...prevState, status: err.response.data.status, message: err.response.data.message }))
       }
-      
+
     } else {
       setMessage(prevState => ({ ...prevState, status: false, message: "Preencha com um email válido." }))
     }
@@ -58,7 +64,7 @@ function RecoveryPasswordPage() {
         </div>
         <div className="d-grid gap-2  div-btn-recovery">
           <button className="btn btn-recovery fw-bold" type="button" onClick={handleSubmit} >Enviar</button>
-          <button className="btn btn-recovery back fw-bold" type="button"><Link to="/" className="text-decoration-none text-white">Voltar</Link></button>
+          <Link to="/" className="btn text-decoration-none tn btn-recovery fw-bold text-white">Voltar</Link>
         </div>
 
       </div>
