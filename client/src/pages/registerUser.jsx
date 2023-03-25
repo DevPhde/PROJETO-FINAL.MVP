@@ -6,7 +6,12 @@ import { AxiosProvider } from "../providers/axiosProvider";
 import { BackdropModal } from "../components/modals/BackdropModal";
 import { Loading } from "../components/Loading"
 export function RegisterUser() {
+    useEffect(() => {
+        if (sessionStorage.getItem('authorization')) {
+            navigate("/dashboard");
+        }
 
+    }, []);
     //CPF
     const handleChange = (event) => {
         let inputValue = event.target.value;

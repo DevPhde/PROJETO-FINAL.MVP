@@ -6,6 +6,12 @@ import { VerticalModal } from "../components/modals/VerticalModal";
 import { AxiosProvider } from "../providers/axiosProvider";
 
 function RecoveryPasswordPage() {
+  useEffect(() => {
+    if (sessionStorage.getItem('authorization')) {
+      navigate("/dashboard");
+    }
+
+  }, []);
 
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState({
