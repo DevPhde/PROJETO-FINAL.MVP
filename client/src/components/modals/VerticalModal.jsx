@@ -1,7 +1,6 @@
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Link } from 'react-router-dom';
-
+import "../../style/modal.css"
 export function VerticalModal(props) {
   return (
     <Modal
@@ -10,7 +9,7 @@ export function VerticalModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
           {props.title}
         </Modal.Title>
@@ -21,7 +20,10 @@ export function VerticalModal(props) {
         
       </Modal.Body>
       <Modal.Footer>
-        <button className='btn btn-recovery--modal text-white' onClick={props.onHide}><Link className='text-decoration-none text-white' to={props.to}>{props.buttonName}</Link></button>
+        <div className='btn-modal-quality'>
+        {props.anotherbutton && <button className={props.classanotherbutton} onClick={props.clickanotherbutton}>{props.anotherbuttonmessage}</button>}
+        <button className='btn btn-recovery--modal text-white' onClick={props.onHide}><Link className='text-decoration-none text-white' to={props.to}>{props.namebutton}</Link></button>
+        </div>
       </Modal.Footer>
     </Modal>
   );

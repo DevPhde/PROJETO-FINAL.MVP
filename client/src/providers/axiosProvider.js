@@ -1,24 +1,22 @@
 import axios from "axios"
 
 export class AxiosProvider{
-
-    static async get(path, header){
+    static async communication(method, path, hash, body) {
         try {
-            return await axios.get(`https://mvp-backend-k5vq.onrender.com/${path}`, {headers: {'authorization': header}}) 
-        } catch(err) {
+            const options = {
+                method: method,
+                url: `https://mvp-backend-k5vq.onrender.com/${path}`,
+                // url: `http://localhost:3000/${path}`,
+                headers: {
+                  'Content-Type': 'application/json',
+                  authorization: hash
+                },
+                data: body
+              };
+              return axios.request(options)
+        } catch (err) {
             return err.response
-        }
-    }
-    
-    static async post(path, body, header){
-        return await axios.post(`https://mvp-backend-k5vq.onrender.com/${path}`, body)
-    }
+        }   
 
-    static async put(path, body, header){
-        return await axios.put(`https://mvp-backend-k5vq.onrender.com/${path}`, body)
-    }
-
-    static async del(path, header){
-        return await axios.delete(`https://mvp-backend-k5vq.onrender.com/${path}`, {headers:{ }})
     }
 }
