@@ -26,10 +26,10 @@ const router = createBrowserRouter([
         path: '/recovery',
         element: <RecoveryPasswordPage />
       }
-     
     ]
   }
 ])
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
