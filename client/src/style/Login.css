@@ -64,12 +64,10 @@
     color: black;
   }
   .errInput{
-    color:red;
-    display: none;
+    color:red; 
  }
  .errEmail{
     color:red;
-    display: none;
  }
  .errPassword{
     color:red;
