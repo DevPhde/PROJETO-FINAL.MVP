@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import '../style/recoveryPassword.css'
 import ImgRecovery from '../images/img2.png'
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { VerticalModal } from "../components/modals/VerticalModal";
 import { AxiosProvider } from "../providers/axiosProvider";
 
 function RecoveryPasswordPage() {
+  const navigate = useNavigate()
   useEffect(() => {
     if (sessionStorage.getItem('authorization')) {
       navigate("/dashboard");

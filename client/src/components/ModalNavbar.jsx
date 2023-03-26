@@ -54,7 +54,7 @@ function ModalNavbar() {
             console.log(data)
 
             try{
-            const response = await AxiosProvider.post(hash, "new/revenue", data)
+            const response = await AxiosProvider.communication("POST", "new/revenue", hash, data)
             console.log(response)
 
             } catch(error){

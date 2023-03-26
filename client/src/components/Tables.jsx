@@ -190,7 +190,7 @@ export function Tables(props) {
                                     ))}
                                 </Form.Control>
                             </Form.Group>
-                        </section>) : (<div><Loading /></div>)
+                        </section>) : (<div><Loading className="loader-position-button" /></div>)
                     }
 
                 </div>) : (<div>

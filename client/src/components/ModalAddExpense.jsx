@@ -62,7 +62,7 @@ if (result == true && addType == "Despesa") {
 
 
             try {
-                const response = await AxiosProvider.post("new/expenses", data, hash)
+                const response = await AxiosProvider.communication("POST","new/expenses", hash, data)
                 setRes(response.data.message)
 
             } catch (err) {
@@ -76,7 +76,7 @@ if (result == true && addType == "Despesa") {
 
     const getTypeExpense = async () => {
         try {
-            const response = await AxiosProvider.get(null, 'expenses/types')
+            const response = await AxiosProvider.communication("GET", 'expenses/types')
             const data = response.data.message
             setGetTypes(data)
 

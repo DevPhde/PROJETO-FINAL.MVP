@@ -54,7 +54,7 @@ function ModalAddRevenue(props) {
 
 
             try {
-                const response = await AxiosProvider.post("new/revenue", data, hash)
+                const response = await AxiosProvider.communication("POST" , "new/revenue", hash, data)
                 setRes(response.data.message)
 
             } catch (err) {

@@ -6,7 +6,7 @@ import LGasto from "../images/list-gasto.png"
 import Help from "../images/help.png"
 import Settings from "../images/settings.png"
 import { useState } from "react"
-import ChangeModal from "./modal"
+
 import '../style/navbar.css'
 import ModalAddRevenue from "./ModalAddRenevue"
 import ModalAddExpense from "./ModalAddExpense"
@@ -74,9 +74,6 @@ function Navbar() {
                         </div>
                         <ModalAddRevenue type={type}/>
                         <ModalAddExpense type={type}/>
-
-
-
                     </div>
                 </div>
             </div>

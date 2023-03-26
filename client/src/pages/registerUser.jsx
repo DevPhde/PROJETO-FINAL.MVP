@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import '../style/registerUser.css';
 import ImgRecovery from '../images/img2.png';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AxiosProvider } from "../providers/axiosProvider";
 import { BackdropModal } from "../components/modals/BackdropModal";
 import { Loading } from "../components/Loading"
 export function RegisterUser() {
+    const navigate = useNavigate()
     useEffect(() => {
         if (sessionStorage.getItem('authorization')) {
             navigate("/dashboard");
