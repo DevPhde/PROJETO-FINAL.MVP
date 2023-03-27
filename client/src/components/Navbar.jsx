@@ -6,16 +6,17 @@ import LGasto from "../images/list-gasto.png"
 import Help from "../images/help.png"
 import Settings from "../images/settings.png"
 import { useState } from "react"
-
 import '../style/navbar.css'
 import ModalAddRevenue from "./ModalAddRenevue"
 import ModalAddExpense from "./ModalAddExpense"
+import { VerticalModal } from "./modals/VerticalModal"
 
 
 
 function Navbar() {
 
     const [type, setType] = useState()
+    const [showModal, setShowModal] = useState(false)
 
 
 
@@ -29,7 +30,7 @@ function Navbar() {
                     <img src={Home} className="navbar-icon" />
                     <p>Início</p>
                 </li>
-                <li className="nav-item my-2" data-bs-toggle="modal" data-bs-target="#addItem">
+                <li className="nav-item my-2" >
                     <img src={Plus} className="navbar-icon" />
                     <p>Adicionar item</p>
                 </li>
@@ -41,7 +42,7 @@ function Navbar() {
                     <img src={LGasto} className="navbar-icon" />
                     <p>Listar gastos</p>
                 </li>
-                <li className="nav-item my-2" data-bs-toggle="modal" data-bs-target="#aboutApp">
+                <li className="nav-item my-2" >
                     <img src={Help} className="navbar-icon" />
                     <p>Ajuda</p>
                 </li>
@@ -53,7 +54,7 @@ function Navbar() {
             </ul>
         </nav>
 
-        <div className="modal fade" id="addItem" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        {/* <div className="modal fade" id="addItem" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
@@ -74,13 +75,16 @@ function Navbar() {
                         </div>
                         <ModalAddRevenue type={type}/>
                         <ModalAddExpense type={type}/>
+
+
+
                     </div>
                 </div>
             </div>
 
 
-        </div>
-        <div className="modal fade" id="aboutApp" data-bs-backdrop="static" data-bs-keyboard="false"  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        </div> */}
+        {/* <div className="modal fade" id="aboutApp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
@@ -110,7 +114,30 @@ function Navbar() {
             </div>
 
 
-        </div>
+        </div> */}
+        {/* <VerticalModal
+            show={showModal}
+            onHide={ setShowModal(false)}
+            title={'Sobre o SYM :)'}
+            namebutton={"Fechar"}
+            message={(
+                <>
+
+                    <p>A gestão financeira é uma tarefa essencial para qualquer pessoa que deseja ter sucesso em suas finanças. No entanto, muitas vezes pode ser difícil manter o controle de todas as despesas que ocorrem diariamente.
+
+                        Pensando nessa situação, nós criamos o SYM.</p>
+
+                    <p> O SYM(Save Your Money) é uma aplicação de gerenciamento de despesas que lhe ajuda a simplificar esse processo e garantir que as finanças estejam sempre em ordem. Com essa ferramenta, é possível registrar todas as despesas, incluindo compras, contas, entre outros. </p>
+
+                    <p>A aplicação também conta com um dashboard gráfico, que facilita a análise e compreensão dos gastos, além de permitir que os usuários identifiquem áreas de oportunidade para economizar dinheiro e reduzir os gastos desnecessários.</p>
+
+                    <p>Outra vantagem do SYM é a possibilidade de acompanhar as despesas em tempo real. Com isso, é possível monitorar as finanças diariamente e tomar decisões financeiras mais informadas.
+                    </p>
+
+                </>
+            )}
+        /> */}
+
     </div>
     )
 }

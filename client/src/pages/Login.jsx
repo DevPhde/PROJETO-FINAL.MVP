@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import '../style/Login.css';
-import ImgRecovery from '../images/imagemLogin.png';
 import { useNavigate, Link } from "react-router-dom";
 import { AxiosProvider } from "../providers/axiosProvider";
+import Logotipo from "../images/logo5.png"
+import IlustLogin from "../images/ilust4.png"
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -25,7 +26,7 @@ function Login() {
 
     async function userAuthorization() {
         isChecked ? localStorage.setItem('email', email) : localStorage.setItem('email', "")
-           
+
 
         if (isChecked) {
             localStorage.setItem('email', email)
@@ -60,44 +61,49 @@ function Login() {
         setIsChecked(!isChecked);
     };
     return (
-        <main className="main-recovery">
-            <div className="div-img-recovery">
-                <img className="img-recovery" src={ImgRecovery} />
+        <main className="main-container">
+            <div className="div-img-login position-relative">
+                <img className="img-logo position-absolute top-0 start-0" src={Logotipo} />
+                <img className="img-login" src={IlustLogin} />
             </div>
-            <div className="div-info-recovery container text-center  align-items-center">
-                <h1 className="fw-bold title-recovery mb-5">Login</h1>
-                <div className="row mb-5 div-input-recovery">
-                    <div >
-                        <input type="email" className="form-control input-recovery" placeholder="Digite aqui o seu E-mail" value={email} onChange={e => {
+            <div className="div-info-recovery  text-center  align-items-center">
+                <h1 className="fw-bold title-recovery mb-5">Faça o seu login</h1>
+
+                    <div className="form-floating mb-4 div-input-register">
+                        <input value={email} onChange={e => {
                             setEmail(e.target.value);
-                        }} onFocus={() => { setUser(false) }} />
-
+                        }} onFocus={() => { setUser(false) }} type = "email" className = "form-control input-recovery" />
+                                <label htmlFor="floatingInput">Email</label>
                     </div>
-                </div>
-                <div className="row mb-5 div-input-recovery">
-                    <div >
-                        <input type="password" className="form-control input-recovery" placeholder="Digite aqui a sua Senha" onChange={e => {
-                            setPassword(e.target.value);
-                        }} onFocus={() => { setUser(false) }} />
-                    </div>
-                    {user && <p className="errInput">E-mail ou senha inválido.</p>}
 
-                </div>
-                <div className="form-check checkbox">
-                    <input type="checkbox" className="form-check-input checkbox2" checked={isChecked} onChange={handleCheckboxChange} />
-                    <label className="form-check-label">Lembrar Email</label>
-                </div>
-                <Link
-                    className='text-decoration-none text-blue'
-                    to='/recovery'
-                >Esqueceu a Senha?
-                </Link>
-                <div className="d-grid gap-2  div-btn-recovery">
-                    <button className="btn btn-recovery fw-bold" type="button" onClick={userAuthorization}>Entrar</button>
+
+
+
+                    <div className="form-floating mb-4 div-input-register">
+                        <input onChange={e => {setPassword(e.target.value);
+                        }} onFocus={() => { setUser(false) }} type = "password" className = "form-control input-recovery" />
+                                <label htmlFor="floatingInput">Senha</label>
+                    </div>
+                    {user && <p className="errInput">E-mail ou senha inválidos.</p>}
+
+
+                <div className="d-flex flex-row flex-wrap justify-content-between" style={{ width: "80%" }}>
+                    <div className="form-check checkbox">
+                        <input type="checkbox" className="form-check-input checkbox2" checked={isChecked} onChange={handleCheckboxChange} />
+                        <label className="form-check-label">Lembrar Email</label>
+                    </div>
                     <Link
                         className='text-decoration-none text-blue'
+                        to='/recovery'
+                    >Esqueceu a Senha?
+                    </Link>
+                </div>
+                <div className="d-grid gap-2  div-btn-recovery">
+                    <button className="btn btn-login fw-bold" type="button" onClick={userAuthorization}>Entrar</button>
+                    <Link
+                        className='text-decoration-none text-blue mt-3'
                         to='/register'
-                    >Ainda não possui Cadastro?
+                    >Ainda não tem uma conta? Cadastre-se aqui!
                     </Link>
                 </div>
             </div>
