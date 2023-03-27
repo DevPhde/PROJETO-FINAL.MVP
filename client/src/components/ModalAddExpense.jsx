@@ -51,7 +51,7 @@ if (result == true && addType == "Despesa") {
             })
 
             const data = {
-                date: newExpense.date+"T00:00:00Z",
+                date: newExpense.date,
                 name: newExpense.name,
                 amount: Number(newExpense.amount),
                 local: newExpense.local,
@@ -217,7 +217,7 @@ if (result == true && addType == "Despesa") {
                 </div>
                 <div className="my-3">
                     <label htmlFor="date" >Data:</label>
-                    <input type="date" id="date" step="1" name="trip-start" className="mx-3" onChange={(e) => setNewExpense((prevState) => ({ ...prevState, date: e.target.value.split('-').reverse().join('-') }))}
+                    <input type="datetime-local" id="date" step="1" name="trip-start" className="mx-3" onChange={(e) => setNewExpense((prevState) => ({ ...prevState, date: e.target.value }))}
                         onBlur={() => {
                             if (Validation.dateValidation(newExpense.date)) {
                                 setErr((prevState) => ({ ...prevState, date: "" }))

@@ -45,10 +45,11 @@ function ModalAddRevenue(props) {
 
         if (result == true && addType == "Receita") {
             const data = {
-                date: newRevenue.date +"T00:00:00Z",
+                date: newRevenue.date,
                 name: newRevenue.name,
                 amount: Number(newRevenue.amount)
             }
+            console.log(data)
 
             const hash = sessionStorage.getItem('authorization')
 
@@ -133,7 +134,7 @@ function ModalAddRevenue(props) {
                 </div>
                 <div className="my-3">
                     <label htmlFor="date" >Data:</label>
-                    <input type="date" id="date" step="1" name="trip-start" className="mx-3"  onChange = {(e) =>{  setNewRevenue((prevState) => ({ ...prevState, date: e.target.value.split('-').reverse().join('-')}))}}
+                    <input type="datetime-local" id="date" step="1" name="trip-start" className="mx-3"  onChange = {(e) =>{  setNewRevenue((prevState) => ({ ...prevState, date: e.target.value}))}}
                         onBlur={() => {
                             if (Validation.dateValidation(newRevenue.date)) {
                                 setErr((prevState) => ({ ...prevState, date: "" }))

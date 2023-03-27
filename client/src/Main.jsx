@@ -8,6 +8,8 @@ import RecoveryPasswordPage from './pages/recoveryPassword';
 import Dashboard from './pages/Dashboard'
 import Login from "./pages/Login"
 import { RegisterUser } from './pages/registerUser';
+import RevenuesList from './pages/RevenuesList';
+import ExpensesList from './pages/ExpensesList';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +36,16 @@ const router = createBrowserRouter([
       {
         path:'/dashboard',
         element: <Dashboard/>
+
+      },
+      {
+        path:'/dashboard/revenueslist',
+        element: <RevenuesList/>
+
+      },
+      {
+        path:'/dashboard/expenseslist',
+        element: <ExpensesList/>
 
       }
     ]
