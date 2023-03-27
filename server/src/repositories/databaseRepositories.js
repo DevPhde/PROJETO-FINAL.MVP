@@ -2,14 +2,14 @@ import { User } from "../models/User.js";
 import { Expense } from "../models/Expense.js";
 import { TypeExpense } from "../models/TypeExpense.js";
 import { Revenue } from "../models/Revenue.js";
-
+import sequelize from "../db/dbConfig.js";
 export class BaseModel {
   constructor(table) {
     this.table = table;
   }
 
   async sum(param) {
-    return await this.table.sum('amount', {where: param});
+    return await this.table.sum('amount', { where: param });
   }
 
   async findUserId(param) {
@@ -20,6 +20,19 @@ export class BaseModel {
   async findAll(param) {
     return await this.table.findAll({ where: param });
   }
+
+  async sumByMonth(param) {
+    return await this.table.findAll({
+      where: param,
+      attributes: [
+        [sequelize.fn('strftime', '%m', sequelize.col('date')), 'month'],
+        [sequelize.fn('strftime', '%Y', sequelize.col('date')), 'year'],
+        [sequelize.fn('sum', sequelize.col('amount')), 'totalAmount'],
+      ],
+      group: ['month', 'year'],
+    });
+  }
+
   async joinFindAll(param) {
     return await this.table.findAll(param)
   }
@@ -27,6 +40,14 @@ export class BaseModel {
   async findOne(param) {
     return await this.table.findOne({ where: param });
   }
+
+  async findLastOne(param,) {
+    return await this.table.findOne({
+      where: param,
+      order: [['createdAt', 'DESC']]
+    })
+  }
+
 
   async create(data) {
     return await this.table.create(data);

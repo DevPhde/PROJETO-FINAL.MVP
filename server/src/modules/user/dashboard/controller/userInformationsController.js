@@ -17,4 +17,23 @@ export class UserInformationsController extends UserInformationsUseCases {
         const data = await this.typeExpenseTotalValues(authorization)
         data.status ? res.status(200).send(data) : res.status(500).send(data)
     }
+
+    static getMonthlyTotal = async (req, res) => {
+        const param = req.params.param;
+        const {authorization} = req.headers;
+        const getTotal = await this.getTotalByMonth(param, authorization)
+        getTotal.status ? res.status(200).send(getTotal) : res.status(500).send(getTotal);
+    }
+    static lastRegisteredItem = async (req, res) => {
+        const param = req.params.param;
+        const {authorization} = req.headers;
+        const getLast = await this.getLastItem(param, authorization)
+        getLast.status ? res.status(200).send(getLast) : res.status(500).send(getLast);
+    }
+    static getMonthlySum = async (req, res) => {
+        const param = req.params.param;
+        const {authorization} = req.headers;
+        const getSum = await this.getSumByMonth(param, authorization);
+        getSum.status ? res.status(200).send(getSum) : res.status(500).send(getSum);
+    }
 }

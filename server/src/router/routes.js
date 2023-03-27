@@ -25,6 +25,9 @@ router
     .get('/user/informations', AuthMiddleware.authentication, UserInformationsController.userInformations)
     .get('/user/informations/total/values', AuthMiddleware.authentication, UserInformationsController.totalValues)
     .get('/user/informations/total/types', AuthMiddleware.authentication, UserInformationsController.graphStatus)
+    .get('/user/informations/getTotalByActualMonth/:param', AuthMiddleware.authentication, UserInformationsController.getMonthlyTotal)
+    .get('/user/informations/getLastItem/:param', AuthMiddleware.authentication, UserInformationsController.lastRegisteredItem)
+    .get('/user/informations/getMonthlyTotal/:param', AuthMiddleware.authentication, UserInformationsController.getMonthlySum)
     .post('/validatefield', RegisterController.validateField)
     .post('/new/user', RegisterController.userRegistration)
     .post('/user/authorization', AuthorizationController.verifyUserAuthenticity)
@@ -43,3 +46,4 @@ router
     .put('/revenues/edit/:id', AuthMiddleware.authentication, EditRevenuesController.editRevenue)
     .delete('/revenues/delete/:id', AuthMiddleware.authentication, DeleteRevenuesController.deleteRevenue)
     .get('/user/IR', AuthMiddleware.authentication, UserIRController.calculateRevenue)
+    
