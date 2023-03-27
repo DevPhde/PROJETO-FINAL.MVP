@@ -73,18 +73,24 @@ function RevenuesList() {
   
 
     const formatValue = (value) =>{
-        value = value
+        let decimal = value.toFixed(2)
+        decimal = decimal
             .toString()
             .replace(/\D/g, "")
             .replace(/^0+/, "")
             .padStart(3, "0")
             .replace(/^(\d{1,})(\d{2})$/, "$1,$2")
             .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    
+            if(value <0) {
+                decimal = "-"+decimal
+            }
         
         if (value === "0") {
             value += ",";
         }
-        return value
+
+        return decimal
     }
 
     useEffect(() => {
@@ -118,7 +124,7 @@ function RevenuesList() {
                                 <div className="card card-dashboard d-flex flex-row">
                                     <div className="card-body">
                                         <h5 className="card-title">Total de Receita</h5>
-                                        <h6 className="card-subtitle mb-2 card-value">R$ {totalValues.revenues.toFixed(2)} </h6>
+                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(totalValues.revenues)} </h6>
 
                                     </div>
                                     <div className="card-img">
@@ -130,7 +136,7 @@ function RevenuesList() {
                                 <div className="card card-dashboard d-flex flex-row">
                                     <div className="card-body">
                                         <h5 className="card-title">Total de Receita do Mês Vigente</h5>
-                                        <h6 className="card-subtitle mb-2 card-value">R$ {monthValue.totalValue.toFixed(2)}</h6>
+                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(monthValue.totalValue)}</h6>
 
                                     </div>
                                     <div className="card-img">
@@ -141,7 +147,7 @@ function RevenuesList() {
                                 <div className="card card-dashboard d-flex flex-row">
                                     <div className="card-body">
                                         <h5 className="card-title">Valor da Última Receita</h5>
-                                        <h6 className="card-subtitle mb-2 card-value">R$ {lastItem.amount.toFixed(2)}</h6>
+                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(lastItem.amount)}</h6>
 
                                     </div>
                                     <div className="card-img">
@@ -155,7 +161,7 @@ function RevenuesList() {
                                 <h3 className="text-center mb-3 "> Lista de Receitas Adicionadas</h3>
                                 
                                 
-                                {/* <Tables param="revenues"/> */}
+                                <Tables param="revenues"/>
                                 
                             </div>
 

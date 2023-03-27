@@ -26,6 +26,7 @@ function ExpensesList() {
     const getTotal = async () => {
         try {
             const response = await AxiosProvider.communication('GET', 'user/informations/total/values', hash)
+            console.log(response.data.message)
             setTotalValues(response.data.message)
 
 
@@ -49,6 +50,7 @@ function ExpensesList() {
     const getLastItem = async () => {
         try {
             const response = await AxiosProvider.communication('GET', 'user/informations/getLastItem/expenses', hash)
+            console.log(response.data.message)
             setLastItem(response.data.message)
 
 
@@ -57,17 +59,8 @@ function ExpensesList() {
         }
 
     }
-    const Teste = async () => {
-        try {
-            const response = await AxiosProvider.communication('GET', 'user/informations/getMonthlyTotal/revenues', hash)
-            console.log(response.data.message)
 
-
-        } catch (err) {
-            console.log(err)
-        }
-
-    }
+    
 
 
     const getInfo = async () => {
@@ -85,18 +78,24 @@ function ExpensesList() {
   
 
     const formatValue = (value) =>{
-        value = value
+        let decimal = value.toFixed(2)
+        decimal = decimal
             .toString()
             .replace(/\D/g, "")
             .replace(/^0+/, "")
             .padStart(3, "0")
             .replace(/^(\d{1,})(\d{2})$/, "$1,$2")
             .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    
+            if(value <0) {
+                decimal = "-"+decimal
+            }
         
         if (value === "0") {
             value += ",";
         }
-        return value
+
+        return decimal
     }
 
     useEffect(() => {
@@ -104,7 +103,6 @@ function ExpensesList() {
         getTotal();
         getMonthValue();
         getLastItem();
-        Teste();
 
 
     }, [])
@@ -116,7 +114,7 @@ function ExpensesList() {
             {isValid ? <>
                 <div className="d-flex" style={{ backgroundColor: "#F5F5F5", height: "100vh" }}>
                     <Navbar />
-                    {totalValues.length == 0 || userInfo.length == 0 || monthValue.length == 0 || lastItem.length == 0? (<Loading className="loader-position" />) : (
+                    {totalValues == [] || userInfo.length == 0 || monthValue.length == 0 || lastItem.length == 0? (<Loading className="loader-position" />) : (
                         <main style={{ width: "100vw" }}>
                             <ul className="nav justify-content-end mt-3" style={{ marginTop: "1%" }} >
                                 <li className="nav-item d-flex align-items-center flex-wrap" style={{ marginRight: "5%" }}>
@@ -131,7 +129,7 @@ function ExpensesList() {
                                 <div className="card card-dashboard d-flex flex-row">
                                     <div className="card-body">
                                         <h5 className="card-title">Total de Despesas</h5>
-                                        <h6 className="card-subtitle mb-2 card-value">R$ {totalValues.expenses.toFixed(2)} </h6>
+                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(totalValues.expenses)} </h6>
 
                                     </div>
                                     <div className="card-img">
@@ -143,7 +141,7 @@ function ExpensesList() {
                                 <div className="card card-dashboard d-flex flex-row">
                                     <div className="card-body">
                                         <h5 className="card-title">Total de Despesas do Mês Vigente</h5>
-                                        <h6 className="card-subtitle mb-2 card-value">R$ {monthValue.totalValue.toFixed(2)}</h6>
+                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(monthValue.totalValue)}</h6>
 
                                     </div>
                                     <div className="card-img">
@@ -154,7 +152,7 @@ function ExpensesList() {
                                 <div className="card card-dashboard d-flex flex-row">
                                     <div className="card-body">
                                         <h5 className="card-title">Valor da Última Despesa</h5>
-                                        <h6 className="card-subtitle mb-2 card-value">R$ {lastItem.amount.toFixed(2)}</h6>
+                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(lastItem.amount)}</h6>
 
                                     </div>
                                     <div className="card-img">
@@ -168,8 +166,8 @@ function ExpensesList() {
                                 <h3 className="text-center mb-3 "> Lista de Despesas Adicionadas</h3>
                                 
                                 
-                                {/* <Tables param="expenses"/>
-                                 */}
+                                <Tables param="expenses"/>
+                                
                             </div>
 
 

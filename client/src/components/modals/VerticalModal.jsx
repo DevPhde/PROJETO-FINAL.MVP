@@ -19,7 +19,6 @@ export function VerticalModal(props) {
         {props.message}
 
       </Modal.Body>
-<<<<<<< Updated upstream
 
         <Modal.Footer>
           <div className='btn-modal-quality'>
@@ -27,16 +26,6 @@ export function VerticalModal(props) {
             <button className='btn btn-recovery--modal text-white' onClick={props.onHide}><Link className='text-decoration-none text-white' to={props.to}>{props.namebutton}</Link></button>
           </div>
         </Modal.Footer>
-=======
-      {props.footer &&
-      <Modal.Footer>
-        <div className='btn-modal-quality'>
-        {props.anotherbutton && <button className={props.classanotherbutton} onClick={props.clickanotherbutton}>{props.anotherbuttonmessage}</button>}
-        <button className='btn btn-recovery--modal text-white' onClick={props.onHide}><Link className='text-decoration-none text-white' to={props.to}>{props.namebutton}</Link></button>
-        </div>
-      </Modal.Footer>
-      }
->>>>>>> Stashed changes
     </Modal>
   );
 }
