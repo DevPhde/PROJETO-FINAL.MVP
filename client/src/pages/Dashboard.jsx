@@ -11,6 +11,7 @@ import { Chart } from "react-google-charts";
 import { Loading } from "../components/Loading"
 import JwtValidator from "../components/JwtValidator"
 
+
 function Dashboard() {
     const hash = sessionStorage.getItem('authorization')
     const [totalValues, setTotalValues] = useState([])
@@ -78,6 +79,7 @@ function Dashboard() {
 
     return (
         <>
+        
             {isValid ? <>
                 <div className="d-flex" style={{ backgroundColor: "#F5F5F5", height: "100vh" }}>
                     <Navbar />
@@ -129,10 +131,6 @@ function Dashboard() {
                                 </div>
                             </div>
                             <div className="chart-field d-flex flex-row">
-
-
-
-
                                 {chartDonut.length == 0 ? (<Loading />) :
                                     (<div className="chart-pie bg-white card card-dashboard" style={{ width: "40%", padding: "-150px" }}>
                                         <h5 className="my-3 text-center"> Porcentagem de Gasto por Tipo de Despesa</h5>
@@ -149,7 +147,7 @@ function Dashboard() {
                         </main>)}
                 </div>
             </> : <main><Loading className="loader-position"/></main>}
-
+            
         </>)
 
 }

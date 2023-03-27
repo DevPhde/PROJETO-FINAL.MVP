@@ -142,7 +142,6 @@ export function Tables(props) {
         }, [update])
 
     }
-    console.log(Number(values.amount.replace(/\./g, "").replace(",", ".")))
     return (
         <div>
             <VerticalModal

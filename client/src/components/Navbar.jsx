@@ -10,19 +10,24 @@ import '../style/navbar.css'
 import ModalAddRevenue from "./ModalAddRenevue"
 import ModalAddExpense from "./ModalAddExpense"
 import { VerticalModal } from "./modals/VerticalModal"
-
+import { IRVerify } from "./IRVerify"
 
 
 function Navbar() {
 
     const [type, setType] = useState()
-    const [showModal, setShowModal] = useState(false)
+    const [showModalHelp, setShowModalHelp] = useState(false)
+    const [showCreateModal, setShowCreateModal] = useState(false)
+    // const [showModalWarning, setShowModalWarning] = useState(false) // warning modal
 
-
-
+    const handleModal = () => {
+        setShowModalWarning(false)
+        console.log('oi')
+    }
     return (<div>
 
         <nav className="text-center navbar-dashboard" >
+
             <img src={Logo} className="navbar-logo" />
 
             <ul className="nav flex-column mt-5 text-center ">
@@ -30,7 +35,7 @@ function Navbar() {
                     <img src={Home} className="navbar-icon" />
                     <p>Início</p>
                 </li>
-                <li className="nav-item my-2" >
+                <li className="nav-item my-2" onClick={() => setShowCreateModal(true)}  >
                     <img src={Plus} className="navbar-icon" />
                     <p>Adicionar item</p>
                 </li>
@@ -42,7 +47,7 @@ function Navbar() {
                     <img src={LGasto} className="navbar-icon" />
                     <p>Listar gastos</p>
                 </li>
-                <li className="nav-item my-2" >
+                <li className="nav-item my-2" onClick={() => setShowModalHelp(true)} >
                     <img src={Help} className="navbar-icon" />
                     <p>Ajuda</p>
                 </li>
@@ -50,10 +55,41 @@ function Navbar() {
                     <img src={Settings} className="navbar-icon" />
                     <p>Configurar conta</p>
                 </li>
+                {/* <li className="nav-item my-2" onClick={()=> setShowModalWarning(true)}>
+                    <IRVerify
+                        show={showModalWarning}
+                        onHide={handleModal}
+                    />
+                </li> */}
+
+
 
             </ul>
         </nav>
+        <div>
+            <VerticalModal
+                show={showCreateModal}
+                onHide={() => setShowCreateModal(false)}
+                title={'Sobre o SYM :)'}
+                namebutton={"Fechar"}
+                message={(
+                    <>
 
+                        <p>A gestão financeira é uma tarefa essencial para qualquer pessoa que deseja ter sucesso em suas finanças. No entanto, muitas vezes pode ser difícil manter o controle de todas as despesas que ocorrem diariamente.
+
+                            Pensando nessa situação, nós criamos o SYM.</p>
+
+                        <p> O SYM(Save Your Money) é uma aplicação de gerenciamento de despesas que lhe ajuda a simplificar esse processo e garantir que as finanças estejam sempre em ordem. Com essa ferramenta, é possível registrar todas as despesas, incluindo compras, contas, entre outros. </p>
+
+                        <p>A aplicação também conta com um dashboard gráfico, que facilita a análise e compreensão dos gastos, além de permitir que os usuários identifiquem áreas de oportunidade para economizar dinheiro e reduzir os gastos desnecessários.</p>
+
+                        <p>Outra vantagem do SYM é a possibilidade de acompanhar as despesas em tempo real. Com isso, é possível monitorar as finanças diariamente e tomar decisões financeiras mais informadas.
+                        </p>
+
+                    </>
+                )}
+            />
+            </div>
         {/* <div className="modal fade" id="addItem" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
@@ -115,9 +151,9 @@ function Navbar() {
 
 
         </div> */}
-        {/* <VerticalModal
-            show={showModal}
-            onHide={ setShowModal(false)}
+        <VerticalModal
+            show={showModalHelp}
+            onHide={() => setShowModalHelp(false)}
             title={'Sobre o SYM :)'}
             namebutton={"Fechar"}
             message={(
@@ -136,7 +172,7 @@ function Navbar() {
 
                 </>
             )}
-        /> */}
+        />
 
     </div>
     )

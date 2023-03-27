@@ -107,6 +107,7 @@ console.log(feedbackUser)
                         classanotherbutton={deleteAccount ? "btn table-modal-btn btn-danger" : "btn table-modal-btn btn-success"}
                         clickanotherbutton={deleteAccount ? handleDeleteAccount : handleEditUser}
                         anotherbuttonmessage={deleteAccount ? "Deletar" : "Salvar"}
+                        footer={'true'}
                         namebutton={deleteAccount ? "Voltar" : moreOptions ? "Voltar" : "Cancelar"}
                         message={(
                             <>
