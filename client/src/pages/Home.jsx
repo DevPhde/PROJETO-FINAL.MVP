@@ -7,7 +7,7 @@ function Home() {
     <div>
       {/* <JwtValidator/> */}
       {/* <EditProfile /> */}
-      {/* <Tables param={'expenses'}/> */}
+      <Tables param={'revenues'}/>
     </div>
   )
 }

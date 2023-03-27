@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
 import { AxiosProvider } from '../providers/axiosProvider'
 import { VerticalModal } from './modals/VerticalModal'
 import "../style/modal.css"
@@ -34,8 +33,6 @@ export function EditProfile() {
 
                 console.log(response)
             } catch (err) {
-                console.log(err)
-                console.log('oi')
                 setFeedbackUser(prevState=> ({...prevState, error: true, message: err.response.data.message}))
                 setUser(false)
                 setLoading(false)
