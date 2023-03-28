@@ -3,3 +3,16 @@
     overflow: auto;
 }
 
+@media (max-width: 450px){
+
+    .tables {
+        width: 100%;
+    }
+}
+
+@media (max-width: 450px){
+
+    .tables {
+        width: 100%;
+    }
+}

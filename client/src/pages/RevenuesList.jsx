@@ -10,6 +10,9 @@ import { AxiosProvider } from "../providers/axiosProvider"
 import { Loading } from "../components/Loading"
 import JwtValidator from "../components/JwtValidator"
 import { Tables } from "../components/Tables"
+import ImgPig from "../images/pig.png"
+import CalendarR from "../images/calendar-r.png"
+import Money from "../images/money.png"
 
 function RevenuesList() {
     const hash = sessionStorage.getItem('authorization')
@@ -125,37 +128,37 @@ function RevenuesList() {
                                 </li>
                             </ul>
                             <div className="card-field my-5 d-flex justify-content-around flex-wrap">
-                                <div className="card card-dashboard d-flex flex-row">
+                                <div className="card card-dashboard">
                                     <div className="card-body">
                                         <h5 className="card-title">Total de Receita</h5>
                                         <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(totalValues.revenues)} </h6>
 
                                     </div>
-                                    <div className="card-img">
-                                        <img src={Coin} className="card-img-dashboard mt-3" />
+                                    <div className="card-img img-list" >
+                                        <img src={Money} className="card-img-dashboard mt-3" />
                                     </div>
 
                                 </div>
 
-                                <div className="card card-dashboard d-flex flex-row">
+                                <div className="card card-dashboard">
                                     <div className="card-body">
                                         <h5 className="card-title">Total de Receita do Mês Vigente</h5>
                                         <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(monthValue.totalValue)}</h6>
 
                                     </div>
-                                    <div className="card-img">
-                                        <img src={Gasto} className="card-img-dashboard mt-3" />
+                                    <div className="card-img mr-2 img-list"  >
+                                        <img src={CalendarR} className="card-img-dashboard calendar mt-4 " />
                                     </div>
 
                                 </div>
-                                <div className="card card-dashboard d-flex flex-row">
-                                    <div className="card-body">
+                                <div className="card card-dashboard">
+                                    <div className="card-body ">
                                         <h5 className="card-title">Valor da Última Receita</h5>
                                         <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(lastItem.amount)}</h6>
 
                                     </div>
-                                    <div className="card-img">
-                                        <img src={Receita} className="card-img-dashboard mt-3" />
+                                    <div className="card-img img-list"  >
+                                        <img src={ImgPig} className="card-img-dashboard mt-3" />
                                     </div>
 
                                 </div>

@@ -174,7 +174,7 @@ function Dashboard() {
             console.log(barChartExpenses)
 
 
-
+       
 
 
 
@@ -182,19 +182,18 @@ function Dashboard() {
             console.log(err)
         }
 
-
-        configLineChart()
+        console.log(barChartExpenses)
+        console.log(barChartRevenues)
+      
 
     }
 
 
 
 
-
-    async function configLineChart() {
-
-
-
+ function configLineChart() {
+ 
+    if(barChartExpenses != '' && barChartRevenues != ''){
         const date = new Date();
         const currentMonth = date.getMonth() + 1
 
@@ -252,9 +251,12 @@ function Dashboard() {
 
         setDataLineChart(lineChart != [])
 
+        
 
-    }
 
+}
+
+}
 
 
 
@@ -287,6 +289,8 @@ function Dashboard() {
         getInfo();
         getTotal();
         getDataBarChart();
+        configLineChart()
+
 
 
     }, [])
@@ -358,9 +362,6 @@ function Dashboard() {
 
                                 {chartDonut.length == 0 ? (<Loading />) : dataChartDonut ?
 
-
-
-
                                     (<div className="chart-pie bg-white card card-dashboard " >
                                         <h5 className="my-3 text-center"> Porcentagem de Gasto por Tipo de Despesa</h5>
                                         <Chart
@@ -397,9 +398,9 @@ function Dashboard() {
                                             <h5 className="my-2 text-center"> Total de Receita por Mês</h5>
                                             <p>Dados insuficientes para gerar o gráfico!</p>
                                         </div>}
-                                    {barChartRevenues.length == 0 || barChartExpenses.length == 0 || lineChart.length == 0 ? (<Loading />) : dataLineChart && dataBarChartRevenues && dataBarChartExpenses ?
+                                    {barChartRevenues.length == 0 || barChartExpenses.length == 0 || lineChart.length == 0 ? (<Loading />) : dataBarChartRevenues && dataBarChartExpenses ?
                                         // (console.log(lineChart)
-
+ 
                                         // ) 
 
                                         (<>

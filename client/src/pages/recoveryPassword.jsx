@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import '../style/recoveryPassword.css'
-import ImgRecovery from '../images/img2.png'
 import { Link, useNavigate } from "react-router-dom";
 import { VerticalModal } from "../components/modals/VerticalModal";
 import { AxiosProvider } from "../providers/axiosProvider";

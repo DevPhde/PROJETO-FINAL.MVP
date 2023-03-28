@@ -2,9 +2,9 @@ import User from "../images/user.png"
 import Navbar from "../components/Navbar"
 import Out from "../images/out.png"
 import '../style/dashboard.css'
-import Coin from "../images/coin.png"
-import Gasto from "../images/gasto.png"
-import Receita from "../images/receita.png"
+import Total from "../images/totale.png"
+import CalendarE from "../images/calendar-e.png"
+import Fly from "../images/moneyfly2.jpg"
 import { useState, useEffect } from "react"
 import { AxiosProvider } from "../providers/axiosProvider"
 import { Loading } from "../components/Loading"
@@ -130,37 +130,37 @@ function ExpensesList() {
                                 </li>
                             </ul>
                             <div className="card-field my-5 d-flex justify-content-around flex-wrap">
-                                <div className="card card-dashboard d-flex flex-row">
+                                <div className="card card-dashboard ">
                                     <div className="card-body">
                                         <h5 className="card-title">Total de Despesas</h5>
                                         <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(totalValues.expenses)} </h6>
 
                                     </div>
-                                    <div className="card-img">
-                                        <img src={Coin} className="card-img-dashboard mt-3" />
+                                    <div className="card-img img-list"  style={{width:"40%"}}>
+                                        <img src={Total} className="card-img-dashboard mt-3" />
                                     </div>
 
                                 </div>
 
-                                <div className="card card-dashboard d-flex flex-row">
+                                <div className="card card-dashboard ">
                                     <div className="card-body">
                                         <h5 className="card-title">Total de Despesas do Mês Vigente</h5>
                                         <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(monthValue.totalValue)}</h6>
 
                                     </div>
-                                    <div className="card-img">
-                                        <img src={Gasto} className="card-img-dashboard mt-3" />
+                                    <div className="card-img img-list" style={{width:"50%"}}>
+                                        <img src={CalendarE} className="card-img-dashboard mt-3" />
                                     </div>
 
                                 </div>
-                                <div className="card card-dashboard d-flex flex-row">
+                                <div className="card card-dashboard ">
                                     <div className="card-body">
                                         <h5 className="card-title">Valor da Última Despesa</h5>
                                         <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(lastItem.amount)}</h6>
 
                                     </div>
-                                    <div className="card-img">
-                                        <img src={Receita} className="card-img-dashboard mt-3" />
+                                    <div className="card-img img-list"  style={{width:"60%"}}>
+                                        <img src={Fly} className="card-img-dashboard mt-3" />
                                     </div>
 
                                 </div>

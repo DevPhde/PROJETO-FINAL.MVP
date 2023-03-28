@@ -19,11 +19,20 @@
 
 .card-img{
     width: 30%;
+    text-align: center;
+}
+
+.img-list{
+    width: 50%;
 }
 
 .card-img-dashboard{
     width: 80%;
+
+   
 }
+
+
 
 
 .chart-field{
@@ -145,6 +154,10 @@
         width: 100%;
         min-width: 150px;
     
+    }
+
+    .img-list{
+        width: 10%;
     }
 }
 
