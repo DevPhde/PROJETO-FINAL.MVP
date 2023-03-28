@@ -5,7 +5,7 @@ import LReceita from "../images/list-receita.png"
 import LGasto from "../images/list-gasto.png"
 import Help from "../images/help.png"
 import Settings from "../images/settings.png"
-import { useState, createContext } from "react"
+import { useState } from "react"
 import '../style/navbar.css'
 import "../style/modal.css"
 import ModalAddRevenue from "./ModalAddRenevue"
@@ -14,25 +14,17 @@ import { VerticalModal } from "./modals/VerticalModal"
 import { IRVerify } from "./IRVerify"
 import { Link } from "react-router-dom"
 import { EditProfile } from "./EditProfile"
-
+import CreateItemModal from "./CreateItemModal"
 
 function Navbar() {
     const [type, setType] = useState()
     const [showModalHelp, setShowModalHelp] = useState(false)
     const [showCreateModal, setShowCreateModal] = useState(false)
-    // const [showModalWarning, setShowModalWarning] = useState(false) // warning modal
     const [showModal, setShowModal] = useState(false)
     const [showAddItem, setShowAddItem] = useState(false)
     const [showProfileModal, setShowProfileModal] = useState(false)
-
-
-
     const [showModalWarning, setShowModalWarning] = useState(false) // warning modal
 
-    const handleModal = () => {
-        setShowModalWarning(false)
-        console.log('oi')
-    }
     return (<div>
 
         <nav className="text-center navbar-dashboard" >
@@ -78,43 +70,16 @@ function Navbar() {
                     showModal={showModal}
                     hideModal={() => setShowModal(false)}
                 />
-
+            
             </ul>
         </nav>
         <div>
-            <VerticalModal
-                show={showCreateModal}
-                onHide={() => setShowCreateModal(false)}
-                title={'Adicionar Item'}
-                namebutton={"Fechar"}
-                anotherbutton="true"
-                classanotherbutton={"btn table-modal-btn btn-success"}
-                anotherbuttonmessage={"Editar"}
-                clickanotherbutton={() => handleEditRow()}
-                message={(
-                    <>
-                        <div className="modal-body">
-                            <div className="form-floating">
-                                <select className="form-select" onChange={(e) => {
-                                    setType(e.target.value)
-                                    console.log(e.target.value)
-                                }} id="floatingSelect" aria-label="Floating label select example">
-                                    <option defaultValue="1">Selecione</option>
-                                    <option defaultValue="1">Receita</option>
-                                    <option defaultValue="2">Despesa</option>
-                                </select>
-                                <label htmlFor="floatingSelect">Escolha o tipo de item que deseja adicionar</label>
-                            </div>
 
-                            <ModalAddRevenue type={type} />
-                            <ModalAddExpense type={type} />
-                        </div>
-
-                    </>
-                )}
-            />
         </div>
-
+        <CreateItemModal
+            showModal={showCreateModal}
+            hideModal={() => setShowCreateModal(false)}
+        />
 
 
 

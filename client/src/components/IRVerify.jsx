@@ -5,7 +5,7 @@ import warningIr from "../images/warningIr.png"
 import tabelaIr from "../images/tabelair.png"
 import "../style/irWarning.css"
 export function IRVerify(props) {
-    const [warning, setWarning] = useState(true)
+    const [warning, setWarning] = useState(false)
     const [user, setUser] = useState([])
     useEffect(() => {
         async function verifyIR(hash) {
