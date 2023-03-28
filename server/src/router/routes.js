@@ -38,7 +38,7 @@ router
     .post('/expenses/types/new', TypeExpensesController.createNewTypeExpense)
     .delete('/expenses/types/delete/:id', TypeExpensesController.deleteTypeExpense)
     .get('/expenses', AuthMiddleware.authentication, ListExpensesController.listExpenses)
-    .post('/new/expenses', AuthMiddleware.authentication, NewExpensesController.createExpense)
+    .post('/new/expense', AuthMiddleware.authentication, NewExpensesController.createExpense)
     .put('/expenses/edit/:id', AuthMiddleware.authentication, EditExpensesController.editExpense)
     .delete('/expenses/delete/:id', AuthMiddleware.authentication, DeleteExpensesController.deleteExpense)
     .get('/revenues', AuthMiddleware.authentication, ListRevenuesController.listRevenues)
