@@ -6,7 +6,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { BackdropModal } from "./modals/BackdropModal";
 function CreateItemModal(props) {
     const hash = sessionStorage.getItem('authorization')
-    const [type, setType] = useState([])
+    const [type, setType] = useState("Selecione")
     const [creatingItem, setCreatingItem] = useState(false)
     const [typeExpenses, setTypeExpenses] = useState([])
     const [selectedOption, setSelectedOption] = useState('')
@@ -17,6 +17,8 @@ function CreateItemModal(props) {
         local: '',
         TypeExpenseId: ''
     })
+    const [createFeedback, setCreateFeedback] = useState(false)
+    const [loadingReq, setLoadingReq] = useState(false)
 
     const [reqError, setReqError] = useState(false)
 
@@ -29,7 +31,7 @@ function CreateItemModal(props) {
     })
 
     const formatValue = (value) => {
-        let decimal = value.toFixed(2)
+        let decimal = value
         decimal = decimal
             .toString()
             .replace(/\D/g, "")
@@ -77,15 +79,22 @@ function CreateItemModal(props) {
                 const data = {
                     date: values.date,
                     name: values.name,
-                    amount: values.amount
+                    amount: Number(values.amount.replace(/\./g, "").replace(",", ""))
                 }
                 if (type == "expense") {
                     data.local = values.local,
-                        data.TypeExpenseId = selectedOption.id
+                    data.TypeExpenseId = selectedOption.id
                 }
-                const response = await AxiosProvider.communication("POST", `new/${type}`, hash)
-                console.log(response)
+                setLoadingReq(true)
+                const response = await AxiosProvider.communication("POST", `new/${type}`, hash, data)
+                setCreateFeedback(response.data.message)
+                setType("Selecione")
+                setLoadingReq(false)
+
+
             } catch (e) {
+                setLoadingReq(false)
+                console.log(e)
                 setReqError(e.response.data.message)
             }
         }
@@ -94,9 +103,13 @@ function CreateItemModal(props) {
         setType('')
         setCreatingItem(false)
         setReqError(false)
+        setIsValid(prevState => ({ ...prevState, date: true, name: true, amount: true, local: true, TypeExpenseId: true }))
+        setValues(prevState => ({ ...prevState, date: '', name: '', amount: '', local: '', TypeExpenseId: '' }))
+        setCreateFeedback(false)
         async function getTypeExpenses() {
             const response = await AxiosProvider.communication('GET', 'expenses/types')
             setTypeExpenses(response.data.message)
+            setSelectedOption(response.data.message[0])
         }
         getTypeExpenses()
 
@@ -118,7 +131,7 @@ function CreateItemModal(props) {
                 onHide={props.hideModal}
                 title={'Adicionar Item'}
                 namebutton={"Fechar"}
-                anotherbutton={creatingItem ? "true" : ""}
+                anotherbutton={loadingReq ? "loading" : creatingItem ? "true" : ""}
                 classanotherbutton={"btn table-modal-btn btn-success"}
                 anotherbuttonmessage={type == "expense" ? "Adicionar Despesa" : "Adicionar Receita"}
                 clickanotherbutton={() => handleCreateItem()}
@@ -130,11 +143,14 @@ function CreateItemModal(props) {
                             message={reqError}
                         />}
                         <div className="modal-body">
+                            {createFeedback && <p className="text-success">{createFeedback}</p>}
                             <div className="form-floating">
-                                <select className="form-select" onChange={(e) => {
-                                    e.target.value == "Despesa" ? setType('expense') : e.target.value == "Receita" ? setType('revenue') : setType("")
-
+                                <select className="form-select" value={type == "revenue" ? "Receita" : type  == "expense" ? "Despesa" : "Selecione"} onChange={(e) => {
+                                    e.target.value == "Despesa" ? setType('expense') : e.target.value == "Receita" ? setType('revenue') : setType("Selecione")
+                                    setIsValid(prevState => ({ ...prevState, date: true, name: true, amount: true, local: true, TypeExpenseId: true }))
+                                    setValues(prevState => ({ ...prevState, date: '', name: '', amount: '', local: '', TypeExpenseId: '' }))
                                     e.target.value != "Selecione" ? setCreatingItem(true) : setCreatingItem(false)
+                                    setCreateFeedback(false)
                                     console.log(e.target.value)
                                 }} id="floatingSelect" aria-label="Floating label select example">
                                     <option defaultValue="1">Selecione</option>
@@ -152,15 +168,10 @@ function CreateItemModal(props) {
                                 </div>
                                 {!isValid.name && <p className="text-danger">Preencha o campo nome com pelo menos 3 caracteres.</p>}
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value < .01 ? setIsValid(prevState => ({ ...prevState, amount: false })) : setIsValid(prevState => ({ ...prevState, amount: true })) }} onChange={event => setValues((prevState) => ({ ...prevState, amount: event.target.value }))} value={values.amount} />
+                                    <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value < .01 ? setIsValid(prevState => ({ ...prevState, amount: false })) : setIsValid(prevState => ({ ...prevState, amount: true })) }} onChange={event => setValues((prevState) => ({ ...prevState, amount: formatValue(event.target.value) }))} value={values.amount} />
                                     <label htmlFor="floatingInput">Valor</label>
                                 </div>
                                 {!isValid.amount && <p className="text-danger">O campo valor não pode estar vazio.</p>}
-                                <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value == "" ? setIsValid(prevState => ({ ...prevState, local: false })) : setIsValid(prevState => ({ ...prevState, local: true })) }} onChange={(event) => setValues((prevState) => ({ ...prevState, local: event.target.value }))} value={values.local} />
-                                    <label htmlFor="floatingInput">Local</label>
-                                </div>
-                                {!isValid.local && <p className="text-danger">O campo local não pode estar vazio.</p>}
                                 <label htmlFor="date" >Data:</label>
                                 <input type="datetime-local" id="date" step="1" name="trip-start" className="mx-3" onChange={(e) => { setValues((prevState) => ({ ...prevState, date: e.target.value })) }}
                                     onBlur={() => {
@@ -168,7 +179,7 @@ function CreateItemModal(props) {
 
                                     }}
                                 />
-                                {!isValid.date && <p className="text-danger">O campo local não pode estar vazio.</p>}
+                                {!isValid.date && <p className="text-danger">A data deve ser selecionada.</p>}
                             </div> : type == "expense" ?
                                 <div className="px-3">
                                     <div className="form-floating mb-3">
@@ -177,7 +188,7 @@ function CreateItemModal(props) {
                                     </div>
                                     {!isValid.name && <p className="text-danger">Preencha o campo nome com pelo menos 3 caracteres.</p>}
                                     <div className="form-floating mb-3">
-                                        <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value < .01 ? setIsValid(prevState => ({ ...prevState, amount: false })) : setIsValid(prevState => ({ ...prevState, amount: true })) }} onChange={event => setValues((prevState) => ({ ...prevState, amount: event.target.value }))} value={values.amount} />
+                                        <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value < .01 ? setIsValid(prevState => ({ ...prevState, amount: false })) : setIsValid(prevState => ({ ...prevState, amount: true })) }} onChange={event => setValues((prevState) => ({ ...prevState, amount: formatValue(event.target.value) }))} value={values.amount} />
                                         <label htmlFor="floatingInput">Valor</label>
                                     </div>
                                     {!isValid.amount && <p className="text-danger">O campo valor não pode estar vazio.</p>}
@@ -187,55 +198,41 @@ function CreateItemModal(props) {
                                     </div>
                                     {!isValid.local && <p className="text-danger">O campo local não pode estar vazio.</p>}
 
+                                    <div className="d-flex">
 
-                                    {typeExpenses ? (
-                                        // <section className="col-lg-5 row text-center">
-                                        //     <Form.Group controlId="ControlSelect1">
-                                        //         <Form.Label className="text-white">Tipo de Despesa</Form.Label>
-                                        //         <Form.Control
-                                        //             as="select"
-                                        //             value={selectedOption.name}
-                                        //             onChange={handleChangeTypeExpense}
-                                        //         >
-                                        //             <option value="" disabled>
-                                        //                 Selecionar tipo de despesa
-                                        //             </option>
-                                        //             {typeExpenses.map((typeExpense) => (
-                                        //                 <option key={typeExpense.id}>{typeExpense.name}</option>
-                                        //             ))}
-                                        //         </Form.Control>
-                                        //     </Form.Group>
-                                        // </section>
-
-                                        <FloatingLabel controlId="floatingSelect" label="Selecione o tipo de despesa" >
-                                            <Form.Select aria-label="Floating label select example" className="mb-3"
-                                                as="select"
-                                                value={selectedOption.name}
-                                                onChange={handleChangeTypeExpense}
-                                            >
-                                                <option value="" disabled>
-                                                    Selecionar tipo de despesa
-                                                </option>
-                                                {typeExpenses.map((typeExpense) => (
-                                                    <option key={typeExpense.id}>{typeExpense.name}</option>
-                                                ))}
-                                            </Form.Select>
-                                        </FloatingLabel>
+                                        <section className="me-5 mt-3">
+                                            {typeExpenses ? (
+                                                <FloatingLabel controlId="floatingSelect" label="Selecione o tipo de despesa" >
+                                                    <Form.Select aria-label="Floating label select example" className="mb-3"
+                                                        as="select"
+                                                        value={selectedOption.name}
+                                                        onChange={handleChangeTypeExpense}
+                                                    >
+                                                        <option value="" disabled>
+                                                            Selecionar tipo de despesa
+                                                        </option>
+                                                        {typeExpenses.map((typeExpense) => (
+                                                            <option key={typeExpense.id}>{typeExpense.name}</option>
+                                                        ))}
+                                                    </Form.Select>
+                                                </FloatingLabel>
 
 
 
-                                    ) : (<div><Loading /></div>)
-                                    }
+                                            ) : (<div><Loading /></div>)
+                                            }
+                                        </section>
+                                        <section className="ms-5 mt-4">
+                                            <label htmlFor="date" >Data:</label>
+                                            <input type="datetime-local" id="date" step="1" name="trip-start" className="mx-3" onChange={(e) => { setValues((prevState) => ({ ...prevState, date: e.target.value })) }}
+                                                onBlur={() => {
+                                                    values.date ? setIsValid((prevState) => ({ ...prevState, date: true })) : setIsValid((prevState) => ({ ...prevState, date: false }))
 
-
-                                    <label htmlFor="date" >Data:</label>
-                                    <input type="datetime-local" id="date" step="1" name="trip-start" className="mx-3" onChange={(e) => { setValues((prevState) => ({ ...prevState, date: e.target.value })) }}
-                                        onBlur={() => {
-                                            values.date ? setIsValid((prevState) => ({ ...prevState, date: true })) : setIsValid((prevState) => ({ ...prevState, date: false }))
-
-                                        }}
-                                    />
-                                    {!isValid.date && <p className="text-danger">O campo local não pode estar vazio.</p>}
+                                                }}
+                                            />
+                                            {!isValid.date && <p className="text-danger">A data precisa ser selecionada.</p>}
+                                        </section>
+                                    </div>
                                 </div> : <div className="px-3"> <p>Nenhuma alternativa selecionada.</p></ div>}
                     </>
                 )

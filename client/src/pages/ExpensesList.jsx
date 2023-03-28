@@ -79,7 +79,7 @@ function ExpensesList() {
 
     const formatValue = (value) => {
         if (value) {
-            let decimal = value.toFixed(2)
+            let decimal = value
             decimal = decimal
                 .toString()
                 .replace(/\D/g, "")

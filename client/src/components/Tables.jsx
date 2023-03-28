@@ -19,7 +19,7 @@ export function Tables(props) {
         TypeExpenseId: 0,
         TypeExpense: null
     });
-
+    const [loadingReq, setLoadingReq] = useState(false)
     const [message, setMessage] = useState('');
 
     const [isValid, setIsValid] = useState({
@@ -77,22 +77,26 @@ export function Tables(props) {
             if (values.TypeExpenseId !== null) {
                 data.TypeExpenseId = selectedTypeExpense.id;
             }
+            setLoadingReq(true)
             const response = await AxiosProvider.communication("PUT", `${props.param}/edit/${values.id}`, hash, data);
             setMessage(response.data.message);
             setUpdate(update + 1);
             setEditing(prevState => ({ ...prevState, edit: false, key: 0 }));
+            setLoadingReq(false)
         }
     }
 
     const handleDeleteRow = async () => {
+        setLoadingReq(true)
         const response = await AxiosProvider.communication("DELETE", `${props.param}/delete/${deleting.key}`, hash)
         setMessage(response.data.message)
         setUpdate(update + 1)
         setDeleting(false)
+        setLoadingReq(false)
     }
 
     const formatValue = (value) => {
-        let decimal = value.toFixed(2)
+        let decimal = value
         decimal = decimal
             .toString()
             .replace(/\D/g, "")
@@ -148,6 +152,7 @@ export function Tables(props) {
         }, [update])
 
     }
+    console.log(data)
     return (
         <div>
             <VerticalModal
@@ -157,7 +162,7 @@ export function Tables(props) {
                     setSelectedTypeExpense(false)
                 }}
                 title={`Editar ${props.param == 'expenses' ? "Despesa" : "Receita"}`}
-                anotherbutton="true"
+                anotherbutton={loadingReq ? "loading" : "true"}
                 classanotherbutton={"btn table-modal-btn btn-success"}
                 clickanotherbutton={() => handleEditRow()}
                 anotherbuttonmessage={"Editar"}
@@ -230,7 +235,7 @@ export function Tables(props) {
                 title={`Deletar ${props.param == 'expenses' ? "Despesa" : "Receita"}`}
                 change={() => handleDeleteRow()}
                 to={'/'}
-                anotherbutton={true}
+                anotherbutton={loadingReq ? "loading" : "true"}
                 classanotherbutton={"btn table-modal-btn btn-danger"}
                 clickanotherbutton={() => handleDeleteRow()}
                 anotherbuttonmessage={"Deletar"}
