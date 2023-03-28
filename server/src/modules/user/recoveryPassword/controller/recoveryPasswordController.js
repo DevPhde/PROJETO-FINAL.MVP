@@ -13,7 +13,7 @@ export class RecoveryPasswordController extends RecoveryPasswordUseCases {
             if (!newPassword.status) {
                 return res.status(401).send(newPassword);
             } else {
-                const sendNewPassword = await this.mailer.sendMail("recoveryPassword", data, `
+                const sendNewPassword = await this.mailer.sendMail("Recuperação se senha" ,"recoveryPassword", data, `
     Foi solicitada uma recuperação de senha. Segue abaixo sua nova senha:
     
     Senha: ${newPassword.message}`)

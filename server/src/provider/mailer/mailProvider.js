@@ -18,14 +18,14 @@ export class Mailer extends MailBuilder {
         })
     }
 
-    async sendMail(status, identifier, message) {
+    async sendMail( sub,status, identifier, message) {
         const mailInfos = await this.ResponseMail(status, identifier, message);
        
         try {
             this.transport.sendMail({
                 from: `noreply <${process.env.EMAIL_AUTH_USER}>`,
                 to: `${mailInfos.email}`,
-                subject:"Recuperação de senha",
+                subject:sub,
                 text: `Olá, ${mailInfos.name}!
     ${mailInfos.message}
 
