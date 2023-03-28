@@ -1,0 +1,18 @@
+  .btnexpense{
+    background-color: rgb(147, 4, 4);
+  }
+
+  .btnexpense:hover{
+    background-color: rgb(62, 2, 2);
+  
+  }
+
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+    
+}
+input[type=number] { 
+   -moz-appearance: textfield;
+   appearance: textfield;
+
+}

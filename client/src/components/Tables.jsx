@@ -19,7 +19,7 @@ export function Tables(props) {
         TypeExpenseId: 0,
         TypeExpense: null
     });
-
+    const [loadingReq, setLoadingReq] = useState(false)
     const [message, setMessage] = useState('');
 
     const [isValid, setIsValid] = useState({
@@ -71,52 +71,65 @@ export function Tables(props) {
         if (Object.values(isValid).every(value => value == true)) {
             const data = {
                 name: values.name,
-                amount: Number(values.amount),
+                amount: Number(values.amount.replace(/\./g, "").replace(",", "")),
                 local: values.local
             }
             if (values.TypeExpenseId !== null) {
                 data.TypeExpenseId = selectedTypeExpense.id;
             }
+            setLoadingReq(true)
             const response = await AxiosProvider.communication("PUT", `${props.param}/edit/${values.id}`, hash, data);
             setMessage(response.data.message);
             setUpdate(update + 1);
             setEditing(prevState => ({ ...prevState, edit: false, key: 0 }));
+            setLoadingReq(false)
         }
     }
 
     const handleDeleteRow = async () => {
+        setLoadingReq(true)
         const response = await AxiosProvider.communication("DELETE", `${props.param}/delete/${deleting.key}`, hash)
         setMessage(response.data.message)
         setUpdate(update + 1)
         setDeleting(false)
+        setLoadingReq(false)
     }
 
-    const handleAmount = (event) => {
-        let inputValue = event.target.value;
-
-        inputValue = inputValue
+    const formatValue = (value) => {
+        let decimal = value
+        decimal = decimal
+            .toString()
             .replace(/\D/g, "")
             .replace(/^0+/, "")
             .padStart(3, "0")
-            .replace(/^(\d{1,})(\d{2})$/, "$1.$2") // coloca ponto nas casas decimais ("$1.$2") <- pode trocar por virgula
-        //   .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."); // coloca ponto (mas buga na hora de converter pra number)
+            .replace(/^(\d{1,})(\d{2})$/, "$1,$2")
+            .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
 
-        if (inputValue === "0") {
-            inputValue += ",";
+        if (value < 0) {
+            decimal = "-" + decimal
         }
 
-        setValues((prevState) => ({ ...prevState, amount: inputValue }))
-    };
+        if (value === "0") {
+            value += ",";
+        }
+
+        return decimal
+    }
 
     useEffect(() => {
         async function getInfos(param) {
             try {
                 const response = await AxiosProvider.communication('GET', param, hash)
-                setData(response.data)
-                setLoadingScreen(false)
+                if(response.data) {
+                    response.data.message.map(i=> {
+                        i.amount = formatValue(i.amount)
+                    })
+                }
+                setData(response.data);
+                setLoadingScreen(false);
             } catch (err) {
                 console.log(err)
-                setFeedbackUser(err.response.data.message)
+                setFeedbackUser(err.response.data.message);
             }
 
         }
@@ -127,18 +140,19 @@ export function Tables(props) {
         useEffect(() => {
             async function getTypeExpenses() {
                 const response = await AxiosProvider.communication('GET', 'expenses/types', hash)
-                setTypeExpenses(response.data.message)
+                setTypeExpenses(response.data.message);
                 const res = typeExpenses.find(i => {
                     if (i.id == values.TypeExpenseId) {
                         return i
                     }
                 })
-                setSelectedTypeExpense(res)
+                setSelectedTypeExpense(res);
             }
-            getTypeExpenses()
+            getTypeExpenses();
         }, [update])
 
     }
+    console.log(data)
     return (
         <div>
             <VerticalModal
@@ -148,7 +162,7 @@ export function Tables(props) {
                     setSelectedTypeExpense(false)
                 }}
                 title={`Editar ${props.param == 'expenses' ? "Despesa" : "Receita"}`}
-                anotherbutton="true"
+                anotherbutton={loadingReq ? "loading" : "true"}
                 classanotherbutton={"btn table-modal-btn btn-success"}
                 clickanotherbutton={() => handleEditRow()}
                 anotherbuttonmessage={"Editar"}
@@ -164,7 +178,7 @@ export function Tables(props) {
                     </div>
                     {!isValid.name && <p className="text-danger">Preencha o campo nome com pelo menos 3 caracteres.</p>}
                     <div className="form-floating mb-3">
-                        <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value < .01 ? setIsValid(prevState => ({ ...prevState, amount: false })) : setIsValid(prevState => ({ ...prevState, amount: true })) }} onChange={handleAmount} value={values.amount} />
+                        <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value < .01 ? setIsValid(prevState => ({ ...prevState, amount: false })) : setIsValid(prevState => ({ ...prevState, amount: true })) }} onChange={event => setValues((prevState) => ({ ...prevState, amount: formatValue(event.target.value) }))} value={`R$ ${values.amount}`}  />
                         <label htmlFor="floatingInput">Valor</label>
                     </div>
                     {!isValid.amount && <p className="text-danger">O campo valor não pode estar vazio.</p>}
@@ -206,7 +220,7 @@ export function Tables(props) {
                         </div>
                         {!isValid.name && <p className="text-danger">Preencha o campo nome com pelo menos 3 caracteres.</p>}
                         <div className="form-floating mb-3">
-                            <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value == "" ? setIsValid(prevState => ({ ...prevState, amount: false })) : setIsValid(prevState => ({ ...prevState, amount: true })) }} onChange={(event) => setValues((prevState) => ({ ...prevState, amount: event.target.value }))} value={values.amount} />
+                            <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value == "" ? setIsValid(prevState => ({ ...prevState, amount: false })) : setIsValid(prevState => ({ ...prevState, amount: true })) }} onChange={event => setValues((prevState) => ({ ...prevState, amount: formatValue(event.target.value) }))} value={`R$ ${values.amount}`} />
                             <label htmlFor="floatingInput">Valor</label>
                         </div>
                         {!isValid.amount && <p className="text-danger">O campo valor não pode estar vazio.</p>}
@@ -221,7 +235,7 @@ export function Tables(props) {
                 title={`Deletar ${props.param == 'expenses' ? "Despesa" : "Receita"}`}
                 change={() => handleDeleteRow()}
                 to={'/'}
-                anotherbutton={true}
+                anotherbutton={loadingReq ? "loading" : "true"}
                 classanotherbutton={"btn table-modal-btn btn-danger"}
                 clickanotherbutton={() => handleDeleteRow()}
                 anotherbuttonmessage={"Deletar"}
@@ -251,9 +265,9 @@ export function Tables(props) {
                                 {data.message.map((info) => (
                                     <tbody key={info.id}>
                                         <tr>
-                                            <td>{info.date.split('T')[0]}</td>
+                                            <td>{info.date.split('T')[0].split('-').reverse().join('/')}</td>
                                             <td>{info.name}</td>
-                                            <td>{info.amount}</td>
+                                            <td>R$ {info.amount}</td>
                                             {props.param == 'expenses' && <td>{info.local}</td>}
                                             {props.param == 'expenses' && <td>{info.TypeExpense.name}</td>}
                                             <td className="text-center"><button onClick={() => handleEdit(info)} type="button" className="btn ms-1 p-1 px-2 btn-success">Editar</button>

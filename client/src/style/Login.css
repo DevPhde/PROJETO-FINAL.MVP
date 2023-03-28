@@ -1,25 +1,44 @@
-.main-recovery{
+.main-container{
     display: flex;
     flex-wrap: wrap;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../images/background.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
+
+
   
-  .div-img-recovery{
+  .div-img-login{
     width: 60%;
-    min-width: 300px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
   }
   
-  .img-recovery{
-    width: 97.6%;
-    height: 800px;
+  .img-logo{
+    width: 160px;
+
+
+  }
+
+  .img-login{
+    width: 80%;
+    align-self: center;
+
   }
   
   .div-info-recovery{
     width: 40%;
     min-width: 300px;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 10% 5%;
+    background-color: #F8F8FF;
   
   }
   
@@ -29,10 +48,7 @@
     font-weight: bolder;
   }
   
-  /* .title-recovery{
-    font-size: clamp(10px, 5vw, 45px);
-  } */
-  
+
   .text-recovery{
     padding: 0 8%;
   }
@@ -41,28 +57,22 @@
     width: 85%;
   }
   
-  .input-recovery:focus{
-    box-shadow: none;
-    border: 2px solid #048A78;
-    background-color: #048a7814;
-    color: black;
-  
-  }
+
   
   .div-btn-recovery{
     width: 81%;
     margin-top: 25px;
   }
   
-  .btn-recovery{
-    background-color: #29056B;
+  .btn-login{
+    background-color: #048A78;;
     color: white;
     font-size: clamp(10px, 5vw, 25px);
   }
   
-  .btn-recovery:hover{
-    background-color: #048A78;
-    color: black;
+  .btn-login:hover{
+    background-color: #023f37;
+    color: white;
   }
   .errInput{
     color:red; 
@@ -75,7 +85,10 @@
     display: none;
  }
   
-  
+ 
+
+
+
   @media (max-width: 1170px){
   
     .div-info-recovery{
@@ -94,18 +107,23 @@
     
     }
   
-    .div-img-recovery{
+    .div-img-login{
       width: 100%;
-      margin-bottom: 10%;
-  
+
     }
   
-    .img-recovery{
+    .img-login{
       width: 100%;
+ 
+  
     }
     .div-info-recovery{
       width: 100%;
     
+    }
+
+    .img-logo{
+      width: 100px;
     }
   
     .title-recovery{

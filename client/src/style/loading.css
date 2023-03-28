@@ -4,12 +4,19 @@
     top: 35%;
 }
 
+.loader-position-button {
+    position: fixed;
+    left: 50%;
+}
+
 .loader  {
     animation: rotate 1s infinite;  
     height: 50px;
     width: 50px;
   }
   
+
+
   .loader:before,
   .loader:after {   
     border-radius: 50%;

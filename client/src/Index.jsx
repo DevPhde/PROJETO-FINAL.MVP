@@ -9,7 +9,7 @@ function Index() {
     <div>
 
       <Outlet />
-      <Footer />
+
     </div>
   )
 }
