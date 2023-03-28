@@ -65,7 +65,26 @@ function ModalAddRevenue(props) {
 
         } }
 
-
+        const formatValue = (value) => {
+            let decimal = value.toFixed(2)
+            decimal = decimal
+                .toString()
+                .replace(/\D/g, "")
+                .replace(/^0+/, "")
+                .padStart(3, "0")
+                .replace(/^(\d{1,})(\d{2})$/, "$1,$2")
+                .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    
+            if (value < 0) {
+                decimal = "-" + decimal
+            }
+    
+            if (value === "0") {
+                value += ",";
+            }
+    
+            return decimal
+        }
 
     const typeForm = props.type
 
@@ -119,7 +138,7 @@ function ModalAddRevenue(props) {
                     </div>
                 </div>
                 <div className="form-floating">
-                    <input type="number" min="0" step=".01" defaultValue="0" className="form-control" id="floatingPassword" placeholder="Valor da Receita" onChange={(e) => setNewRevenue((prevState) => ({ ...prevState, amount: e.target.value }))}
+                    <input type="number" min="0" step=".01" defaultValue="0" className="form-control" id="floatingPassword" placeholder="Valor da Receita" value={`R$ ${newRevenue.amount}`} onChange={(e) => setNewRevenue((prevState) => ({ ...prevState, amount: e.target.value }))}
                         onKeyUp={() => {
                             if (Validation.amountValidation(newRevenue.amount)) {
                                 setErr((prevState) => ({ ...prevState, amount: "" }))
@@ -148,8 +167,6 @@ function ModalAddRevenue(props) {
                 </div>
                 <div className="modal-footer">
                     <button type="submit" className="btn btn-modal">Adicionar {typeForm}</button>
-                    <button type="button" className="btn btn-secondary close" data-bs-dismiss="modal">Fechar</button>
-
                 </div>
 
             </form>)

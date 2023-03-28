@@ -231,7 +231,7 @@ if (result == true && addType == "Despesa") {
                 </div>
                 <div className="modal-footer">
                     <button type="submit" className="btn btn-modal btnexpense">Adicionar {typeForm}</button>
-                    <button type="button" className="btn btn-secondary close" data-bs-dismiss="modal">Fechar</button>
+                    {/* <button type="button" className="btn btn-secondary close" data-bs-dismiss="modal">Fechar</button> */}
 
                 </div>
 
@@ -244,7 +244,7 @@ if (result == true && addType == "Despesa") {
                 <p className="mb-3">Nenhuma alternativa selecionada</p>
                 <div className="modal-footer">
 
-                    <button type="button" className="btn btn-secondary close" data-bs-dismiss="modal">Fechar</button>
+                    {/* <button type="button" className="btn btn-secondary close" data-bs-dismiss="modal">Fechar</button> */}
 
                 </div>
             </div>
