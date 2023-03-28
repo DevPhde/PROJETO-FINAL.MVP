@@ -59,21 +59,21 @@ export function RegisterUser() {
 
     async function validForm() {
         let re = /\S+@\S+\.\S+/;
-        if (name.length < 3 || name == null) {
+        if (!name || name.length < 3) {
             setUser(prevState => ({ ...prevState, name: true }));
         }
-        if (cpf.length != 14 || cpf == null) {
+        if (!cpf || cpf.length !== 14 ) {
             setUser(prevState => ({ ...prevState, cpf: true }));
         }
-        if (re.test(email) == false || email == undefined) {
+        if (!email || re.test(email) == false) {
             setUser(prevState => ({ ...prevState, email: true }));
         }
-        if (password.length < 5) {
-            setUser(prevState => ({ ...prevState, password: true }));
+        if (!password || password.length < 5) {
+           return setUser(prevState => ({ ...prevState, password: true }));
 
         }
-        const result = Object.values(user).every(value => value === false)
-        if (result) {
+        const hasError = Object.values(user).some(value => value === true)
+        if (!hasError) {
             try {
                 const data = {
                     name: name,
@@ -145,7 +145,7 @@ export function RegisterUser() {
 
               
                     <div className="form-floating mb-4 div-input-register">
-                        <input type="text" className="form-control input-recovery" value={password} onChange={e => {
+                        <input type="password" className="form-control input-recovery" value={password} onChange={e => {
                             setPassword(e.target.value);
                         }} onFocus={() => setUser(prevState => ({ ...prevState, password: false }))} />
                         <label htmlFor="floatingInput">Senha</label>
@@ -155,7 +155,7 @@ export function RegisterUser() {
 
                 <div className="d-grid gap-2 mb-4 div-input-register">
                     {!loading ? <button className="btn btn-login fw-bold" type="button" onClick={validForm}>Cadastrar</button> : <Loading className="text-center" />}
-                    {feedbackUser.message && <p className="text-danger">{feedbackUser.message}</p>}
+                    {feedbackUser.message != "Usuário criado com sucesso!" && <p className="text-danger">{feedbackUser.message}</p>}
 
                 </div>
                 <Link

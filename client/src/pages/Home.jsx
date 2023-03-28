@@ -6,8 +6,8 @@ function Home() {
   return (
     <div>
       {/* <JwtValidator/> */}
-      {/* <EditProfile /> */}
-      <Tables param={'revenues'}/>
+      <EditProfile />
+      {/* <Tables param={'revenues'}/> */}
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { AxiosProvider } from "../providers/axiosProvider";
 import Logotipo from "../images/logo5.png"
 import IlustLogin from "../images/ilust4.png"
+import { BackdropModal } from "../components/modals/BackdropModal";
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -49,7 +50,7 @@ function Login() {
                 }
             } catch (e) {
                 if (e.response.status == 500) {
-                    alert('Erro interno no servidor')
+                    <BackdropModal title={"Erro Interno"} message={e.response.data.message} to={null} namebutton={"Fechar"}/>
                 }
                 if (e.response.status == 401) {
                     setUser(true);
@@ -76,15 +77,11 @@ function Login() {
                                 <label htmlFor="floatingInput">Email</label>
                     </div>
 
-
-
-
                     <div className="form-floating mb-4 div-input-register">
                         <input onChange={e => {setPassword(e.target.value);
                         }} onFocus={() => { setUser(false) }} type = "password" className = "form-control input-recovery" />
                                 <label htmlFor="floatingInput">Senha</label>
                     </div>
-                    {user && <p className="errInput">E-mail ou senha inválidos.</p>}
 
 
                 <div className="d-flex flex-row flex-wrap justify-content-between" style={{ width: "80%" }}>
@@ -98,6 +95,8 @@ function Login() {
                     >Esqueceu a Senha?
                     </Link>
                 </div>
+                {user && <p className="errInput">E-mail ou senha inválidos.</p>}
+
                 <div className="d-grid gap-2  div-btn-recovery">
                     <button className="btn btn-login fw-bold" type="button" onClick={userAuthorization}>Entrar</button>
                     <Link

@@ -19,8 +19,8 @@ function ExpensesList() {
     const [userInfo, setUserInfo] = useState([])
 
     const isValid = JwtValidator()
-    if(!isValid){
-        
+    if (!isValid) {
+
     }
 
     const getTotal = async () => {
@@ -60,7 +60,7 @@ function ExpensesList() {
 
     }
 
-    
+
 
 
     const getInfo = async () => {
@@ -107,17 +107,17 @@ function ExpensesList() {
 
     }, [])
 
-  
+
 
     return (
         <>
             {isValid ? <>
                 <div className="d-flex" style={{ backgroundColor: "#F5F5F5", height: "100vh" }}>
                     <Navbar />
-                    {totalValues == [] || userInfo.length == 0 || monthValue.length == 0 || lastItem.length == 0? (<Loading className="loader-position" />) : (
-                        <main className="main-dashboard">
-                             <ul className="nav justify-content-end mt-3" style={{ marginTop: "1%" }} >
-                                <li className="nav-item-top d-flex align-items-center flex-wrap" style={{ marginRight: "5%" }}>
+                    {totalValues == [] || userInfo.length == 0 || monthValue.length == 0 || lastItem.length == 0 ? (<Loading className="loader-position" />) : (
+                        <main style={{ width: "100vw" }}>
+                            <ul className="nav justify-content-end mt-3" style={{ marginTop: "1%" }} >
+                                <li className="nav-item d-flex align-items-center flex-wrap" style={{ marginRight: "5%" }}>
                                     <img src={User} style={{ width: "32px", height: "32px", marginRight: "10px" }} />
                                     <h5 >Olá, {userInfo[0]}!</h5>
                                 </li>
@@ -166,18 +166,18 @@ function ExpensesList() {
                                 </div>
                             </div>
 
-                            <div className="table-revenues text-center" style={{width:" 100%", marginTop:"5%"}}>
+                            <div className="table-revenues text-center" style={{ width: " 100%", marginTop: "5%" }}>
                                 <h3 className="text-center mb-3 "> Lista de Despesas Adicionadas</h3>
-                                
-                                
-                                <Tables param="expenses"/>
-                                
+
+
+                                <Tables param="expenses" />
+
                             </div>
 
 
                         </main>)}
                 </div>
-            </> : <main><Loading className="loader-position"/></main>}
+            </> : <main><Loading className="loader-position" /></main>}
 
         </>)
 

@@ -148,8 +148,6 @@ function ModalAddRevenue(props) {
                 </div>
                 <div className="modal-footer">
                     <button type="submit" className="btn btn-modal">Adicionar {typeForm}</button>
-                    <button type="button" className="btn btn-secondary close" data-bs-dismiss="modal">Fechar</button>
-
                 </div>
 
             </form>)
