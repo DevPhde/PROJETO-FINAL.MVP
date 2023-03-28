@@ -19,8 +19,8 @@ function RevenuesList() {
     const [userInfo, setUserInfo] = useState([])
 
     const isValid = JwtValidator()
-    if(!isValid){
-        
+    if (!isValid) {
+
     }
 
     const getTotal = async () => {
@@ -48,7 +48,8 @@ function RevenuesList() {
     const getLastItem = async () => {
         try {
             const response = await AxiosProvider.communication('GET', 'user/informations/getLastItem/revenues', hash)
-            setLastItem(response.data.message)
+            response.data.message !== null ? setLastItem(response.data.message) : setLastItem(0)
+
 
 
         } catch (err) {
@@ -70,27 +71,30 @@ function RevenuesList() {
 
     }
 
-  
 
-    const formatValue = (value) =>{
-        let decimal = value.toFixed(2)
-        decimal = decimal
-            .toString()
-            .replace(/\D/g, "")
-            .replace(/^0+/, "")
-            .padStart(3, "0")
-            .replace(/^(\d{1,})(\d{2})$/, "$1,$2")
-            .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-    
-            if(value <0) {
-                decimal = "-"+decimal
+
+    const formatValue = (value) => {
+        if (value) {
+            let decimal = value.toFixed(2)
+            decimal = decimal
+                .toString()
+                .replace(/\D/g, "")
+                .replace(/^0+/, "")
+                .padStart(3, "0")
+                .replace(/^(\d{1,})(\d{2})$/, "$1,$2")
+                .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+
+            if (value < 0) {
+                decimal = "-" + decimal
             }
-        
-        if (value === "0") {
-            value += ",";
-        }
 
-        return decimal
+            if (value === "0") {
+                value += ",";
+            }
+
+            return decimal
+        }
+        return 0
     }
 
     useEffect(() => {
@@ -102,25 +106,26 @@ function RevenuesList() {
 
     }, [])
 
-  
+
 
     return (
         <>
             {isValid ? <>
                 <div className="d-flex" style={{ backgroundColor: "#F5F5F5", height: "100vh" }}>
                     <Navbar />
-                    {totalValues.length == 0 || userInfo.length == 0 || monthValue.length == 0 || lastItem.length == 0? (<Loading className="loader-position" />) : (
+                    {totalValues == [] ? (<Loading className="loader-position" />) : (
                         <main className="main-dashboard">
-                             <ul className="nav justify-content-end mt-3" style={{ marginTop: "1%" }} >
+                            <ul className="nav justify-content-end mt-3" style={{ marginTop: "1%" }} >
                                 <li className="nav-item-top d-flex align-items-center flex-wrap" style={{ marginRight: "5%" }}>
                                     <img src={User} style={{ width: "32px", height: "32px", marginRight: "10px" }} />
                                     <h5 >Olá, {userInfo[0]}!</h5>
                                 </li>
-                                <li className="nav-item" style={{ marginRight: "5%" }} 
-                                onClick={() =>{ sessionStorage.clear()
-                                window.location.reload()
-                                }}
-                                 >
+                                <li className="nav-item" style={{ marginRight: "5%" }}
+                                    onClick={() => {
+                                        sessionStorage.clear()
+                                        window.location.reload()
+                                    }}
+                                >
                                     <img src={Out} style={{ width: "32px", height: "32px" }} />
                                 </li>
                             </ul>
@@ -161,18 +166,18 @@ function RevenuesList() {
                                 </div>
                             </div>
 
-                            <div className="table-revenues text-center" style={{width:" 100%", marginTop:"5%"}}>
+                            <div className="table-revenues text-center" style={{ width: " 100%", marginTop: "5%" }}>
                                 <h3 className="text-center mb-3 "> Lista de Receitas Adicionadas</h3>
-                                
-                                
-                                <Tables param="revenues"/>
-                                
+
+
+                                <Tables param="revenues" />
+
                             </div>
 
 
                         </main>)}
                 </div>
-            </> : <main><Loading className="loader-position"/></main>}
+            </> : <main><Loading className="loader-position" /></main>}
 
         </>)
 

@@ -67,16 +67,17 @@ function Navbar() {
                     <p>Configurar conta</p>
                 </li>
                 <li className="nav-item my-2" onClick={() => setShowModalWarning(true)}>
-                    <IRVerify
-                        show={showModalWarning}
-                        onHide={handleModal}
-                    />
-                </li>
 
-<EditProfile
-showModal={showModal}
-hideModal={() => setShowModal(false)}
-/>
+                </li>
+                <IRVerify
+                    show={showModalWarning}
+                    onHide={() => setShowModalWarning(false)}
+                    imgClick={() => setShowModalWarning(true)}
+                />
+                <EditProfile
+                    showModal={showModal}
+                    hideModal={() => setShowModal(false)}
+                />
 
             </ul>
         </nav>

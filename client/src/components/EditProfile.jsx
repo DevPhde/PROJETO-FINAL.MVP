@@ -22,7 +22,7 @@ export function EditProfile(props) {
         value: "abcdefg",
         modified: false
     })
-    const [update, setUpdate] = useState(0)
+
     useEffect(() => {
         async function getProfile() {
             try {
@@ -31,24 +31,15 @@ export function EditProfile(props) {
                 setLoading(false)
                 setPassword(prevState => ({...prevState, value: 'abcdefg', modified: false}))
                 setError(prevState => ({...prevState, name: false, password: false}))
-
-                console.log(response)
             } catch (err) {
                 setFeedbackUser(prevState=> ({...prevState, error: true, message: err.response.data.message}))
                 setUser(false)
                 setLoading(false)
             }
-
-console.log('rodou')
         }
         getProfile()
 
     },[props.showModal])
-
-    if(!props.showModal) {
-        console.log('oi')
-
-    }
 
     const handleEditUser = async () => {
         if (password.modified) {
@@ -65,15 +56,11 @@ console.log('rodou')
             }
             try {
                 const response = await AxiosProvider.communication('PUT', 'user/editprofile', hash, data)
-                console.log(response)
                 setFeedbackUser(prevState=> ({...prevState, error: false, message: response.data.message}))
-
             } catch (err) {
                 setFeedbackUser(prevState=> ({...prevState, error: true, message: err.response.data.message}))
                 setUser(false)
             }
-
-            console.log(data)
         }
     }
 
@@ -88,12 +75,8 @@ console.log('rodou')
         } catch(err) {
             setFeedbackUser(prevState=> ({...prevState, error: true, message: err.response.data.message}))
             setUser(false)
-        }
-        
+        } 
     }
-
-
-console.log(feedbackUser)
     return (
         <>
             {!loading ? (<div> {!user ? (
