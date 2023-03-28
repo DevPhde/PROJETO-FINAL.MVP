@@ -68,11 +68,13 @@ function Dashboard() {
     const getInfo = async () => {
         try {
             const res = await AxiosProvider.communication('GET', 'user/informations', hash)
-            setUserInfo(res.data.message.name.split())
+
+            setUserInfo(res.data.message.name.split(' '))
 
         } catch (err) {
             console.log(err)
         }
+        
 
     }
 
@@ -159,7 +161,7 @@ function Dashboard() {
 
             setDataBarChartExpenses(noValues != '')
 
-            const temp = [["Mês", "Total de Receita"]]
+            const temp = [["Mês", "Total de Despesa"]]
 
             for (let i = 0; i < data.length; i++) {
                 if (data[i].year == currentYear) {
@@ -173,7 +175,6 @@ function Dashboard() {
             setBarChartExpenses(temp)
             console.log(barChartExpenses)
 
-
        
 
 
@@ -186,14 +187,18 @@ function Dashboard() {
         console.log(barChartRevenues)
       
 
+
+
+        
     }
 
 
 
 
  function configLineChart() {
+
  
-    if(barChartExpenses != '' && barChartRevenues != ''){
+    if(barChartExpenses != [''] && barChartRevenues != ['']){
         const date = new Date();
         const currentMonth = date.getMonth() + 1
 
@@ -289,7 +294,7 @@ function Dashboard() {
         getInfo();
         getTotal();
         getDataBarChart();
-        configLineChart()
+  
 
 
 
@@ -311,7 +316,7 @@ function Dashboard() {
                             <ul className="nav justify-content-end mt-3" style={{ marginTop: "1%" }} >
                                 <li className="nav-item-top d-flex align-items-center flex-wrap" style={{ marginRight: "5%" }}>
                                     <img src={User} style={{ width: "32px", height: "32px", marginRight: "10px" }} />
-                                    <h5 >Olá, {userInfo[0]}!</h5>
+                                    <h5 className="text-capitalize" >Olá, {userInfo[0]}!</h5>
                                 </li>
                                 <li className="nav-item" style={{ marginRight: "5%" }} 
                                 onClick={() =>{ sessionStorage.clear()
@@ -392,13 +397,13 @@ function Dashboard() {
                                                     className="mb-3 "
                                                 />
                                             </div>
-
+ 
                                         </>
-                                        ) : <div className="chart-bar bg-white card" style={{ width: "100%", height: "300px" }}>
+                                        ) : <div className="chart-bar bg-white card d-flex flex-column justify-content-center align-items-center" style={{ width: "100%", height: "300px" }}>
                                             <h5 className="my-2 text-center"> Total de Receita por Mês</h5>
                                             <p>Dados insuficientes para gerar o gráfico!</p>
                                         </div>}
-                                    {barChartRevenues.length == 0 || barChartExpenses.length == 0 || lineChart.length == 0 ? (<Loading />) : dataBarChartRevenues && dataBarChartExpenses ?
+                                    {/* {barChartRevenues.length == 0 || barChartExpenses.length == 0 || lineChart.length == 0 ? (<Loading />) : dataBarChartRevenues && dataBarChartExpenses ?
                                         // (console.log(lineChart)
  
                                         // ) 
@@ -412,6 +417,29 @@ function Dashboard() {
                                                     height="230px"
                                                     data={lineChart}
                                                     options={optionsChartLine}
+                                                />
+                                            </div>
+
+                                        </>
+                                        )
+                                        : (
+                                            <div className="chart-bar mt-3 bg-white card card-dashboard d-flex flex-column justify-content-center align-items-center" style={{ width: "100%", height: "300px" }}>
+                                                <h5 className="my-2 text-center"> Total de Receita e Despesa por Mês</h5>
+                                                <p>Dados insuficientes para gerar o gráfico!</p>
+                                            </div>
+                                        )} */}
+                                    {barChartExpenses.length == 0 ? (<Loading />) : dataBarChartExpenses ?
+
+                                        (<>
+                                            <div className="chart-bar mt-3 bg-white card ">
+                                                <h5 className="my-2 text-center"> Total de Despesa por Mês</h5>
+                                                <Chart
+                                                    chartType="Line"
+                                                    width="95%"
+                                                    height="200px"
+                                                    data={barChartExpenses}
+                                                    options={optionsChartLine}
+                                                    className="mb-3 "
                                                 />
                                             </div>
 

@@ -100,6 +100,17 @@ function Navbar() {
                     <p>Outra vantagem do SYM é a possibilidade de acompanhar as despesas em tempo real. Com isso, é possível monitorar as finanças diariamente e tomar decisões financeiras mais informadas.
                     </p>
 
+                     Este projeto foi desenvolvido por:
+
+                        <li className="fw-bold mt-3 list-unstyled">Daniella Werneck: <a className="text-decoration-none" href="https://www.linkedin.com/in/daniella-werneck-bb5319196/">Linkedin</a> | <a className="text-decoration-none" href="https://github.com/Daniellasqw">Github</a></li>
+                        <li className="fw-bold list-unstyled">Diego Baumbach: <a href="https://www.linkedin.com/in/diego-baumbach-a24444238/" className="text-decoration-none">Linkedin</a> | <a className="text-decoration-none" href="https://github.com/DevPhde">Github</a></li>
+                        <li className="fw-bold list-unstyled">Indiane Lopes: <a href="https://www.linkedin.com/in/indiane-lopes-da-silva-matos-5a5370218/" className="text-decoration-none">Linkedin</a> | <a className="text-decoration-none" href="https://github.com/Indyllopes">Github</a></li>
+                        <li className="fw-bold list-unstyled">Orlando Júnior: <a href="https://www.linkedin.com/in/orlandoj%C3%BAnior/" className="text-decoration-none">Linkedin</a> | <a className="text-decoration-none" href="https://github.com/Orl-andoJr">Github</a></li>
+                        <li className="fw-bold list-unstyled">Paloma Avelino: <a href="https://www.linkedin.com/in/palomaavelino/" className="text-decoration-none">Linkedin</a> | <a className="text-decoration-none" href="https://github.com/ipami">Github</a></li>
+
+
+                    
+
                 </>
             )}
         />

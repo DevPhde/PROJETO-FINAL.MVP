@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { AxiosProvider } from "../providers/axiosProvider";
 import { VerticalModal } from './modals/VerticalModal';
 import { Form } from "react-bootstrap";
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { BackdropModal } from "./modals/BackdropModal";
 function CreateItemModal(props) {
     const hash = sessionStorage.getItem('authorization')
@@ -80,7 +81,7 @@ function CreateItemModal(props) {
                 }
                 if (type == "expense") {
                     data.local = values.local,
-                    data.TypeExpenseId = selectedOption.id
+                        data.TypeExpenseId = selectedOption.id
                 }
                 const response = await AxiosProvider.communication("POST", `new/${type}`, hash)
                 console.log(response)
@@ -123,11 +124,11 @@ function CreateItemModal(props) {
                 clickanotherbutton={() => handleCreateItem()}
                 message={(
                     <>
-                    {reqError && <BackdropModal
-                        title={"Erro interno"}
-                        namebutton={"Fechar"}
-                        message={reqError}
-                    />}
+                        {reqError && <BackdropModal
+                            title={"Erro interno"}
+                            namebutton={"Fechar"}
+                            message={reqError}
+                        />}
                         <div className="modal-body">
                             <div className="form-floating">
                                 <select className="form-select" onChange={(e) => {
@@ -144,7 +145,7 @@ function CreateItemModal(props) {
                             </div>
                         </div>
                         {type == "revenue" ?
-                            <>
+                            <div className="px-3">
                                 <div className="form-floating mb-3">
                                     <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value == "" || event.target.value.length < 3 ? setIsValid(prevState => ({ ...prevState, name: false })) : setIsValid(prevState => ({ ...prevState, name: true })) }} onChange={(event) => setValues((prevState) => ({ ...prevState, name: event.target.value }))} value={values.name} />
                                     <label htmlFor="floatingInput">Nome</label>
@@ -168,55 +169,74 @@ function CreateItemModal(props) {
                                     }}
                                 />
                                 {!isValid.date && <p className="text-danger">O campo local não pode estar vazio.</p>}
-                            </> : type == "expense" ? 
-                            <>
-                                <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value == "" || event.target.value.length < 3 ? setIsValid(prevState => ({ ...prevState, name: false })) : setIsValid(prevState => ({ ...prevState, name: true })) }} onChange={(event) => setValues((prevState) => ({ ...prevState, name: event.target.value }))} value={values.name} />
-                                    <label htmlFor="floatingInput">Nome</label>
-                                </div>
-                                {!isValid.name && <p className="text-danger">Preencha o campo nome com pelo menos 3 caracteres.</p>}
-                                <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value < .01 ? setIsValid(prevState => ({ ...prevState, amount: false })) : setIsValid(prevState => ({ ...prevState, amount: true })) }} onChange={event => setValues((prevState) => ({ ...prevState, amount: event.target.value }))} value={values.amount} />
-                                    <label htmlFor="floatingInput">Valor</label>
-                                </div>
-                                {!isValid.amount && <p className="text-danger">O campo valor não pode estar vazio.</p>}
-                                <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value == "" ? setIsValid(prevState => ({ ...prevState, local: false })) : setIsValid(prevState => ({ ...prevState, local: true })) }} onChange={(event) => setValues((prevState) => ({ ...prevState, local: event.target.value }))} value={values.local} />
-                                    <label htmlFor="floatingInput">Local</label>
-                                </div>
-                                {!isValid.local && <p className="text-danger">O campo local não pode estar vazio.</p>}
+                            </div> : type == "expense" ?
+                                <div className="px-3">
+                                    <div className="form-floating mb-3">
+                                        <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value == "" || event.target.value.length < 3 ? setIsValid(prevState => ({ ...prevState, name: false })) : setIsValid(prevState => ({ ...prevState, name: true })) }} onChange={(event) => setValues((prevState) => ({ ...prevState, name: event.target.value }))} value={values.name} />
+                                        <label htmlFor="floatingInput">Nome</label>
+                                    </div>
+                                    {!isValid.name && <p className="text-danger">Preencha o campo nome com pelo menos 3 caracteres.</p>}
+                                    <div className="form-floating mb-3">
+                                        <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value < .01 ? setIsValid(prevState => ({ ...prevState, amount: false })) : setIsValid(prevState => ({ ...prevState, amount: true })) }} onChange={event => setValues((prevState) => ({ ...prevState, amount: event.target.value }))} value={values.amount} />
+                                        <label htmlFor="floatingInput">Valor</label>
+                                    </div>
+                                    {!isValid.amount && <p className="text-danger">O campo valor não pode estar vazio.</p>}
+                                    <div className="form-floating mb-3">
+                                        <input type="text" className="form-control" id="floatingInput" onBlur={(event) => { event.target.value == "" ? setIsValid(prevState => ({ ...prevState, local: false })) : setIsValid(prevState => ({ ...prevState, local: true })) }} onChange={(event) => setValues((prevState) => ({ ...prevState, local: event.target.value }))} value={values.local} />
+                                        <label htmlFor="floatingInput">Local</label>
+                                    </div>
+                                    {!isValid.local && <p className="text-danger">O campo local não pode estar vazio.</p>}
 
 
                                     {typeExpenses ? (
-                                        <section className="col-lg-5 row text-center">
-                                            <Form.Group controlId="ControlSelect1">
-                                                <Form.Label className="text-white">Tipo de Despesa</Form.Label>
-                                                <Form.Control
-                                                    as="select"
-                                                    value={selectedOption.name}
-                                                    onChange={handleChangeTypeExpense}
-                                                >
-                                                    <option value="" disabled>
-                                                        Selecionar tipo de despesa
-                                                    </option>
-                                                    {typeExpenses.map((typeExpense) => (
-                                                        <option key={typeExpense.id}>{typeExpense.name}</option>
-                                                    ))}
-                                                </Form.Control>
-                                            </Form.Group>
-                                        </section>) : (<div><Loading /></div>)
+                                        // <section className="col-lg-5 row text-center">
+                                        //     <Form.Group controlId="ControlSelect1">
+                                        //         <Form.Label className="text-white">Tipo de Despesa</Form.Label>
+                                        //         <Form.Control
+                                        //             as="select"
+                                        //             value={selectedOption.name}
+                                        //             onChange={handleChangeTypeExpense}
+                                        //         >
+                                        //             <option value="" disabled>
+                                        //                 Selecionar tipo de despesa
+                                        //             </option>
+                                        //             {typeExpenses.map((typeExpense) => (
+                                        //                 <option key={typeExpense.id}>{typeExpense.name}</option>
+                                        //             ))}
+                                        //         </Form.Control>
+                                        //     </Form.Group>
+                                        // </section>
+
+                                        <FloatingLabel controlId="floatingSelect" label="Selecione o tipo de despesa" >
+                                            <Form.Select aria-label="Floating label select example" className="mb-3"
+                                                as="select"
+                                                value={selectedOption.name}
+                                                onChange={handleChangeTypeExpense}
+                                            >
+                                                <option value="" disabled>
+                                                    Selecionar tipo de despesa
+                                                </option>
+                                                {typeExpenses.map((typeExpense) => (
+                                                    <option key={typeExpense.id}>{typeExpense.name}</option>
+                                                ))}
+                                            </Form.Select>
+                                        </FloatingLabel>
+
+
+
+                                    ) : (<div><Loading /></div>)
                                     }
 
 
-                                <label htmlFor="date" >Data:</label>
-                                <input type="datetime-local" id="date" step="1" name="trip-start" className="mx-3" onChange={(e) => { setValues((prevState) => ({ ...prevState, date: e.target.value })) }}
-                                    onBlur={() => {
-                                        values.date ? setIsValid((prevState) => ({ ...prevState, date: true })) : setIsValid((prevState) => ({ ...prevState, date: false }))
+                                    <label htmlFor="date" >Data:</label>
+                                    <input type="datetime-local" id="date" step="1" name="trip-start" className="mx-3" onChange={(e) => { setValues((prevState) => ({ ...prevState, date: e.target.value })) }}
+                                        onBlur={() => {
+                                            values.date ? setIsValid((prevState) => ({ ...prevState, date: true })) : setIsValid((prevState) => ({ ...prevState, date: false }))
 
-                                    }}
-                                />
-                                {!isValid.date && <p className="text-danger">O campo local não pode estar vazio.</p>}
-                            </> : <> <p>Nenhuma alternativa selecionada.</p></>}
+                                        }}
+                                    />
+                                    {!isValid.date && <p className="text-danger">O campo local não pode estar vazio.</p>}
+                                </div> : <div className="px-3"> <p>Nenhuma alternativa selecionada.</p></ div>}
                     </>
                 )
                 }

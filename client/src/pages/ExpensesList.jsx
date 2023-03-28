@@ -67,7 +67,7 @@ function ExpensesList() {
         try {
             const res = await AxiosProvider.communication('GET', 'user/informations', hash)
             console.log(res.data.message.name)
-            setUserInfo(res.data.message.name.split())
+            setUserInfo(res.data.message.name.split(' '))
 
         } catch (err) {
             console.log(err)
@@ -123,7 +123,7 @@ return 0
                             <ul className="nav justify-content-end mt-3" style={{ marginTop: "1%" }} >
                                 <li className="nav-item d-flex align-items-center flex-wrap" style={{ marginRight: "5%" }}>
                                     <img src={User} style={{ width: "32px", height: "32px", marginRight: "10px" }} />
-                                    <h5 >Olá, {userInfo[0]}!</h5>
+                                    <h5 className="text-capitalize">Olá, {userInfo[0]}!</h5>
                                 </li>
                                 <li className="nav-item" style={{ marginRight: "5%" }}
                                     onClick={() => {
