@@ -61,7 +61,7 @@ function Navbar() {
                     <img src={Help} className="navbar-icon" onClick={() => setShowModal(true)} />
                     <p>Ajuda</p>
                 </li>
-                <li className="nav-item my-2 ">
+               <li className="nav-item my-2 ">
                     <img src={Settings} className="navbar-icon" />
                     <p>Configurar conta</p>
                 </li>

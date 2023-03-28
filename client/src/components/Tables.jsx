@@ -91,19 +91,25 @@ export function Tables(props) {
         setDeleting(false)
     }
 
-    const formatValue = (value) =>{
-        value = value
+    const formatValue = (value) => {
+        let decimal = value.toFixed(2)
+        decimal = decimal
             .toString()
             .replace(/\D/g, "")
             .replace(/^0+/, "")
             .padStart(3, "0")
             .replace(/^(\d{1,})(\d{2})$/, "$1,$2")
             .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-        
+
+        if (value < 0) {
+            decimal = "-" + decimal
+        }
+
         if (value === "0") {
             value += ",";
         }
-        return value
+
+        return decimal
     }
 
     useEffect(() => {
