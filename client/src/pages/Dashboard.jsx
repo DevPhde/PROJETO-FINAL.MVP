@@ -74,7 +74,7 @@ function Dashboard() {
         } catch (err) {
             console.log(err)
         }
-        
+
 
     }
 
@@ -102,8 +102,6 @@ function Dashboard() {
     const getDataBarChart = async () => {
         const date = new Date();
         const currentYear = date.getFullYear()
-
-
         const month = {
             1: "Janeiro",
             2: "Fevereiro",
@@ -118,8 +116,6 @@ function Dashboard() {
             11: "Novembro",
             12: "Dezembro",
         }
-
-
 
         try {
             const response = await AxiosProvider.communication('GET', 'user/informations/getMonthlyTotal/revenues', hash)
@@ -167,108 +163,69 @@ function Dashboard() {
                 if (data[i].year == currentYear) {
                     const numMonth = Number(data[i].month)
                     temp.push([month[numMonth], data[i].totalAmount])
-
                 }
             }
-
-
             setBarChartExpenses(temp)
-            console.log(barChartExpenses)
-
-       
-
-
-
         } catch (err) {
             console.log(err)
         }
-
-        console.log(barChartExpenses)
-        console.log(barChartRevenues)
-      
-
-
-
-        
     }
 
+    function configLineChart() {
+        if (barChartExpenses != [''] && barChartRevenues != ['']) {
+            const date = new Date();
+            const currentMonth = date.getMonth() + 1
 
 
+            const temp = [[
+                "Mês",
+                "Receitas",
+                "Despesas",
+            ],]
 
- function configLineChart() {
-
- 
-    if(barChartExpenses != [''] && barChartRevenues != ['']){
-        const date = new Date();
-        const currentMonth = date.getMonth() + 1
-
-
-        const temp = [[
-            "Mês",
-            "Receitas",
-            "Despesas",
-        ],]
-
-        const month = {
-            1: "Janeiro",
-            2: "Fevereiro",
-            3: "Março",
-            4: "Abril",
-            5: "Maio",
-            6: "Junho",
-            7: "Julho",
-            8: "Agosto",
-            9: "Setembro",
-            10: "Outubro",
-            11: "Novembro",
-            12: "Dezembro",
-        }
-
-        for (let i = 1; i <= currentMonth; i++) {
-            let searchMonth = month[i]
-
-            console.log(searchMonth)
-            let foundExpense = 0
-            let foundRevenue = 0
-
-            for (let e = 1; e < barChartExpenses.length; e++) {
-                if (searchMonth == barChartExpenses[e][0]) {
-                    foundExpense = e
-
-                }
+            const month = {
+                1: "Janeiro",
+                2: "Fevereiro",
+                3: "Março",
+                4: "Abril",
+                5: "Maio",
+                6: "Junho",
+                7: "Julho",
+                8: "Agosto",
+                9: "Setembro",
+                10: "Outubro",
+                11: "Novembro",
+                12: "Dezembro",
             }
-            for (let r = 1; r < barChartRevenues.length; r++) {
-                if (searchMonth == barChartRevenues[r][0]) {
-                    foundRevenue = r
 
+            for (let i = 1; i <= currentMonth; i++) {
+                let searchMonth = month[i]
+                let foundExpense = 0
+                let foundRevenue = 0
+
+                for (let e = 1; e < barChartExpenses.length; e++) {
+                    if (searchMonth == barChartExpenses[e][0]) {
+                        foundExpense = e
+
+                    }
                 }
+                for (let r = 1; r < barChartRevenues.length; r++) {
+                    if (searchMonth == barChartRevenues[r][0]) {
+                        foundRevenue = r
+
+                    }
+                }
+                temp.push([searchMonth, foundRevenue != 0 ? barChartRevenues[foundRevenue][1] : 0, foundExpense != 0 ? barChartExpenses[foundExpense][1] : 0])
+
+
             }
-            console.log(foundExpense)
-            let teste = [searchMonth, foundRevenue != 0 ? barChartRevenues[foundRevenue][1] : 0, foundExpense != 0 ? barChartExpenses[foundExpense][1] : 0]
-            console.log(teste)
-            temp.push([searchMonth, foundRevenue != 0 ? barChartRevenues[foundRevenue][1] : 0, foundExpense != 0 ? barChartExpenses[foundExpense][1] : 0])
-
-
+            setLineChart(temp)
+            setDataLineChart(lineChart != [])
         }
-        console.log(temp)
-
-        setLineChart(temp)
-
-        setDataLineChart(lineChart != [])
-
-        
-
-
-}
-
-}
-
-
-
-
+    }
 
     const formatValue = (value) => {
-        let decimal = value.toFixed(2)
+        let decimal = value
         decimal = decimal
             .toString()
             .replace(/\D/g, "")
@@ -287,21 +244,20 @@ function Dashboard() {
 
         return decimal
     }
+    const [update, setUpdate] = useState(0)
 
-
+    setTimeout(() => {
+        setUpdate(update + 1)
+    }, 5000)
+    
     useEffect(() => {
         getDataChart();
         getInfo();
         getTotal();
         getDataBarChart();
-  
+    }, [update])
 
 
-
-    }, [])
-
-
- 
 
     const total = totalValues.revenues - totalValues.expenses
 
@@ -318,11 +274,12 @@ function Dashboard() {
                                     <img src={User} style={{ width: "32px", height: "32px", marginRight: "10px" }} />
                                     <h5 className="text-capitalize" >Olá, {userInfo[0]}!</h5>
                                 </li>
-                                <li className="nav-item" style={{ marginRight: "5%" }} 
-                                onClick={() =>{ sessionStorage.clear()
-                                window.location.reload()
-                                }}
-                                 >
+                                <li className="nav-item" style={{ marginRight: "5%" }}
+                                    onClick={() => {
+                                        sessionStorage.clear()
+                                        window.location.reload()
+                                    }}
+                                >
                                     <img src={Out} style={{ width: "32px", height: "32px" }} />
                                 </li>
                             </ul>
@@ -397,37 +354,12 @@ function Dashboard() {
                                                     className="mb-3 "
                                                 />
                                             </div>
- 
+
                                         </>
                                         ) : <div className="chart-bar bg-white card d-flex flex-column justify-content-center align-items-center" style={{ width: "100%", height: "300px" }}>
                                             <h5 className="my-2 text-center"> Total de Receita por Mês</h5>
                                             <p>Dados insuficientes para gerar o gráfico!</p>
                                         </div>}
-                                    {/* {barChartRevenues.length == 0 || barChartExpenses.length == 0 || lineChart.length == 0 ? (<Loading />) : dataBarChartRevenues && dataBarChartExpenses ?
-                                        // (console.log(lineChart)
- 
-                                        // ) 
-
-                                        (<>
-                                            <div className="chart-bar mt-3 bg-white card ">
-                                                <h5 className="my-2 text-center"> Total de Receita e Despesa por Mês</h5>
-                                                <Chart
-                                                    chartType="Line"
-                                                    width="95%"
-                                                    height="230px"
-                                                    data={lineChart}
-                                                    options={optionsChartLine}
-                                                />
-                                            </div>
-
-                                        </>
-                                        )
-                                        : (
-                                            <div className="chart-bar mt-3 bg-white card card-dashboard d-flex flex-column justify-content-center align-items-center" style={{ width: "100%", height: "300px" }}>
-                                                <h5 className="my-2 text-center"> Total de Receita e Despesa por Mês</h5>
-                                                <p>Dados insuficientes para gerar o gráfico!</p>
-                                            </div>
-                                        )} */}
                                     {barChartExpenses.length == 0 ? (<Loading />) : dataBarChartExpenses ?
 
                                         (<>

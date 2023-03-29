@@ -5,9 +5,11 @@ import { VerticalModal } from "../components/modals/VerticalModal";
 import { AxiosProvider } from "../providers/axiosProvider";
 import Logotipo from "../images/logo5.png"
 import IlustRecovery from "../images/ilust6.png"
+import { Loading } from "../components/Loading";
 
 function RecoveryPasswordPage() {
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     if (sessionStorage.getItem('authorization')) {
       navigate("/dashboard");
@@ -20,22 +22,25 @@ function RecoveryPasswordPage() {
     status: null,
     message: ''
   })
-  console.log(email)
 
   const handleSubmit = async () => {
+    setLoading(true)
     if (email.length >= 1) {
       try {
         const response = await AxiosProvider.communication("POST", `user/recoverypassword`, null, { email: email })
         setMessage(prevState => ({ ...prevState, status: response.data.status, message: response.data.message }))
         if (response.data.status) {
           setModalShow(true)
+          setLoading(false)
         }
       } catch (err) {
         setMessage(prevState => ({ ...prevState, status: err.response.data.status, message: err.response.data.message }))
+        setLoading(false)
       }
 
     } else {
       setMessage(prevState => ({ ...prevState, status: false, message: "Preencha com um email válido." }))
+      setLoading(false)
     }
 
   }
@@ -59,16 +64,16 @@ function RecoveryPasswordPage() {
         <h1 className="fw-bold title-recovery mb-5">Esqueceu a senha?</h1>
 
         <p className=" text-recovery mb-5">Não se preocupe! Digite o seu email no campo abaixo, que nós enviaremos uma nova senha para você!</p>
-       
-          <div className="form-floating mb-4 div-input-register">
-            <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control input-recovery" />
-            <label htmlFor="floatingInput">Email</label>
-          </div>
-          {!message.status && <p className="text-danger">{message.message}</p>}
+
+        <div className="form-floating mb-4 div-input-register">
+          <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control input-recovery" />
+          <label htmlFor="floatingInput">Email</label>
+        </div>
+        {!message.status && <p className="text-danger">{message.message}</p>}
 
 
         <div className="d-grid gap-2  div-btn-recovery">
-          <button className="btn btn-login fw-bold" type="button" onClick={handleSubmit} >Enviar</button>
+          {!loading ? <button className="btn btn-login fw-bold" type="button" onClick={handleSubmit} >Enviar</button> : <Loading />}
           <Link to="/" className="btn text-decoration-none tn btn-recovery fw-bold text-white">Voltar</Link>
         </div>
 

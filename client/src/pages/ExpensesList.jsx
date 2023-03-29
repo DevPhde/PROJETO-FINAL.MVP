@@ -26,38 +26,26 @@ function ExpensesList() {
     const getTotal = async () => {
         try {
             const response = await AxiosProvider.communication('GET', 'user/informations/total/values', hash)
-            console.log(response.data.message)
             setTotalValues(response.data.message)
-
-
         } catch (err) {
             console.log(err)
         }
-
     }
     const getMonthValue = async () => {
         try {
             const response = await AxiosProvider.communication('GET', 'user/informations/getTotalByActualMonth/expenses', hash)
-            console.log(response.data.message)
             setMonthValues(response.data.message)
-
-
         } catch (err) {
             console.log(err)
         }
-
     }
     const getLastItem = async () => {
         try {
             const response = await AxiosProvider.communication('GET', 'user/informations/getLastItem/expenses', hash)
-            console.log(response.data.message)
             response.data.message !== null ? setLastItem(response.data.message) : setLastItem(0)
-
-
         } catch (err) {
             console.log(err)
         }
-
     }
 
 
@@ -66,13 +54,11 @@ function ExpensesList() {
     const getInfo = async () => {
         try {
             const res = await AxiosProvider.communication('GET', 'user/informations', hash)
-            console.log(res.data.message.name)
             setUserInfo(res.data.message.name.split(' '))
 
         } catch (err) {
             console.log(err)
         }
-
     }
 
 
@@ -96,21 +82,22 @@ function ExpensesList() {
                 value += ",";
             }
             return decimal
-
         }
-
-return 0
+        return 0
     }
+
+    const [update, setUpdate] = useState(0)
+
+    setTimeout(() => {
+        setUpdate(update + 1)
+    }, 5000)
 
     useEffect(() => {
         getInfo();
         getTotal();
         getMonthValue();
         getLastItem();
-
-
-    }, [])
-
+    }, [update])
 
 
     return (
@@ -141,7 +128,7 @@ return 0
                                         <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(totalValues.expenses)} </h6>
 
                                     </div>
-                                    <div className="card-img img-list"  style={{width:"40%"}}>
+                                    <div className="card-img img-list" style={{ width: "40%" }}>
                                         <img src={Total} className="card-img-dashboard mt-3" />
                                     </div>
 
@@ -153,7 +140,7 @@ return 0
                                         <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(monthValue.totalValue)}</h6>
 
                                     </div>
-                                    <div className="card-img img-list" style={{width:"50%"}}>
+                                    <div className="card-img img-list" style={{ width: "50%" }}>
                                         <img src={CalendarE} className="card-img-dashboard mt-3" />
                                     </div>
 
@@ -164,7 +151,7 @@ return 0
                                         <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(lastItem.amount)}</h6>
 
                                     </div>
-                                    <div className="card-img img-list"  style={{width:"60%"}}>
+                                    <div className="card-img img-list" style={{ width: "60%" }}>
                                         <img src={Fly} className="card-img-dashboard mt-3" />
                                     </div>
 

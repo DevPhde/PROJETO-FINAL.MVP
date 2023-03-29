@@ -53,8 +53,6 @@ function CreateItemModal(props) {
 
 
 
-    console.log(isValid)
-
     const handleCreateItem = async () => {
 
 
@@ -94,7 +92,7 @@ function CreateItemModal(props) {
 
             } catch (e) {
                 setLoadingReq(false)
-                console.log(e)
+                (e)
                 setReqError(e.response.data.message)
             }
         }
@@ -122,8 +120,6 @@ function CreateItemModal(props) {
         );
         setSelectedOption(selectedOption)
     };
-    console.log(type)
-    console.log(selectedOption)
     return (
         <div>
             <VerticalModal
@@ -151,7 +147,6 @@ function CreateItemModal(props) {
                                     setValues(prevState => ({ ...prevState, date: '', name: '', amount: '', local: '', TypeExpenseId: '' }))
                                     e.target.value != "Selecione" ? setCreatingItem(true) : setCreatingItem(false)
                                     setCreateFeedback(false)
-                                    console.log(e.target.value)
                                 }} id="floatingSelect" aria-label="Floating label select example">
                                     <option defaultValue="1">Selecione</option>
                                     <option defaultValue="2">Receita</option>

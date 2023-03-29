@@ -4,6 +4,11 @@
     top: 35%;
 }
 
+.loader-centered {
+  position: fixed;
+  left: 50%;
+}
+
 .loader-position-button {
     position: fixed;
     left: 50%;

@@ -2,9 +2,6 @@ import User from "../images/user.png"
 import Navbar from "../components/Navbar"
 import Out from "../images/out.png"
 import '../style/dashboard.css'
-import Coin from "../images/coin.png"
-import Gasto from "../images/gasto.png"
-import Receita from "../images/receita.png"
 import { useState, useEffect } from "react"
 import { AxiosProvider } from "../providers/axiosProvider"
 import { Loading } from "../components/Loading"
@@ -30,55 +27,42 @@ function RevenuesList() {
         try {
             const response = await AxiosProvider.communication('GET', 'user/informations/total/values', hash)
             setTotalValues(response.data.message)
-
-
         } catch (err) {
             console.log(err)
         }
-
     }
     const getMonthValue = async () => {
         try {
             const response = await AxiosProvider.communication('GET', 'user/informations/getTotalByActualMonth/revenues', hash)
             setMonthValues(response.data.message)
-
-
         } catch (err) {
             console.log(err)
         }
-
     }
     const getLastItem = async () => {
         try {
             const response = await AxiosProvider.communication('GET', 'user/informations/getLastItem/revenues', hash)
             response.data.message !== null ? setLastItem(response.data.message) : setLastItem(0)
-
-
-
         } catch (err) {
             console.log(err)
         }
-
     }
 
 
     const getInfo = async () => {
         try {
             const res = await AxiosProvider.communication('GET', 'user/informations', hash)
-            console.log(res.data.message.name)
             setUserInfo(res.data.message.name.split(' '))
-
         } catch (err) {
             console.log(err)
         }
-
     }
 
 
 
     const formatValue = (value) => {
         if (value) {
-            let decimal = value.toFixed(2)
+            let decimal = value
             decimal = decimal
                 .toString()
                 .replace(/\D/g, "")
@@ -90,7 +74,6 @@ function RevenuesList() {
             if (value < 0) {
                 decimal = "-" + decimal
             }
-
             if (value === "0") {
                 value += ",";
             }
@@ -100,6 +83,12 @@ function RevenuesList() {
         return 0
     }
 
+    const [update, setUpdate] = useState(0)
+
+    setTimeout(() => {
+        setUpdate(update + 1)
+    }, 5000)
+
     useEffect(() => {
         getInfo();
         getTotal();
@@ -107,7 +96,7 @@ function RevenuesList() {
         getLastItem();
 
 
-    }, [])
+    }, [update])
 
 
 

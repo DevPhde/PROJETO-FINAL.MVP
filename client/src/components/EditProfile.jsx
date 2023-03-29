@@ -5,7 +5,8 @@ import "../style/modal.css"
 import { BackdropModal } from './modals/BackdropModal'
 import { Loading } from './Loading'
 export function EditProfile(props) {
-    const hash = sessionStorage.getItem('authorization')
+    const hash = sessionStorage.getItem('authorization');
+    const [loadingReq, setLoadingReq] = useState(false);
     const [error, setError] = useState({
         name: false,
         password: false
@@ -42,6 +43,7 @@ export function EditProfile(props) {
     },[props.showModal])
 
     const handleEditUser = async () => {
+        setLoadingReq(true)
         if (password.modified) {
             if (password.value == "") {
                 setError(prevState => ({ ...prevState, password: true }))
@@ -57,27 +59,32 @@ export function EditProfile(props) {
             try {
                 const response = await AxiosProvider.communication('PUT', 'user/editprofile', hash, data)
                 setFeedbackUser(prevState=> ({...prevState, error: false, message: response.data.message}))
+                setLoadingReq(false)
             } catch (err) {
                 setFeedbackUser(prevState=> ({...prevState, error: true, message: err.response.data.message}))
                 setUser(false)
+                setLoadingReq(false)
             }
         }
     }
 
 
     const handleDeleteAccount = async () => {
+        setLoadingReq(true)
         try {
             const response = await AxiosProvider.communication('DELETE', 'user/deleteaccount', hash)
             setFeedbackUser(prevState=> ({...prevState, error: false, message: response.data.message}))
             setUser(false)
+            setLoadingReq(false)
             sessionStorage.clear()
 
         } catch(err) {
             setFeedbackUser(prevState=> ({...prevState, error: true, message: err.response.data.message}))
             setUser(false)
+            setLoadingReq(false)
         } 
     }
-    return (
+        return (
         <>
             {!loading ? (<div> {!user ? (
                 <div>
@@ -90,8 +97,7 @@ export function EditProfile(props) {
                         show={props.showModal}
                         onHide={deleteAccount ? () => { setDeleteAccount(false) } : moreOptions ? () => { setMoreOptions(false) } : props.hideModal}
                         title={'Configurações do usuário'}
-                        anotherbutton={deleteAccount ? "true" : moreOptions ? "" : "true"}
-                        classanotherbutton={deleteAccount ? "btn table-modal-btn btn-danger" : "btn table-modal-btn btn-success"}
+                        anotherbutton={deleteAccount ? "true" : moreOptions ? "" : loadingReq ? "loading" : "true"}                       classanotherbutton={deleteAccount ? "btn table-modal-btn btn-danger" : "btn table-modal-btn btn-success"}
                         clickanotherbutton={deleteAccount ? handleDeleteAccount : handleEditUser}
                         anotherbuttonmessage={deleteAccount ? "Deletar" : "Salvar"}
                         footer={'true'}

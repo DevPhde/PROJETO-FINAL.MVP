@@ -61,14 +61,14 @@ export function RegisterUser() {
         if (!name || name.length < 3) {
             setUser(prevState => ({ ...prevState, name: true }));
         }
-        if (!cpf || cpf.length !== 14 ) {
+        if (!cpf || cpf.length !== 14) {
             setUser(prevState => ({ ...prevState, cpf: true }));
         }
         if (!email || re.test(email) == false) {
             setUser(prevState => ({ ...prevState, email: true }));
         }
         if (!password || password.length < 5) {
-           return setUser(prevState => ({ ...prevState, password: true }));
+            return setUser(prevState => ({ ...prevState, password: true }));
 
         }
         const hasError = Object.values(user).some(value => value === true)
@@ -115,42 +115,42 @@ export function RegisterUser() {
             </div>
             <div className="div-info-recovery container text-center  align-items-center">
                 <h1 className="fw-bold title-recovery mb-5">Cadastre-se</h1>
-             
-                    <div className="form-floating mb-2 div-input-register">
-                        <input type="text" className="form-control input-recovery" value={name} onChange={e => {
-                            setName(e.target.value);
-                        }} onFocus={() => setUser(prevState => ({ ...prevState, name: false }))} />
-                        <label htmlFor="floatingInput">Nome Completo</label>
-                    </div>
-                    {user.name && <p className="text-danger">Preencha com seu nome completo</p>}
-           
 
-                
-                    <div className="form-floating mb-2 div-input-register">
-                        <input type="text" className="form-control input-recovery" value={cpf} onChange={handleChange} onFocus={() => setUser(prevState => ({ ...prevState, cpf: false }))} />
-                        <label htmlFor="floatingInput">CPF</label>
-                    </div>
-                    {user.cpf && <p className="text-danger">CPF inválido</p>}
-                
-             
-                    <div className="form-floating mb-2 div-input-register">
-                        <input type="text" className="form-control input-recovery" value={email} onChange={e => {
-                            setEmail(e.target.value);
-                        }} onFocus={() => setUser(prevState => ({ ...prevState, email: false }))} />
-                        <label htmlFor="floatingInput">E-mail</label>
-                    </div>
-                    {user.email && <p className="text-danger">E-mail inválido</p>}
-                
+                <div className="form-floating mb-2 div-input-register">
+                    <input type="text" className="form-control input-recovery" value={name} onChange={e => {
+                        setName(e.target.value);
+                    }} onFocus={() => setUser(prevState => ({ ...prevState, name: false }))} />
+                    <label htmlFor="floatingInput">Nome Completo</label>
+                </div>
+                {user.name && <p className="text-danger">Preencha com seu nome completo</p>}
 
-              
-                    <div className="form-floating mb-4 div-input-register">
-                        <input type="password" className="form-control input-recovery" value={password} onChange={e => {
-                            setPassword(e.target.value);
-                        }} onFocus={() => setUser(prevState => ({ ...prevState, password: false }))} />
-                        <label htmlFor="floatingInput">Senha</label>
-                    </div>
-                    {user.password && <p className="text-danger">Senha Inválida, a senha deve conter pelo menos 5 caracteres. </p>}
-             
+
+
+                <div className="form-floating mb-2 div-input-register">
+                    <input type="text" className="form-control input-recovery" value={cpf} onChange={handleChange} onFocus={() => setUser(prevState => ({ ...prevState, cpf: false }))} />
+                    <label htmlFor="floatingInput">CPF</label>
+                </div>
+                {user.cpf && <p className="text-danger">CPF inválido</p>}
+
+
+                <div className="form-floating mb-2 div-input-register">
+                    <input type="text" className="form-control input-recovery" value={email} onChange={e => {
+                        setEmail(e.target.value);
+                    }} onFocus={() => setUser(prevState => ({ ...prevState, email: false }))} />
+                    <label htmlFor="floatingInput">E-mail</label>
+                </div>
+                {user.email && <p className="text-danger">E-mail inválido</p>}
+
+
+
+                <div className="form-floating mb-4 div-input-register">
+                    <input type="password" className="form-control input-recovery" value={password} onChange={e => {
+                        setPassword(e.target.value);
+                    }} onFocus={() => setUser(prevState => ({ ...prevState, password: false }))} />
+                    <label htmlFor="floatingInput">Senha</label>
+                </div>
+                {user.password && <p className="text-danger">Senha Inválida, a senha deve conter pelo menos 5 caracteres. </p>}
+
 
                 <div className="d-grid gap-2  div-input-register">
                     {!loading ? <button className="btn btn-login fw-bold" type="button" onClick={validForm}>Cadastrar</button> : <Loading className="text-center" />}

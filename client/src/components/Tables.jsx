@@ -128,12 +128,10 @@ export function Tables(props) {
                 setData(response.data);
                 setLoadingScreen(false);
             } catch (err) {
-                console.log(err)
                 setFeedbackUser(err.response.data.message);
             }
-
         }
-
+        
         getInfos(props.param)
     }, [update])
     if (props.param == 'expenses') {
@@ -152,7 +150,6 @@ export function Tables(props) {
         }, [update])
 
     }
-    console.log(data)
     return (
         <div>
             <VerticalModal
