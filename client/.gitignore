@@ -1,3 +1,8 @@
 node_modules
+<<<<<<< HEAD
 dist
 vite.config.js
+=======
+vite.config.js
+dist
+>>>>>>> DEVELOP-CLIENT

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:client/src/pages/Home.jsx
 
 import '../style/home.css'
 import Carousel from 'react-bootstrap/Carousel'
@@ -182,6 +183,17 @@ const navigate = useNavigate();
 
     )
 
+=======
+import React from 'react'
+import "../style/loading.css"
+
+export function Loading(props) {
+    return (
+        <div className={props.className}>
+            
+            <div className="loader"></div>
+        </div>
+    )
+>>>>>>> DEVELOP-CLIENT:client/src/components/Loading.jsx
 }
 
-export default Home

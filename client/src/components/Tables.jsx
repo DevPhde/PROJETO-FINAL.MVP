@@ -71,7 +71,7 @@ export function Tables(props) {
         if (Object.values(isValid).every(value => value == true)) {
             const data = {
                 name: values.name,
-                amount: Number(values.amount.replace(/\./g, "").replace(",", "")),
+                amount: Number(values.amount.replace(/\./g, "").replace(",", "") / 100),
                 local: values.local
             }
             if (values.TypeExpenseId !== null) {
@@ -122,7 +122,7 @@ export function Tables(props) {
                 const response = await AxiosProvider.communication('GET', param, hash)
                 if(response.data) {
                     response.data.message.map(i=> {
-                        i.amount = formatValue(i.amount)
+                        i.amount = formatValue(i.amount * 100)
                     })
                 }
                 setData(response.data);

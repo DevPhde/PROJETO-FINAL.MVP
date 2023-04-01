@@ -6,7 +6,6 @@ export class AxiosProvider{
             const options = {
                 method: method,
                 url: `https://mvp-backend-k5vq.onrender.com/${path}`,
-                // url: `http://localhost:3000/${path}`,
                 headers: {
                   'Content-Type': 'application/json',
                   authorization: hash
