@@ -1,0 +1,38 @@
+.navbar-site-field{
+    background-color: rgba(219, 231, 245, 0.425);
+    padding-right: 6%;
+}
+
+
+.navbar-site{
+    background-color: none;
+    color: rgb(66, 63, 63);
+    font-size: clamp(15px, 5vw, 22px);
+    text-decoration: none;
+    margin-right: 2% ;
+
+}
+
+.navbar-site:hover{
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    transition: 0.6s;
+}
+
+.logo-navbar-site{
+    margin-left: 6%;
+    width: 13%;
+    min-width: 200px;
+
+}
+
+@media (max-width: 370px){
+    .logo-navbar-site{
+        margin-left: 0;
+        min-width: 150px;
+    
+    }
+    .title-home{
+        font-size: 10px;
+    }
+}

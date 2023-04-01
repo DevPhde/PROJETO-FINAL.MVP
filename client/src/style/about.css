@@ -1,0 +1,190 @@
+.about-first-part {
+    min-height: 50vh;
+    padding: 5% 6%;
+    height: auto;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+}
+
+
+.title-about {
+    color: #048a78;
+    font-size: clamp(35px, 5vw, 45px);
+}
+
+.about-second-part {
+    background-color: #ffffff5d;
+    height: 100%;
+    min-height: 70vh;
+    padding: 5% 6% 5% 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.cards-about-field{
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+
+.text-about{
+    color: black;
+}
+
+.img-lion {
+    width: 100%;
+    min-width: 300px;
+}
+
+.text-card-about{
+    text-align: left;
+}
+
+.cards-one, .cards-two{
+    width: 40%;
+    min-width: 300px;
+}
+
+.card-about{
+    display: flex;
+    height: auto;
+    min-height: 160px;
+    align-items: center;
+
+}
+
+
+
+.c-about{
+    margin: 5% 0;
+    transition: 0.5s;
+    box-shadow: 5px 10px 18px rgba(0, 0, 0, 0.26);
+    
+}
+
+.icon-about{
+    width: 100px;
+    margin-left: 1%;
+    margin-right: 10px;
+    align-self: center;
+}
+
+.img-about{
+    width: 50%;
+    min-width: 350px;
+}
+
+.img-about-sp{
+    width: 40%;
+
+}
+
+.c-about:hover{
+    transform: scale(1.1);
+    transition: 0.5s;
+
+}
+
+
+@media (max-width: 1200px) {
+
+    .about-first-part {
+        margin-bottom: 10%;
+
+    }
+}
+
+
+@media (max-width: 800px) {
+
+    .about-second-part {
+        flex-direction: column-reverse;
+    }
+    
+   
+    .img-about, .img-about-sp {
+        width: 100%;
+        min-width: 350px;
+    }
+
+    .img-about {
+        margin-top: 20%;
+    }
+
+    .home-about-part {
+
+        padding: 8% 10%;
+
+    }
+
+    .home-sp-text-field, .home-tp-text-field {
+        margin-top: 5%;
+        text-align: center;
+        width: 100%;
+
+    }
+
+
+
+}
+
+
+@media (max-width: 670px) {
+
+
+    .cards-one, .cards-two{
+        width: 100%;
+
+    }
+
+}
+@media (max-width: 370px) {
+
+    .img-about, .img-about-sp{
+        width: 100%;
+        min-width: 150px;
+    }
+    .img-lion {
+        width: 100%;
+        min-width: 10px;
+    }
+
+    .cards-one, .cards-two{
+        width: 100%;
+        min-width: 150px;
+
+    }
+
+    .card-about{
+        flex-direction: column;
+ 
+    
+    
+    }
+
+    .icon-about{
+        margin-bottom: 20px;
+        align-self: center;
+    }
+    
+
+    .title-about {
+        font-size: 25px;
+        ;
+    }
+
+    .text-card-about{
+        text-align: center;
+    }
+
+
+}

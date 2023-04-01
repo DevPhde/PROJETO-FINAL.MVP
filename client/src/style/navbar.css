@@ -1,0 +1,84 @@
+.navbar-logo{
+    width: 100px;
+}
+
+
+.navbar-dashboard{
+    min-height: 100vh;
+    max-width: 30vw;
+    background-color: white;
+}
+
+.nav-item{
+    cursor: pointer;
+}
+
+.nav-item:hover{
+    transform: scale(1.08);
+}
+
+.navbar-icon{
+    width: 45px;
+}
+
+
+
+.btn-modal{
+    background-color: #048A78;
+    color: white;
+    font-weight: 600;
+}
+
+.btnexpense{
+    background-color: rgb(147, 4, 4);
+  }
+
+
+
+.btn-modal:hover{
+    background-color: #03493f;
+    color: white;
+
+}
+
+.btnexpense:hover{
+    background-color: rgb(62, 2, 2);
+  
+  }
+
+
+.close{
+    font-weight: 600;
+
+}
+
+.modal-header{
+    background-color: #29056B;
+    color: white;
+}
+
+
+
+
+@media (max-width: 1600px){
+
+    .navbar-logo{
+        width: 80px;
+    }
+
+    .navbar-icon{
+        width: 35px;
+    }
+}
+
+
+
+@media (max-width: 370px){
+    .navbar-logo{
+        width: 80px;
+    }
+
+    .navbar-icon{
+        width: 35px;
+    }
+}

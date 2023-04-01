@@ -1,0 +1,117 @@
+.main-recovery{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .div-img-recovery{
+    width: 60%;
+    min-width: 300px;
+  }
+  
+  .img-register{
+    width: 90%;
+    align-self: center;
+
+  }
+  .div-info-recovery{
+    width: 40%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10% 5%;
+  
+  }
+  .div-input-register{
+    width: 81%;
+  }
+
+  .text-recovery, .title-recovery{
+    color: #29056B;
+    align-self: center;
+    font-weight: bolder;
+  }
+
+  
+  .text-recovery{
+    padding: 0 8%;
+  }
+  
+  .div-input-recovery{
+    width: 85%;
+  }
+  
+  
+  .div-btn-recovery{
+    width: 81%;
+  }
+  
+  .btn-recovery{
+    background-color: #29056B;
+    color: white;
+    font-size: clamp(10px, 5vw, 25px);
+  }
+  
+
+  .errInput{
+    color:red;
+
+ }
+ .errEmail{
+    color:red;
+
+ }
+ .errPassword{
+    color:red;
+
+ }
+ .errName{
+  color:red;
+
+ }
+ .errCpf{
+  color:red;
+
+ }
+  
+  
+  @media (max-width: 1170px){
+  
+    .div-info-recovery{
+      padding-top: 5%;
+      padding-bottom: 5%;
+    
+    }
+  
+  }
+  
+  
+  @media (max-width: 890px)
+  {
+    .div-info-recovery{
+      padding: 0 10%;
+    
+    }
+  
+    .div-img-recovery{
+      width: 100%;
+  
+    }
+  
+    .img-register{
+      width: 100%;
+
+    }
+    .div-info-recovery{
+      width: 100%;
+    
+    }
+  
+    .title-recovery{
+      font-size: 25px;
+    }
+  
+    .div-btn-recovery{
+      margin-bottom: 10%;
+    }
+  }
