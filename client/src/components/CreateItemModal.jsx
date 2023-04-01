@@ -77,7 +77,7 @@ function CreateItemModal(props) {
                 const data = {
                     date: values.date,
                     name: values.name,
-                    amount: Number(values.amount.replace(/\./g, "").replace(",", ""))
+                    amount: Number(values.amount.replace(/\./g, "").replace(",", "") / 100)
                 }
                 if (type == "expense") {
                     data.local = values.local,

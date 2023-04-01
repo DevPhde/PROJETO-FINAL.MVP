@@ -14,6 +14,7 @@ import { Navigate, useNavigate } from "react-router-dom"
 
 
 function Dashboard() {
+    const navigate = useNavigate()
     const hash = sessionStorage.getItem('authorization')
     const [totalValues, setTotalValues] = useState([])
     const [userInfo, setUserInfo] = useState([])
@@ -25,21 +26,19 @@ function Dashboard() {
     const [dataBarChartRevenues, setDataBarChartRevenues] = useState(false)
     const [dataLineChart, setDataLineChart] = useState(false)
     const [lineChart, setLineChart] = useState([])
+    
+    if(sessionStorage.getItem('admin')){
+        navigate('/admin')
+    }
 
-
-    const navigate = useNavigate()
 
     const isValid = JwtValidator()
-    if (!isValid) {
-
-    }
+    
 
     const getTotal = async () => {
         try {
             const response = await AxiosProvider.communication('GET', 'user/informations/total/values', hash)
             setTotalValues(response.data.message)
-
-
         } catch (err) {
             console.log(err)
         }
@@ -68,14 +67,10 @@ function Dashboard() {
     const getInfo = async () => {
         try {
             const res = await AxiosProvider.communication('GET', 'user/informations', hash)
-
             setUserInfo(res.data.message.name.split(' '))
-
         } catch (err) {
             console.log(err)
         }
-
-
     }
 
     const getDataChart = async () => {
@@ -83,16 +78,12 @@ function Dashboard() {
             const res = await AxiosProvider.communication('GET', 'user/informations/total/types', hash)
             const data = res.data.message
             const temp = [["Tipos de gastos", "Total"]]
-
             let noValues = data.filter(function (item) {
                 return (item.total != 0);
             });
-
             setDataChartDonut(noValues != '')
-
             data.map(item => temp.push([item.name[0].toUpperCase() + item.name.substring(1), item.total]))
             setChartDonut(temp)
-
         } catch (err) {
             console.log(err)
         }
@@ -134,15 +125,9 @@ function Dashboard() {
                 if (data[i].year == currentYear) {
                     const numMonth = Number(data[i].month)
                     temp.push([month[numMonth], data[i].totalAmount])
-
                 }
             }
-
-
             setBarChartRevenues(temp)
-
-
-
         } catch (err) {
             console.log(err)
         }
@@ -248,7 +233,7 @@ function Dashboard() {
 
     setTimeout(() => {
         setUpdate(update + 1)
-    }, 5000)
+    }, 2000)
     
     useEffect(() => {
         getDataChart();
@@ -287,7 +272,7 @@ function Dashboard() {
                                 <div className="card card-dashboard">
                                     <div className="card-body">
                                         <h5 className="card-title">Saldo atual</h5>
-                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(total)}</h6>
+                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(total * 100)}</h6>
 
                                     </div>
                                     <div className="card-img">
@@ -299,7 +284,7 @@ function Dashboard() {
                                 <div className="card card-dashboard ">
                                     <div className="card-body">
                                         <h5 className="card-title">Total de gastos</h5>
-                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(totalValues.expenses)}</h6>
+                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(totalValues.expenses * 100)}</h6>
 
                                     </div>
                                     <div className="card-img">
@@ -310,7 +295,7 @@ function Dashboard() {
                                 <div className="card card-dashboard ">
                                     <div className="card-body">
                                         <h5 className="card-title">Total de Receitas</h5>
-                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(totalValues.revenues)}</h6>
+                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(totalValues.revenues * 100)}</h6>
 
                                     </div>
                                     <div className="card-img">
