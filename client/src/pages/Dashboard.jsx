@@ -371,7 +371,6 @@ function Dashboard() {
             </> : <main><Loading className="loader-position" /></main>}
 
         </>)
-
 }
 
 export default Dashboard
