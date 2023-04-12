@@ -12,7 +12,7 @@ import { VerticalModal } from "./modals/VerticalModal"
 import { IRVerify } from "./IRVerify"
 import { Link } from "react-router-dom"
 import { EditProfile } from "./EditProfile"
-import CreateItemModal from "./CreateItemModal"
+import { CreateItemModal } from "./modals/CreateItemModal"
 
 function Navbar() {
     const [showModalHelp, setShowModalHelp] = useState(false)
