@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AxiosProvider } from '../providers/axiosProvider'
 import { VerticalModal } from './modals/VerticalModal'
-import warningIr from "../images/warningIr.png"
+import warningIr from "../images/warningIR.png"
 import tabelaIr from "../images/tabelair.png"
 import "../style/irWarning.css"
 export function IRVerify(props) {
