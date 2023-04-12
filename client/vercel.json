@@ -1,13 +1,7 @@
 {
-    "rewrites": [
-      {
-        "source": "/(.*)",
-        "destination": "/index.html"
-      }
-    ],
     "headers": [
       {
-        "source": "/.*",
+        "source": "/(.*)",
         "headers": [
           {
             "key": "Content-Type",
@@ -16,7 +10,7 @@
         ]
       },
       {
-        "source": "/.*.js",
+        "source": "/(.*).js",
         "headers": [
           {
             "key": "Content-Type",
