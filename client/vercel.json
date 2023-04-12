@@ -1,23 +1,5 @@
 {
-    "headers": [
-      {
-        "source": "/(.*)",
-        "headers": [
-          {
-            "key": "Content-Type",
-            "value": "text/html"
-          }
-        ]
-      },
-      {
-        "source": "/(.*).js",
-        "headers": [
-          {
-            "key": "Content-Type",
-            "value": "application/javascript"
-          }
-        ]
-      }
-    ]
-  }
-  
+  "rewrites":  [
+    {"source": "/(.*)", "destination": "/"}
+  ]
+}
