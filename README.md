@@ -69,7 +69,7 @@ Para este projeto adotamos um gitflow de multiplas branchs, uma para cada págin
 
 <details><summary><strong>Lista de Receitas</strong></summary>
 
-![dashboard-list-despesas](https://user-images.githubusercontent.com/113299561/229323591-a51ef0fb-44b2-4760-963a-41f95df7d726.png)
+![Screenshot_1](https://user-images.githubusercontent.com/113299561/231320131-e8563215-7622-4673-aa99-d171dec952c6.png)
 
 </details>&nbsp;
 
