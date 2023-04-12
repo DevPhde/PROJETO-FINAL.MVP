@@ -10,7 +10,7 @@ import { AxiosProvider } from "../providers/axiosProvider"
 import { Chart } from "react-google-charts";
 import { Loading } from "../components/Loading"
 import JwtValidator from "../components/JwtValidator"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 
 function Dashboard() {
@@ -24,13 +24,7 @@ function Dashboard() {
     const [dataBarChartExpenses, setDataBarChartExpenses] = useState(false)
     const [barChartRevenues, setBarChartRevenues] = useState([])
     const [dataBarChartRevenues, setDataBarChartRevenues] = useState(false)
-    const [dataLineChart, setDataLineChart] = useState(false)
-    const [lineChart, setLineChart] = useState([])
     
-    if(sessionStorage.getItem('admin')){
-        navigate('/admin')
-    }
-
 
     const isValid = JwtValidator()
     
@@ -204,8 +198,6 @@ function Dashboard() {
 
 
             }
-            setLineChart(temp)
-            setDataLineChart(lineChart != [])
         }
     }
 
@@ -262,7 +254,7 @@ function Dashboard() {
                                 <li className="nav-item" style={{ marginRight: "5%" }}
                                     onClick={() => {
                                         sessionStorage.clear()
-                                        window.location.reload()
+                                        navigate('/')
                                     }}
                                 >
                                     <img src={Out} style={{ width: "32px", height: "32px" }} />

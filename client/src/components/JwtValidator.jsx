@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { AxiosProvider } from "../providers/axiosProvider"
-import { Loading } from "./Loading"
 
 function JwtValidator() {
   const [isValid, setIsValid] = useState(undefined)
