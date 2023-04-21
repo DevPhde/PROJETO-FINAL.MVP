@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState } from 'react'
+import {useEffect, useState } from 'react'
 import { AxiosProvider } from '../providers/axiosProvider'
 import { VerticalModal } from './modals/VerticalModal'
 import "../style/modal.css"
 import { BackdropModal } from './modals/BackdropModal'
-import { Loading } from './Loading'
 export function EditProfile(props) {
     const hash = sessionStorage.getItem('authorization');
     const [loadingReq, setLoadingReq] = useState(false);
@@ -147,7 +146,7 @@ export function EditProfile(props) {
                     />
 
                 </div>
-            )}</div>) : (<div><Loading className="loader-position" /></div>)}
+            )}</div>) : (<div></div>)}
 
         </>
     )

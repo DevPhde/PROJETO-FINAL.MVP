@@ -16,7 +16,6 @@ export class UserIRUseCases {
                 [Op.between]: [`01-01-${year}`, ` 31-12-${year}`]
               } })
         } catch(e) {
-            console.log(e)
             return 0
         }
     }

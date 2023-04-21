@@ -19,13 +19,11 @@ function RevenuesList() {
     const [userInfo, setUserInfo] = useState([])
 
     const isValid = JwtValidator()
-    if (!isValid) {
-
-    }
 
     const getTotal = async () => {
         try {
             const response = await AxiosProvider.communication('GET', 'user/informations/total/values', hash)
+            
             setTotalValues(response.data.message)
         } catch (err) {
             console.log(err)
@@ -125,7 +123,7 @@ function RevenuesList() {
                                 <div className="card card-dashboard">
                                     <div className="card-body">
                                         <h5 className="card-title">Total de Receita</h5>
-                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(totalValues.revenues * 100)} </h6>
+                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(totalValues.revenues)} </h6>
 
                                     </div>
                                     <div className="card-img img-list" >
@@ -137,7 +135,7 @@ function RevenuesList() {
                                 <div className="card card-dashboard">
                                     <div className="card-body">
                                         <h5 className="card-title">Total de Receita do Mês Vigente</h5>
-                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(monthValue.totalValue * 100)}</h6>
+                                        <h6 className="card-subtitle mb-2 card-value">R$ {formatValue(monthValue.totalValue)}</h6>
 
                                     </div>
                                     <div className="card-img mr-2 img-list"  >

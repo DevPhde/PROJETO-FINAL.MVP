@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { AxiosProvider } from '../../providers/axiosProvider'
-import { Loading } from '../Loading'
 import { VerticalModal } from './VerticalModal'
 import { BackdropModal } from './BackdropModal'
 

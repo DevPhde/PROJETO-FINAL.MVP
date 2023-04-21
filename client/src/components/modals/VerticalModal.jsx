@@ -16,11 +16,8 @@ export function VerticalModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-
         {props.message}
-
       </Modal.Body>
-
         <Modal.Footer>
           <div className='btn-modal-quality'>
             {props.anotherbutton == "true" ? <button className={props.classanotherbutton} onClick={props.clickanotherbutton}>{props.anotherbuttonmessage}</button> : props.anotherbutton == "loading" ? <Loading/> : <></>}

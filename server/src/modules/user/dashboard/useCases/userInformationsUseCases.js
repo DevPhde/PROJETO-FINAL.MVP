@@ -93,7 +93,6 @@ export class UserInformationsUseCases extends TypeExpensesUseCases {
             const today = moment();
             const year = today.year().toString();
             const month = (today.month() + 1).toString().padStart(2, '0');
-
             const startDate = moment(`01-${month}-${year}`, 'DD-MM-YYYY').toDate();
             const endDate = moment(`31-${month}-${year}`, 'DD-MM-YYYY').toDate();
             let data

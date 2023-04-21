@@ -3,13 +3,18 @@ import { Expense } from "../models/Expense.js";
 import { TypeExpense } from "../models/TypeExpense.js";
 import { Revenue } from "../models/Revenue.js";
 import sequelize from "../db/dbConfig.js";
+
 export class BaseModel {
   constructor(table) {
     this.table = table;
   }
 
   async sum(param) {
-    return await this.table.sum('amount', { where: param });
+    const sum = await this.table.sum('amount', { where: param })
+    if (sum) {
+      return sum.toFixed(2)
+    }
+    return sum;
   }
 
   async findUserId(param) {
@@ -22,7 +27,7 @@ export class BaseModel {
   }
 
   async sumByMonth(param) {
-    return await this.table.findAll({
+    const sum =  await this.table.findAll({
       where: param,
       attributes: [
         [sequelize.fn('strftime', '%m', sequelize.col('date')), 'month'],
@@ -31,6 +36,10 @@ export class BaseModel {
       ],
       group: ['month', 'year'],
     });
+    if(sum) {
+      return sum.toFixed(2)
+    }
+    return sum
   }
 
   async joinFindAll(param) {
