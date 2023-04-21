@@ -49,8 +49,8 @@ export function CreateItemModal(props) {
         }
         return decimal 
     }
+    
     const handleCreateItem = async () => {
-
 
         if (!values.name || values.name.length < 3) {
             setIsValid(prevState => ({ ...prevState, name: false }))

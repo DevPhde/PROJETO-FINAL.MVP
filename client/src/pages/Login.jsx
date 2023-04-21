@@ -25,14 +25,12 @@ function Login() {
 
     }, []);
     const [user, setUser] = useState("")
-
     async function userAuthorization() {
         isChecked ? localStorage.setItem('email', email) : localStorage.setItem('email', "")
         setLoading(true)
 
         try {
             const response = await AxiosProvider.communication('POST', 'user/authorization', null, { email: email, password: password })
-
             if (response.status == 200) {
                 const hash = response.data.message;
                 sessionStorage.setItem('authorization', hash)

@@ -8,6 +8,7 @@ export function IRVerify(props) {
     const [warning, setWarning] = useState(false)
     const [user, setUser] = useState([])
     const [data, setData] = useState([])
+    const [update, setUpdate] = useState(0)
     useEffect(() => {
         async function verifyIR(hash) {
             const response = await AxiosProvider.communication("GET", 'user/IR', hash)
@@ -17,7 +18,11 @@ export function IRVerify(props) {
             response.data.message.aliquot == 'Isento' ? setWarning(false) : setWarning(true);
         }
         verifyIR(sessionStorage.getItem('authorization'))
-    })
+    }, [update])
+
+    setTimeout(() => {
+        setUpdate(update + 1)
+    }, 5000)
 
     const formatValue = (value) => {
         if (value) {
