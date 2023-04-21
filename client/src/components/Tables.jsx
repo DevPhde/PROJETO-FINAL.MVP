@@ -50,7 +50,6 @@ export function Tables(props) {
         setSelectedTypeExpense(selectedOption);
     };
 
-// console.log(data)
 
     const handleEdit = (i) => {
         setValues(() => ({
